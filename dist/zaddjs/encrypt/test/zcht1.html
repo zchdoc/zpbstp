@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CryptoJS Test Suite</title>
+</head>
+<body>
+文字：<input name="otext" type="text" value="" placeholder="12" aria-placeholder="123">
+加密：<input name="en" type="text" value="">
+解密：<input name="de" type="text" value="">
+<input name="gen" type="button" value="生成">
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../src/core.js"></script>
+<script src="../src/cipher-core.js"></script>
+<script src="../src/tripledes.js"></script>
+<script src="../src/mode-ecb.js"></script>
+<script type="text/javascript">
+	//加密的私钥
+	var key = 'ycsty';
+	// DES加密
+	function encryptByDES(message) {
+		//把私钥转换成16进制的字符串
+		var keyHex = CryptoJS.enc.Utf8.parse(key);
+		//模式为ECB padding为Pkcs7
+		var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		//加密出来是一个16进制的字符串
+		return encrypted.ciphertext.toString();
+	}
+	//DES  ECB模式解密
+	function decryptByDESModeEBC(ciphertext) {
+		//把私钥转换成16进制的字符串
+		var keyHex = CryptoJS.enc.Utf8.parse(key);
+		//把需要解密的数据从16进制字符串转换成字符byte数组
+		var decrypted = CryptoJS.DES.decrypt({
+			ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+		}, keyHex, {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		//以utf-8的形式输出解密过后内容
+		var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+		return result_value;
+	}
+</script>
+<script type="text/javascript">
+	$(function () {
+		$("input[name='gen']").click(function () {
+			alert("aa");
+			//需要加密的内容
+			var str1 = encryptByDES('12');
+			var str2 = decryptByDESModeEBC(str1);
+			console.log(str1.toString());
+			console.log(str2);
+			var otext = $("input[name='test']").val();
+			var str3 = encryptByDES('12');
+			var str4 = decryptByDESModeEBC(str1);
+			$("input[name='en']").val(str3);
+			$("input[name='de']").val(str4);
+		})
+	});
+</script>
+</body>
+</html>
