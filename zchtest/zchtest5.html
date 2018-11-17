@@ -5,14 +5,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="icon" href="../img/favicon.ico">
+	<link rel="icon" href="https://avatars0.githubusercontent.com/u/17268394?s=400&u=5187f48f142aecaa279593ac514211bcca3ec319&v=4">
 	<title>enjs</title>
 	<!-- Bootstrap core CSS -->
 	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="../dist/css/bootstrap-grid.css">
 	<link type="text/css" rel="stylesheet" href="../dist/css/bootstrap-reboot.css">
-	<!-- Custom styles for this template -->
 	<link href="../dist/zaddcss/zaddindex.css" rel="stylesheet">
+	<style type="text/css">
+		#serverAddr {
+			width: 60%;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid saddlebrown;
+		}
+	</style>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
@@ -66,11 +74,17 @@
 		<div class="container">
 			<!--<div class="container-fluid" style="padding-bottom: 1rem">-->
 			<div class="container-fluid" style="padding-bottom: auto">
-				密钥：<input name="okey" type="password" value="abc" placeholder="abc" aria-placeholder="abc">
-				文字：<input name="otext" type="text" value="abc" placeholder="12" aria-placeholder="12">
-				加密：<input name="en" type="text" value="" title="加密">
-				解密：<input name="de" type="text" value="" title="解密">
-				<input name="gen" type="button" value="生成">
+				<p>
+					密钥：<input name="okey" type="password" value="ycsty" placeholder="abc" aria-placeholder="abc">
+					文字：<input name="otext" type="text" value="106" placeholder="12" aria-placeholder="12">
+					加密：<input name="en" type="text" value="" title="加密">
+					解密：<input name="de" type="text" value="" title="解密">
+				</p>
+				<p><input name="gen" type="button" class="btn btn-sm btn-primary" value="加密信息"></p>
+				<p>
+					服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81" title="服务器地址">
+				</p>
+				<p><input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码"></p>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -86,17 +100,12 @@
 			<a href="#">返回最上</a>
 		</p>
 		<p>示例页面 &copy; Bootstrap!</p>
-		<p>新手?
-			<a href="../site/index.html">访问我们的主页</a>
-			或者
-			<a href="../site/docs/4.1/getting-started/theming.md">快速开始</a>.</p>
+		<p>
+			<a href="https://github.com/zghnzch">访问我们的主页</a>
+		</p>
 	</div>
 </footer>
 <script src="../dist/zaddjs/jquery/jquery-3.3.1.min.js"></script>
-<script>window.jQuery || document.write('<script src="../site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../site/docs/4.1/assets/js/vendor/popper.min.js"></script>
-<script src="../dist/js/bootstrap.min.js"></script>
-<script src="../site/docs/4.1/assets/js/vendor/holder.min.js"></script>
 <script src="../dist/zaddjs/encrypt/src/core.js"></script>
 <script src="../dist/zaddjs/encrypt/src/cipher-core.js"></script>
 <script src="../dist/zaddjs/encrypt/src/tripledes.js"></script>
@@ -135,14 +144,55 @@
 </script>
 <script type="text/javascript">
 	$(function () {
+		var eleInputEn = $("input[name='en']");
+		var eleInputDe = $("input[name='de']");
 		$("input[name='gen']").click(function () {
 			//需要加密的内容
 			let otext = $("input[name='otext']").val();
 			let str3 = encryptByDES(otext);
 			let str4 = decryptByDESModeEBC(str3);
-			$("input[name='en']").val(str3);
-			$("input[name='de']").val(str4);
-		})
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+		});
+		$("input[name='getpwd']").click(function () {
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			var url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			url = url + "/s/suf.do";
+			var data = eleInputEn.val();
+			console.log(url);
+			$.ajax({
+				type: "get",    //请求方式
+				async: true,    //是否异步
+				url: url,
+				dataType: "JSONP",    //跨域json请求一定是jsonp
+				jsonp: "s",    //跨域请求的参数名，默认是callback
+				//jsonpCallback:"",    //自定义跨域参数值，回调函数名也是一样，默认为jQuery自动生成的字符串
+				crossDomain:true,
+				data: {"s": data},    //请求参数
+				beforeSend: function () {
+					//请求前的处理
+				},
+				success: function (success) {
+					//请求成功处理，和本地回调完全一样
+					alert("1 " + success);
+					console.log("1 " + success);
+				},
+				complete: function () {
+					//请求完成的处理
+				},
+				error: function (err) {
+					//请求出错处理
+					for (var s in err) {
+						console.log(err[s]);
+					}
+				}
+			});
+		});
 	});
 </script>
 </body>
