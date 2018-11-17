@@ -84,7 +84,10 @@
 				<p>
 					服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81" title="服务器地址">
 				</p>
-				<p><input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码"></p>
+				<p>
+					<input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码">
+					<input name="loadpwd" type="button" class="btn btn-sm btn-primary" value="获取密码" title="打开新的页面">
+				</p>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -146,6 +149,7 @@
 	$(function () {
 		var eleInputEn = $("input[name='en']");
 		var eleInputDe = $("input[name='de']");
+		// btn 加密
 		$("input[name='gen']").click(function () {
 			//需要加密的内容
 			let otext = $("input[name='otext']").val();
@@ -154,6 +158,7 @@
 			eleInputEn.val(str3);
 			eleInputDe.val(str4);
 		});
+		// btn 获取密码
 		$("input[name='getpwd']").click(function () {
 			let otext = $("input[name='otext']").val();
 			let str3 = encryptByDES(otext);
@@ -172,7 +177,7 @@
 				dataType: "JSONP",    //跨域json请求一定是jsonp
 				// jsonp: "s",    //跨域请求的参数名，默认是callback
 				//jsonpCallback:"",    //自定义跨域参数值，回调函数名也是一样，默认为jQuery自动生成的字符串
-				crossDomain:true,
+				crossDomain: true,
 				data: {"s": data},    //请求参数
 				beforeSend: function () {
 					//请求前的处理
@@ -192,6 +197,21 @@
 					}
 				}
 			});
+		});
+		// btn 新页面获取密码
+		$("input[name='loadpwd']").click(function () {
+			//需要加密的内容
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			var url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			var data = eleInputEn.val();
+			url = url + "/s/suf.do?s=" + data;
+			//window.location.href = url;
+			window.open(url);
 		});
 	});
 </script>
