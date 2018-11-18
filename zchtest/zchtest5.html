@@ -247,13 +247,13 @@
 			let targetId = eleSlsServer.attr('id');
 			let copyContext = eleSlsServer.text();
 			let isCopySuccess = copy(targetId, 'innerText');
-			let tooltipText = "复制成功";
+			let tooltipText = copyContext;
 			if(isCopySuccess===1){
-				tooltipText = "复制成功"
+				tooltipText += "复制成功"
 			}else if(isCopySuccess===0){
-				tooltipText = "复制失败"
+				tooltipText += "复制失败"
 			}else{
-				tooltipText = "复制方法异常"
+				tooltipText += "复制方法异常"
 			}
 			eleCopy39106223169.attr('data-original-title',tooltipText).tooltip('update').tooltip('show');
 		});
@@ -262,13 +262,13 @@
 			let targetId = eleCdzServer.attr('id');
 			let copyContext = eleCdzServer.text();
 			let isCopySuccess = copy(targetId, 'innerText');
-			let tooltipText = "复制成功";
+			let tooltipText = copyContext;
 			if(isCopySuccess===1){
-				tooltipText = "复制成功"
+				tooltipText += "复制成功"
 			}else if(isCopySuccess===0){
-				tooltipText = "复制失败"
+				tooltipText += "复制失败"
 			}else{
-				tooltipText = "复制方法异常"
+				tooltipText += "复制方法异常"
 			}
 			eleCopy1207921955.attr('data-original-title',tooltipText).tooltip('update').tooltip('show');
 		});
