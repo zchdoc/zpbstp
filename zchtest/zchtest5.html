@@ -125,7 +125,6 @@
 	//加密的私钥
 	// let 和 Var 有什么区别？
 	let key = $('input[name=okey]').val();
-
 	// DES加密
 	function encryptByDES(message) {
 		key = $('input[name=okey]').val();
@@ -139,7 +138,6 @@
 		//加密出来是一个16进制的字符串
 		return encrypted.ciphertext.toString();
 	}
-
 	//DES  ECB模式解密
 	function decryptByDESModeEBC(ciphertext) {
 		//把私钥转换成16进制的字符串
@@ -157,9 +155,9 @@
 </script>
 <script type="text/javascript">
 	$(function () {
-		var eleInputEn = $("input[name='en']");
-		var eleInputDe = $("input[name='de']");
-		var eleInputDeviceNum = $("input[name='deviceNum']");
+		let eleInputEn = $("input[name='en']");
+		let eleInputDe = $("input[name='de']");
+		let eleInputDeviceNum = $("input[name='deviceNum']");
 		// btn 加密
 		$("input[name='gen']").click(function () {
 			//需要加密的内容
@@ -176,10 +174,10 @@
 			let str4 = decryptByDESModeEBC(str3);
 			eleInputEn.val(str3);
 			eleInputDe.val(str4);
-			var url = $("input[name='serverAddr']").val();
+			let url = $("input[name='serverAddr']").val();
 			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
 			url = url + "/s/suf.do";
-			var data = eleInputEn.val();
+			let data = eleInputEn.val();
 			console.log(url);
 			$.ajax({
 				type: "get",    //请求方式
@@ -203,7 +201,7 @@
 				},
 				error: function (err) {
 					//请求出错处理
-					for (var s in err) {
+					for (let s in err) {
 						console.log(err[s]);
 					}
 				}
@@ -217,19 +215,18 @@
 			let str4 = decryptByDESModeEBC(str3);
 			eleInputEn.val(str3);
 			eleInputDe.val(str4);
-			var url = $("input[name='serverAddr']").val();
+			let url = $("input[name='serverAddr']").val();
 			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
-			var data = eleInputEn.val();
+			let data = eleInputEn.val();
 			url = url + "/s/suf.do?s=" + data;
 			//window.location.href = url;
 			window.open(url);
 		});
 		// btn 新页面获取设备信息
 		$("input[name='loadDeviceInfo']").click(function () {
-			var deviceNum = eleInputDeviceNum.val();
-			var url = $("input[name='serverAddr']").val();
+			let deviceNum = eleInputDeviceNum.val();
+			let url = $("input[name='serverAddr']").val();
 			// http://smartschool.singbon.com:81/s/s.do?s=9366
-			var data = eleInputEn.val();
 			url = url + "/s/s.do?s=" + deviceNum;
 			//window.location.href = url;
 			window.open(url);
