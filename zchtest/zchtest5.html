@@ -5,7 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="icon" href="https://avatars0.githubusercontent.com/u/17268394?s=400&u=5187f48f142aecaa279593ac514211bcca3ec319&v=4">
+	<link rel="icon"
+			href="https://avatars0.githubusercontent.com/u/17268394?s=400&u=5187f48f142aecaa279593ac514211bcca3ec319&v=4">
 	<title>enjs</title>
 	<!-- Bootstrap core CSS -->
 	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +38,8 @@
 	<a class="nav-link disabled" href="#">Disabled</a>
 	<!--</li>-->
 	<!--<li class="nav-item dropdown">-->
-	<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown"
+		aria-haspopup="true" aria-expanded="false">Dropdown</a>
 	<div class="dropdown-menu" aria-labelledby="dropdown06">
 		<a class="dropdown-item" href="#">Action</a>
 		<a class="dropdown-item" href="#">Another action</a>
@@ -49,7 +51,8 @@
 		<input class="form-control" type="text" placeholder="Search">
 	</form>
 	<!--</div>-->
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
+			  aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
 		QA<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarsExample01">
@@ -82,12 +85,17 @@
 				</p>
 				<p><input name="gen" type="button" class="btn btn-sm btn-primary" value="加密信息"></p>
 				<p>
-					服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81" title="服务器地址">
+					服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81"
+									 title="服务器地址">
 				</p>
 				<p>
 					<input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码">
 					<input name="loadpwd" type="button" class="btn btn-sm btn-primary" value="获取密码" title="打开新的页面">
 				</p>
+				<p>
+					设备号：<input name="deviceNum" type="number" value="1" placeholder="1" aria-placeholder="1">
+				</p>
+				<p><input name="loadDeviceInfo" type="button" class="btn btn-sm btn-primary" value="查询设备"></p>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -117,6 +125,7 @@
 	//加密的私钥
 	// let 和 Var 有什么区别？
 	let key = $('input[name=okey]').val();
+
 	// DES加密
 	function encryptByDES(message) {
 		key = $('input[name=okey]').val();
@@ -130,6 +139,7 @@
 		//加密出来是一个16进制的字符串
 		return encrypted.ciphertext.toString();
 	}
+
 	//DES  ECB模式解密
 	function decryptByDESModeEBC(ciphertext) {
 		//把私钥转换成16进制的字符串
@@ -149,6 +159,7 @@
 	$(function () {
 		var eleInputEn = $("input[name='en']");
 		var eleInputDe = $("input[name='de']");
+		var eleInputDeviceNum = $("input[name='deviceNum']");
 		// btn 加密
 		$("input[name='gen']").click(function () {
 			//需要加密的内容
@@ -210,6 +221,16 @@
 			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
 			var data = eleInputEn.val();
 			url = url + "/s/suf.do?s=" + data;
+			//window.location.href = url;
+			window.open(url);
+		});
+		// btn 新页面获取设备信息
+		$("input[name='loadDeviceInfo']").click(function () {
+			var deviceNum = eleInputDeviceNum.val();
+			var url = $("input[name='serverAddr']").val();
+			// http://smartschool.singbon.com:81/s/s.do?s=9366
+			var data = eleInputEn.val();
+			url = url + "/s/s.do?s=" + deviceNum;
 			//window.location.href = url;
 			window.open(url);
 		});
