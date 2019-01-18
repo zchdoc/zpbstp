@@ -14,17 +14,16 @@
 	<link href="../dist/zaddcss/zaddindex.css" rel="stylesheet">
 	<style type="text/css">
 		#serverAddr {
-			width: 27%;
+			width: 60%;
 			border-top: none;
 			border-left: none;
 			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
+			border-bottom: solid saddlebrown;
 		}
 
 		input[name='okey'] {
 			width: 10%;
-			border-radius: 5px;
-			border: solid rgb(227, 227, 227);
+			border: solid saddlebrown;
 		}
 
 		input[name='otext'] {
@@ -32,7 +31,7 @@
 			border-top: none;
 			border-left: none;
 			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
+			border-bottom: solid saddlebrown;
 		}
 
 		input[name='result'] {
@@ -40,38 +39,7 @@
 			border-top: none;
 			border-left: none;
 			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
-		}
-
-		input[name='deviceNum'] {
-			width: 30%;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
-		}
-
-		input[name='deviceSN'] {
-			width: 30%;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
-		}
-
-		input[name='deviceOriNum'] {
-			width: 30%;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: solid rgb(227, 227, 227);
-		}
-
-		.myRealContext {
-			border: solid;
-			border-radius: 5px;
-			padding: 10px;
-			margin: 5px;
+			border-bottom: solid saddlebrown;
 		}
 	</style>
 </head>
@@ -115,57 +83,52 @@
 <main role="main">
 	<section class="jumbotron text-center">
 		<div class="container">
-			<h1 class="jumbotron-heading">常用查询</h1>
+			<h1 class="jumbotron-heading">js加密解密</h1>
+			<p class="lead text-muted">测试</p>
+			<p>
+				<a href="#" class="btn btn-primary my-2">主</a>
+				<a href="#" class="btn btn-secondary my-2">次</a>
+			</p>
 		</div>
 	</section>
-	<div class="album py-3 bg-light">
+	<div class="album py-5 bg-light">
 		<div class="container">
+			<!--<div class="container-fluid" style="padding-bottom: 1rem">-->
 			<div class="container-fluid" style="padding-bottom: auto">
-				<div class="myRealContext">
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
 					<p>
 						密钥：<input name="okey" type="password" value="abc" placeholder="abc" aria-placeholder="abc"><br>
-						文字：<input name="otext" type="text" value="1" placeholder="1" aria-placeholder="1"><br>
+						文字：<input name="otext" type="text" value="" placeholder="12" aria-placeholder="12"><br>
 						结果：<input name="result" type="text" value="" placeholder="结果" aria-placeholder="结果" title="结果">
 					</p>
 					<p>
 						<input name="gen" type="button" class="btn btn-sm btn-primary" value="加密信息">
 						<input name="dec" type="button" class="btn btn-sm btn-primary" value="解密信息">
 					</p>
-					<!--<hr style="border: solid 2px">-->
 				</div>
-				<div class="myRealContext">
-					<p style="display: none">
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
+					<p>
 						服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81" title="服务器地址">
 					</p>
 					<p>
-						<label>服务器地址：
-							<select id="serverAddrList" style="width: 90%">
-								<option value="1.singbon.com:81">1.singbon.com:81</option>
-								<option>smartschool.singbon.com:81</option>
-								<option>a2.4000063966.com:81</option>
-								<option>chongdian.4000063966.com:81</option>
-								<option>qisong.4000063966.com:81</option>
-							</select>
-						</label>
-					</p>
-					<p>
-						<input name="getpwd" type="button" class="btn btn-sm btn-primary" value="功能无效">
+						<input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码">
 						<input name="loadpwd" type="button" class="btn btn-sm btn-primary" value="获取密码" title="打开新的页面">
 					</p>
 					<p>
-						设备号：<input name="deviceNum" type="text" value="1" placeholder="1" aria-placeholder="1"><br>
-						序列号：<input name="deviceSN" type="text" value="00000000000000000000000000000001" placeholder="00000000000000000000000000000001" aria-placeholder="00000000000000000000000000000001"><br>
-						原号码：<input name="deviceOriNum" type="text" value="1" placeholder="1" aria-placeholder="1">
+						设备号：<input name="deviceNum" type="number" value="1" placeholder="1" aria-placeholder="1">
 					</p>
-					<p>
-						<input name="loadDeviceInfo" type="button" class="btn btn-sm btn-primary" value="查询设备">
-						<input name="transToHex" type="button" class="btn btn-sm btn-primary" value="转换格式">
-					</p>
-					<!--<hr style="border: solid 2px">-->
+					<p><input name="loadDeviceInfo" type="button" class="btn btn-sm btn-primary" value="查询设备"></p>
 				</div>
-				<div class="myRealContext">
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
+					<!--<p id="slsServer">39.106.223.169 <input name="copy39106223169" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="点击复制" value="copy"></p>-->
+					<!--<p id="cdzServer">120.79.219.55 <input name="copy1207921955" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="点击复制" value="copy"></p>-->
 					<a id="aslsServer" href="javascript:void(0)" title="点击复制" data-toggle="tooltip" data-placement="top">39.106.223.169</a><br>
 					<a id="acdzServer" href="javascript:void(0)" title="点击复制" data-toggle="tooltip" data-placement="top">120.79.219.55</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					nothing
 				</div>
 			</div>
 		</div>
@@ -190,7 +153,6 @@
 <script src="../dist/zaddjs/encrypt/src/tripledes.js"></script>
 <script src="../dist/zaddjs/encrypt/src/mode-ecb.js"></script>
 <script src="../dist/zaddjs/copyContent/copyContent.js"></script>
-<!--方法区-->
 <script type="text/javascript">
 	//加密的私钥 let 和 Var 有什么区别？
 	// DES  加密
@@ -220,26 +182,44 @@
 		//以utf-8的形式输出解密过后内容
 		return decrypted.toString(CryptoJS.enc.Utf8);
 	}
+	// 复制标签内容
+	// function copyThisContext() {
+	// 	let thisEle = document.getElementById("aslsServer");
+	// 	let targetId = thisEle.id;
+	// 	console.log("targetId:" + targetId);
+	// 	console.log("targetId2:" +  thisEle['id']);
+	// 	console.log("targetText:" +  thisEle['text']);
+	// 	// for (obj in thisEle) {
+	// 	// 	console.log("obj:" + obj);
+	// 	// 	console.log("val1:" + thisEle[obj]);
+	// 	// }
+	// 	let copyContext = thisEle['text'];
+	// 	let isCopySuccess = copy(targetId, 'innerText');
+	// 	let tooltipText = copyContext;
+	// 	if (isCopySuccess === 1) {
+	// 		tooltipText += "复制成功"
+	// 	} else if (isCopySuccess === 0) {
+	// 		tooltipText += "复制失败"
+	// 	} else {
+	// 		tooltipText += "复制方法异常"
+	// 	}
+	// 	thisEle.getAttribute('data-original-title', tooltipText).tooltip('update').tooltip('show');
+	// }
 </script>
-<!--jquery 初始化-->
 <script type="text/javascript">
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip();
-		/*元素定义---------------------------------*/
 		// region 元素定义
-		// region input标签
+		// region 输入框
+		/*输入框---------------------------------*/
 		//密钥
-		let eleInputNameOkey = $("input[name='okey']");
+		let eleInputNameOkey = $('input[name=okey]');
 		//需要处理的文字
-		let eleInputNameOtext = $("input[name='otext']");
+		let eleInputNameOtext = $('input[name=otext]');
 		//处理结果
-		let eleInputNameResult = $("input[name='result']");
+		let eleInputNameResult = $('input[name=result]');
 		//设备号码
 		let eleInputNameDeviceNum = $("input[name='deviceNum']");
-		//设备SN
-		let eleInputNameDeviceSN = $("input[name='deviceSN']");
-		//原号码
-		let eleInputNameDeviceOriNum = $("input[name='deviceOriNum']");
 		// endregion输入框
 		// region 按钮
 		/*按钮---------------------------------*/
@@ -257,24 +237,21 @@
 		let eleBtnGetpwd = $("input[name='getpwd']");
 		//新页面获取密码
 		let eleBtnLoadpwd = $("input[name='loadpwd']");
-		//　设备号码转换十六进制
-		let eleBtnTransToHex = $("input[name='transToHex']");
 		// endregion 按钮
 		// region 段落文字
 		/*段落文字---------------------------------*/
-		// let elePIdSlsServer = $('#slsServer');
-		// let elePIdCdzServer = $('#cdzServer');
+		let elePIdSlsServer = $('#slsServer');
+		let elePIdCdzServer = $('#cdzServer');
 		// endregion 段落文字
 		// region a 标签
 		/*a 标签---------------------------------*/
-		let eleAIdSlsServer = $("#aslsServer");
-		let eleAIdCdzServer = $("#acdzServer");
+		let eleAIdSlsServer = $('#aslsServer');
+		let eleAIdCdzServer = $('#acdzServer');
 		// endregion a 标签
-		// region input标签
-		let eleSelectIdserverAddrList = $("#serverAddrList");
-		// endregion input标签
+		/*---------------------------------*/
+		/*---------------------------------*/
+		/*---------------------------------*/
 		// endregion 元素定义
-		/*元素click---------------------------------*/
 		// region 元素click
 		// btn 加密
 		eleBtnGen.click(function () {
@@ -293,17 +270,57 @@
 		});
 		// btn 获取密码
 		eleBtnGetpwd.click(function () {
-			let eleSelected = $('#serverAddrList option:selected');
-			let selectedval = eleSelected.val();
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			let url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			url = url + "/s/suf.do";
+			let data = eleInputEn.val();
+			console.log(url);
+			$.ajax({
+				type: "get",    //请求方式
+				async: true,    //是否异步
+				url: url,
+				dataType: "JSONP",    //跨域json请求一定是jsonp
+				// jsonp: "s",    //跨域请求的参数名，默认是callback
+				//jsonpCallback:"",    //自定义跨域参数值，回调函数名也是一样，默认为jQuery自动生成的字符串
+				crossDomain: true,
+				data: {"s": data},    //请求参数
+				beforeSend: function () {
+					//请求前的处理
+				},
+				success: function (success) {
+					//请求成功处理，和本地回调完全一样
+					alert("1 " + success);
+					console.log("1 " + success);
+				},
+				complete: function () {
+					//请求完成的处理
+				},
+				error: function (err) {
+					//请求出错处理
+					for (let s in err) {
+						console.log(err[s]);
+					}
+				}
+			});
 		});
 		// btn 新页面获取密码
 		eleBtnLoadpwd.click(function () {
 			//需要加密的内容
-			let key = eleInputNameOkey.val();
-			let otext = eleInputNameOtext.val();
-			let enResult = encryptByDES(key, otext);
-			let url = "http://" + $('#serverAddrList option:selected').val();
-			url = url + "/s/suf.do?s=" + enResult;
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			let url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			let data = eleInputEn.val();
+			url = url + "/s/suf.do?s=" + data;
+			//window.location.href = url;
 			window.open(url);
 		});
 		// btn 新页面获取设备信息
@@ -313,10 +330,42 @@
 			url = url + "/s/s.do?s=" + valDeviceNum;
 			window.open(url);
 		});
+		// input Btn  复制 sls ip
+		eleBtnCopy39106223169.click(function () {
+			let targetId = elePIdSlsServer.attr('id');
+			let copyContext = elePIdSlsServer.text();
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleBtnCopy39106223169.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
+		// input Btn 复制 cdz ip
+		eleBtnCopy1207921955.click(function () {
+			let targetId = elePIdCdzServer.attr('id');
+			let copyContext = elePIdCdzServer.text();
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleBtnCopy1207921955.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
 		// a sls 标签点击复制
 		eleAIdSlsServer.click(function () {
 			let targetId = eleAIdSlsServer.attr('id');
+			console.log("targetId:" + targetId);
 			let copyContext = eleAIdSlsServer.text();
+			console.log("copyContext:" + copyContext);
 			let isCopySuccess = copy(targetId, 'innerText');
 			let tooltipText = copyContext;
 			if (isCopySuccess === 1) {
@@ -342,37 +391,6 @@
 				tooltipText += "复制方法异常"
 			}
 			eleAIdCdzServer.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
-		});
-		//设备号码转换十六进制
-		eleBtnTransToHex.click(function () {
-			let valDeviceNum = eleInputNameDeviceNum.val();
-			var c = parseInt(valDeviceNum).toString(16).toUpperCase();
-			while (c.length < 32) {
-				c = "0" + c;
-			}
-			eleInputNameDeviceSN.val(c);
-		});
-		/*元素监听 on---------------------------------*/
-		//
-		eleInputNameDeviceNum.on('input', function () {
-			let valDeviceNum = eleInputNameDeviceNum.val();
-			let c = parseInt(valDeviceNum).toString(16).toUpperCase();
-			while (c.length < 32) {
-				c = "0" + c;
-			}
-			eleInputNameDeviceSN.val(c);
-		});
-		//
-		eleInputNameDeviceSN.bind("input", function () {
-			let valDeviceSN = eleInputNameDeviceSN.val();
-			var ten = parseInt(valDeviceSN, 16);
-			eleInputNameDeviceOriNum.val(ten);
-		});
-		//
-		eleInputNameDeviceSN.on('mouseover', function () {
-			let valDeviceSN = eleInputNameDeviceSN.val();
-			var ten = parseInt(valDeviceSN, 16);
-			eleInputNameDeviceOriNum.val(ten);
 		});
 		// endregion 元素click
 	});
