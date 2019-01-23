@@ -307,7 +307,8 @@
 		// btn 新页面获取设备信息
 		eleBtnLoadDeviceInfo.click(function () {
 			let valDeviceNum = eleInputNameDeviceNum.val();
-			let url = $("input[name='serverAddr']").val();
+			let url = "http://" + $('#serverAddrList option:selected').val();
+			// url = url + "/s/suf.do?s=" + enResult;
 			url = url + "/s/s.do?s=" + valDeviceNum;
 			window.open(url);
 		});
