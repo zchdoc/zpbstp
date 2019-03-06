@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>change content with nodevalue</title>
+</head>
+<body>
+<div id="work">aaaaa</div>
+<button onclick="go()">点我变身</button>
+<script src="../dist/zaddjs/jquery/jquery-3.3.1.min.js"></script>
+<script>
+	function go(){
+		var simplecron = {
+			stime:new Date(), // start time
+			restart:function(){
+				this.stime = new Date();
+			},
+			duration:function(){
+				var end = new Date();
+				return end-this.stime;
+			}
+		};
+		var ele_work = $("#work");
+		// BY JQUERY
+		simplecron.restart();
+		for(let i = 1; i<3000; i++){
+			ele_work.html('BENCHMARK WORK1');
+		}
+		let html_time = simplecron.duration();
+		simplecron.restart();
+		for(let i = 1; i<3000; i++){
+			ele_work.text('BENCHMARK WORK2');
+		}
+		alert("JQ TIMES (3000x): \nhtml="+html_time+"\ntext="+simplecron.duration());
+		// BY PURE JAVASCRIPT
+		simplecron.restart();
+		for(let i = 1; i<3000; i++){
+			document.getElementById('work').innerHTML = 'BENCHMARK WORK3';
+		}
+		let html_time1 = simplecron.duration();
+		simplecron.restart();
+		for(let i = 1; i<3000; i++){
+			document.getElementById('work').childNodes[0].nodeValue = 'BENCHMARK WORK4';
+		}
+		alert("JS TIMES (3000x): \nhtml="+html_time1+"\ntext="+simplecron.duration());
+	}
+</script>
+</body>
+</html>
