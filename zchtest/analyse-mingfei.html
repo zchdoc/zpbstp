@@ -71,14 +71,15 @@
 				<label class="form-check-label" for="pkgCrd">消费记录</label>
 			</div>
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="inlineRadioOptions" id="pkgTestWmg" value="option2">
+				<input class="form-check-input" type="radio" name="inlineRadioOptionss" id="pkgTestWmg" value="option2">
 				<label class="form-check-label" for="pkgTestWmg">王明飞测试</label>
 			</div>
 			<!--是否勾选了兴邦专用 end-->
 			<!--输入设备码 start -->
 			<div class="form-check">
 				<label for="deviceCode">设备码：</label>
-				<input name="deviceCode" id="deviceCode" type="text" value="00000000000000000000000000000007000000070000000000000202001F03080000000000000000000004D504190327162228000000010000B863" placeholder=""/>
+				<input name="deviceCode" id="deviceCode" type="text" value="7E4D432D35393132543139303630303032FFFFFFFF14CD2F550704000000004E0000000200000000000000000188888888991231235901010101FFFFF000FFFFFFFF0000000000000000000000000000000288888888991231235901010101FFFFF000FFFFFFFF00000000000000FF7E
+" placeholder=""/>
 				<!--输入备码 end -->
 				<p id="analysisContext">
 				</p>
@@ -109,8 +110,8 @@
 <!-- endregion 引入js文件-->
 <!-- region 元素定义--------------->
 <script type="text/javascript">
-	let inlineRadioOptions = $("input[name=inlineRadioOptions]");
-	let pkgStatus = $("#pkgStatus");
+	let inlineRadioOptions = $("input[name=inlineRadioOptionss]");
+	let pkgStatus = $("#pkgTestWmg");
 	let pkgCrd = $("#pkgCrd");
 	let analysisContext = $("#analysisContext");
 	let deviceCode = $("#deviceCode");
@@ -174,59 +175,105 @@
 		// 0000 114 补助版本号（2字节，高字节在前）
 		// B863 118 CRC校验（字节高字节在前）
 		let deviceCodeVal = deviceCode.val();
-		let deviceSn = deviceCodeVal.substring(0,32);
+		//首尾固定
+		let fixation = deviceCodeVal.substring(0,2);
+		//SN
+		let Sn = deviceCodeVal.substring(2,34);
+		//密码
+		let password = deviceCodeVal.substring(34,42);
+		//随机串
+		let random = deviceCodeVal.substring(42,50);
+		//控制码
+		let control_code = deviceCodeVal.substring(50,56);
+		//数据长度
+		let data_length = deviceCodeVal.substring(56,64);
+		//卡信息个数
+		let Card_information = deviceCodeVal.substring(64,72);
+		//数据 1
+		let date = deviceCodeVal.substring(72,146);
+		//卡号
+		let card_number = deviceCodeVal.substring(72,90);
+		//密码
+		let card_password = deviceCodeVal.substring(90,98);
+		//有效期
+		let validity = deviceCodeVal.substring(98,108);
+		//开门时段
+		let Open_time = deviceCodeVal.substring(108,116);
+		//有效次数
+		let significant_figure = deviceCodeVal.substring(116,120);
+		//权限 特权
+		let privilege = deviceCodeVal.substring(120,122);
+		//状态
+		let status = deviceCodeVal.substring(122,124);
+		//节假日
+		let Holidays_Festivals = deviceCodeVal.substring(124,132);
+		//标志
+		let mark = deviceCodeVal.substring(132,134);
+		//出入时间
+		let access_time = deviceCodeVal.substring(134,146);
+		//数据 2
+		let date2 = deviceCodeVal.substring(146,220);
+		//卡号
+		let card_number2 = deviceCodeVal.substring(146,164);
+		//密码
+		let card_password2 = deviceCodeVal.substring(164,172);
+		//有效期
+		let validity2 = deviceCodeVal.substring(172,182);
+		//开门时段
+		let Open_time2 = deviceCodeVal.substring(182,190);
+		//有效次数
+		let significant_figure2 = deviceCodeVal.substring(190,194);
+		//权限 特权
+		let privilege2 = deviceCodeVal.substring(194,196);
+		//状态
+		let status2 = deviceCodeVal.substring(196,198);
+		//节假日
+		let Holidays_Festivals2 = deviceCodeVal.substring(198,206);
+		//标志
+		let mark2 = deviceCodeVal.substring(208,210);
+		//出入时间
+		let access_time2 = deviceCodeVal.substring(210,220);
+		//校验
+		let countCrd = deviceCodeVal.substring(220,222);
+		//首尾固定
+		let lastBatchCard = deviceCodeVal.substring(222,224);
 		//
-		let deviceNum = deviceCodeVal.substring(32,40);
-		//
-		let subDeviceNum = deviceCodeVal.substring(40,48);
-		//
-		let protocolType = deviceCodeVal.substring(48,52);
-		//
-		let deviceType = deviceCodeVal.substring(52,56);
-		//
-		let length = deviceCodeVal.substring(56,60);
-		//
-		let mainFrame = deviceCodeVal.substring(60,64);
-		//
-		let randomCode = deviceCodeVal.substring(64,72);
-		//
-		let countCrd = deviceCodeVal.substring(72,76);
-		//
-		let lastBatchCard = deviceCodeVal.substring(76,80);
-		//
-		let lastBlackCard = deviceCodeVal.substring(80,88);
-		// 系统状态信息（1字节；bit 0:黑名单是否已经发送完毕，0不完整； bit 1:终端是否有补助授权，1授权； bit 2: 1，有联机注册权，终端是否有联机注册授权）
-		let deviceStatusInfo = deviceCodeVal.substring(88,90);
-		//
-		let deviceTime = deviceCodeVal.substring(90,102);
-		//
-		let countBatchBlack = deviceCodeVal.substring(102,106);
-		//
-		let countIncrementBlack = deviceCodeVal.substring(106,110);
-		//
-		let subversion = deviceCodeVal.substring(110,114);
-		//
-		let crc = deviceCodeVal.substring(114,118);
 		analysisContext.append("<h6>原码:"+deviceCodeVal+"</h6>");
-		analysisContext.append("<h6>序列号："+deviceSn+"  十进："+parseInt(deviceSn,16)+"</h6>");
-		analysisContext.append("<h6>设备号："+deviceNum+"  十进："+parseInt(deviceNum,16)+"</h6>");
-		analysisContext.append("<h6>从设备号："+subDeviceNum+"  十进："+parseInt(subDeviceNum,16)+"</h6>");
-		analysisContext.append("<h6>协议类型："+protocolType+"  十进："+parseInt(protocolType,16)+"</h6>");
-		analysisContext.append("<h6>设备类型："+deviceType+"  十进："+parseInt(deviceType,16)+"</h6>");
-		analysisContext.append("<h6>数据长度："+length+"  十进："+parseInt(length,16)+"</h6>");
-		analysisContext.append("<h6>关键帧："+mainFrame+"  十进："+parseInt(mainFrame,16)+"</h6>");
-		analysisContext.append("<h6>随机码："+randomCode+"  十进："+parseInt(randomCode,16)+"</h6>");
-		analysisContext.append("<h6>未采记录："+countCrd+"  十进："+parseInt(countCrd,16)+"</h6>");
-		analysisContext.append("<h6>最后批次名单："+lastBatchCard+"  十进："+parseInt(lastBatchCard,16)+"</h6>");
-		analysisContext.append("<h6>最后黑名单："+lastBlackCard+"  十进："+parseInt(lastBlackCard,16)+"</h6>");
-		analysisContext.append("<h6>设备状态码："+deviceStatusInfo+"  十进："+parseInt(deviceStatusInfo,16)+"</h6>");
-		analysisContext.append("<h6>设备时间："+deviceTime+"  十进："+parseInt(deviceTime,16)+"</h6>");
-		analysisContext.append("<h6>批次名单个数："+countBatchBlack+"  十进："+parseInt(countBatchBlack,16)+"</h6>");
-		analysisContext.append("<h6>黑名单个数："+countIncrementBlack+"  十进："+parseInt(countIncrementBlack,16)+"</h6>");
-		analysisContext.append("<h6>补助版本："+subversion+"  十进："+parseInt(subversion,16)+"</h6>");
-		analysisContext.append("<h6>校验："+crc+"  十进："+parseInt(crc,16)+"</h6>");
-		analysisContext.append("<br></br>");
-		analysisContext.append("<h6>校验："+crc+"  十进："+parseInt(crc,16)+"</h6>");
+		analysisContext.append("<h6>首固定:"+fixation+"十进: "+parseInt(fixation,16)+"</h6>");
+		analysisContext.append("<h6>序列号："+Sn+"  十进："+parseInt(Sn,16)+"</h6>");
+		analysisContext.append("<h6>密码："+password+"  十进："+parseInt(password,16)+"</h6>");
+		analysisContext.append("<h6>随机串："+random+"  十进："+parseInt(random,16)+"</h6>");
+		analysisContext.append("<h6>控制码："+control_code+"  十进："+parseInt(control_code,16)+"</h6>");
+		analysisContext.append("<h6>数据长度："+data_length+"  十进："+parseInt(data_length,16)+"</h6>");
+		analysisContext.append("<h6>卡信息个数："+Card_information+"  十进："+parseInt(Card_information,16)+"</h6>");
+		analysisContext.append("<h6>数据 1："+date+"  十进："+parseInt(date,16)+"</h6>");
+		analysisContext.append("<h6>数据 2："+date2+"  十进："+parseInt(date2,16)+"</h6>");
+		analysisContext.append("<h6>效验："+countCrd+"  十进："+parseInt(countCrd,16)+"</h6>");
+		analysisContext.append("<h6>尾固定："+lastBatchCard+"  十进："+parseInt(lastBatchCard,16)+"</h6>");
+		analysisContext.append("<br>");
+		analysisContext.append("<h6>数据 1："+date+"  十进："+parseInt(date,16)+"</h6>");
+		analysisContext.append("<h6>卡号："+card_number+"  十进："+parseInt(card_number,16)+"</h6>");
+		analysisContext.append("<h6>密码："+card_password+"  十进："+parseInt(card_password,16)+"</h6>");
+		analysisContext.append("<h6>有效期："+validity+"  十进："+parseInt(validity,16)+"</h6>");
+		analysisContext.append("<h6>开门时段："+Open_time+"  十进："+parseInt(Open_time,16)+"</h6>");
+		analysisContext.append("<h6>有效次数："+significant_figure+"  十进："+parseInt(significant_figure,16)+"</h6>");
+		analysisContext.append("<h6>权限 特权："+privilege+"  十进："+parseInt(privilege,16)+"</h6>");
+		analysisContext.append("<h6>状态："+status+"  十进："+parseInt(status,16)+"</h6>");
+		analysisContext.append("<h6>节假日："+Holidays_Festivals+"  十进："+parseInt(Holidays_Festivals,16)+"</h6>");
+		analysisContext.append("<h6>标志："+mark+"  十进："+parseInt(mark,16)+"</h6>");
+		analysisContext.append("<h6>出入时间："+access_time+"  十进："+parseInt(access_time,16)+"</h6>");
+		analysisContext.append("<br>");
+		analysisContext.append("<h6>数据 2："+date2+"  十进："+parseInt(date2,16)+"</h6>");
+		analysisContext.append("<h6>卡号："+card_number2+"  十进："+parseInt(card_number2,16)+"</h6>");
+		analysisContext.append("<h6>密码："+card_password2+"  十进："+parseInt(card_password2,16)+"</h6>");
+		analysisContext.append("<h6>有效期："+validity2+"  十进："+parseInt(validity2,16)+"</h6>");
+		analysisContext.append("<h6>开门时段："+Open_time2+"  十进："+parseInt(Open_time2,16)+"</h6>");
+		analysisContext.append("<h6>有效次数："+significant_figure2+"  十进："+parseInt(significant_figure2,16)+"</h6>");
+		analysisContext.append("<h6>权限 特权："+privilege2+"  十进："+parseInt(privilege2,16)+"</h6>");
+		analysisContext.append("<h6>状态："+status2+"  十进："+parseInt(status2,16)+"</h6>");
+		analysisContext.append("<h6>节假日："+Holidays_Festivals2+"  十进："+parseInt(Holidays_Festivals2,16)+"</h6>");
+		analysisContext.append("<h6>标志："+mark2+"  十进："+parseInt(mark2,16)+"</h6>");
+		analysisContext.append("<h6>出入时间："+access_time2+"  十进："+parseInt(access_time2,16)+"</h6>");
 	}
 </script>
 </body>
