@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑",sans-serif;}
+		#allmap{width:100%;height:100%;}
+		p{margin-left:5px; font-size:14px;}
+	</style>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=h4UxXbr5o3e7dQXd1tYU4nTunX4sH9UM"></script>
+	<script type="text/javascript" src="//api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+	<script type="text/javascript" src="//api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+	<title>点聚合</title>
+</head>
+<body>
+<div id="allmap"></div>
+<!--<p>缩放地图，查看点聚合效果</p>-->
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	const map = new BMap.Map("allmap");
+	let point = new BMap.Point(113.513317,34.8427);
+	map.centerAndZoom(point,20);
+	map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	var MAX = 10;
+	var markers = [];
+	var pt = null;
+	var i = 0;
+	// for (; i < MAX; i++) {
+	// 	pt = new BMap.Point(Math.random() * 40 + 85, Math.random() * 30 + 21);
+	// 	markers.push(new BMap.Marker(pt));
+	// }
+	markers.push(new BMap.Marker((new BMap.Point(113.513161,34.843015))));
+	markers.push(new BMap.Marker((new BMap.Point(113.514382,34.842552))));
+	markers.push(new BMap.Marker((new BMap.Point(113.514139,34.842001))));
+	markers.push(new BMap.Marker((new BMap.Point(113.512832,34.842444))));
+	markers.push(new BMap.Marker((new BMap.Point(113.513016,34.842744))));
+	markers.push(new BMap.Marker((new BMap.Point(113.513793,34.842789))));
+	markers.push(new BMap.Marker((new BMap.Point(113.514278,34.842278))));
+	markers.push(new BMap.Marker((new BMap.Point(113.513479,34.842231))));
+	// markers.push(new BMap.Marker((new BMap.Point(113.513317,34.8427))));
+	//最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+	var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+	/* ================================ */
+	var opts = {
+		position:point,    // 指定文本标注所在的地理位置
+		offset:new BMap.Size(5,30)    //设置文本偏移量
+	};
+	var label = new BMap.Label("郑州兴邦电子股份有限公司",opts);  // 创建文本标注对象
+	label.setStyle({
+		color:"red",
+		fontSize:"10px",
+		border:"0px",
+		height:"20px",
+		lineHeight:"20px",
+		fontFamily:"微软雅黑"
+	});
+	map.addOverlay(label);
+	/* ================================ */
+	//创建小狐狸
+	var pt2 = new BMap.Point(113.513317,34.8427);
+	// var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+	var myIcon = new BMap.Icon("http://www.dabaoku.com/gif/173/gif003.gif", new BMap.Size(80,60));
+	var marker2 = new BMap.Marker(pt2,{icon:myIcon});  // 创建标注
+	map.addOverlay(marker2);              // 将标注添加到地图中
+</script>

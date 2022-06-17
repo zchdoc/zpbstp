@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="https://avatars0.githubusercontent.com/u/17268394?s=400&u=5187f48f142aecaa279593ac514211bcca3ec319&v=4">
+	<title>enjs</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="../dist/css/bootstrap-grid.css">
+	<link type="text/css" rel="stylesheet" href="../dist/css/bootstrap-reboot.css">
+	<link href="../dist/zaddcss/zaddindex.css" rel="stylesheet">
+	<style type="text/css">
+		input[name='deviceCode']{
+			width:90%;
+			border-top:none;
+			border-left:none;
+			border-right:none;
+			border-bottom:solid rgb(227, 227, 227);
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">Never expand</a>
+	<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	<a class="nav-link" href="#">Link</a>
+	<a class="nav-link disabled" href="#">Disabled</a>
+	<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	<div class="dropdown-menu" aria-labelledby="dropdown06">
+		<a class="dropdown-item" href="#">Action</a>
+		<a class="dropdown-item" href="#">Another action</a>
+		<a class="dropdown-item" href="#">Something else here</a>
+	</div>
+	<form class="form-inline my-2 my-md-0" action="#">
+		<label>
+			<input class="form-control" type="text" placeholder="Search"/>
+		</label>
+	</form>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+		QA<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarsExample01">
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+	</div>
+</nav>
+<main role="main">
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h3 class="jumbotron-heading">二维码生成</h3>
+		</div>
+	</section>
+	<div class="album py-6 bg-light">
+		<div class="container">
+			<!--是否勾选了兴邦专用-->
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" style="display:none;" id="hideinlineRadioOptions" type="radio" name="inlineRadioOptions" value="">
+				<label class="form-check-label" for="hideinlineRadioOptions"></label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="inlineRadioOptions" id="pkgStatus" value="option1">
+				<label class="form-check-label" for="pkgStatus">状态包</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="inlineRadioOptions" id="pkgCrd" value="option2">
+				<label class="form-check-label" for="pkgCrd">消费记录</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" name="inlineRadioOptionss" id="pkgTestWmg" value="option2">
+				<label class="form-check-label" for="pkgTestWmg">王明飞测试</label>
+			</div>
+			<!--是否勾选了兴邦专用 end-->
+			<!--输入设备码 start -->
+			<div class="form-check">
+				<label for="deviceCode">设备码：</label>
+				<input name="deviceCode" id="deviceCode" type="text" value="7E4D432D35393132543139303630303032FFFFFFFF14CD2F550704000000004E0000000200000000000000000188888888991231235901010101FFFFF000FFFFFFFF0000000000000000000000000000000288888888991231235901010101FFFFF000FFFFFFFF00000000000000FF7E
+" placeholder=""/>
+				<!--输入备码 end -->
+				<p id="analysisContext">
+				</p>
+			</div>
+		</div>
+	</div>
+</main>
+<footer class="text-muted" style="margin-top: -10px">
+	<div class="container">
+		<p class="float-right">
+			<a href="#">返回最上</a>
+		</p>
+		<p>示例页面 &copy; Bootstrap!</p>
+		<p>
+			<a href="https://github.com/zghnzch">访问我们的主页</a>
+		</p>
+	</div>
+</footer>
+<!-- region 引入js文件-->
+<script src="../dist/zaddjs/jquery/jquery-3.3.1.min.js"></script>
+<script src="../dist/js/bootstrap.min.js"></script>
+<script src="../dist/js/bootstrap.bundle.min.js"></script>
+<script src="../dist/zaddjs/encrypt/src/core.js"></script>
+<script src="../dist/zaddjs/encrypt/src/cipher-core.js"></script>
+<script src="../dist/zaddjs/encrypt/src/tripledes.js"></script>
+<script src="../dist/zaddjs/encrypt/src/mode-ecb.js"></script>
+<script src="../dist/zaddjs/copyContent/copyContent.js"></script>
+<!-- endregion 引入js文件-->
+<!-- region 元素定义--------------->
+<script type="text/javascript">
+	let inlineRadioOptions = $("input[name=inlineRadioOptionss]");
+	let pkgStatus = $("#pkgTestWmg");
+	let pkgCrd = $("#pkgCrd");
+	let analysisContext = $("#analysisContext");
+	let deviceCode = $("#deviceCode");
+	let hideinlineRadioOptions = $("#hideinlineRadioOptions");
+</script>
+<!-- endregion 元素定义--------------->
+<!--$(function () {});-->
+<script type="text/javascript">
+	$(function(){
+		// 内容模式 是否要加密
+		pkgStatus.on('change',function(event){
+			if(checkInputDeviceCode()){
+				setPkgStatus();
+			}
+			else{
+				removeChecked();
+			}
+		});
+		pkgCrd.on('change',function(event){
+			if(checkInputDeviceCode()){
+			}
+			else{
+				removeChecked();
+			}
+		});
+		deviceCode.on('input',function(e){
+		});
+	})
+</script>
+<script type="text/javascript">
+	function checkInputDeviceCode(){
+		let deviceCodeVal = deviceCode.val();
+		if(null==deviceCodeVal || deviceCodeVal.length<=0){
+			alert("请先填写设备码");
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	function removeChecked(){
+		inlineRadioOptions.prop("checked",false);
+	}
+	function setPkgStatus(){
+		// 00000000000000000000000000000007000000070000000000000202001F03080000000000000000000004D504190327162228000000010000B863
+		// 00000000000000000000000000000007  32 静态ID（16字节高字节在前）
+		// 00000007 40  设备机器号（4字节高字节在前）
+		// 00000000 48  从设备机器号（4字节高字节在前；00000000表示主设备；非零表示中转设备）
+		// 0000 52 协议类型（2字节高字节在前；0000表示主设备协议；非零表示中转设备协议）
+		// 0202 56 设备类型（2字节高字节在前）
+		// 001F 60  数据长度（2字节高字节在前）
+		// 0308 64  0x03+0x08
+		// 00000000 72 随机码（4字节高字节在前，可选）
+		// 0000 76 未采集的记录总数（2字节高字节在前）
+		// 0000 80 批次的最后名单（2字节高字节在前）
+		// 000004D5 88 最后一个曾量挂失名单卡号（4字节高字节在前）
+		// 04 90 系统状态信息（1字节；bit 0:黑名单是否已经发送完毕，0不完整； bit 1:终端是否有补助授权，1授权； bit 2: 1，有联机注册权，终端是否有联机注册授权）
+		// 190327162228 102 年月日时分秒（6字节；压缩BCD码；例如年0x15表示2015年）（未用）
+		// 0000 106 批次个数（2字节，高字节在前）
+		// 0001 110 增量个数（2字节，高字节在前）
+		// 0000 114 补助版本号（2字节，高字节在前）
+		// B863 118 CRC校验（字节高字节在前）
+		let deviceCodeVal = deviceCode.val();
+		//首尾固定
+		let fixation = deviceCodeVal.substring(0,2);
+		//SN
+		let Sn = deviceCodeVal.substring(2,34);
+		//密码
+		let password = deviceCodeVal.substring(34,42);
+		//随机串
+		let random = deviceCodeVal.substring(42,50);
+		//控制码
+		let control_code = deviceCodeVal.substring(50,56);
+		//数据长度
+		let data_length = deviceCodeVal.substring(56,64);
+		//卡信息个数
+		let Card_information = deviceCodeVal.substring(64,72);
+		//数据 1
+		let date = deviceCodeVal.substring(72,146);
+		//卡号
+		let card_number = deviceCodeVal.substring(72,90);
+		//密码
+		let card_password = deviceCodeVal.substring(90,98);
+		//有效期
+		let validity = deviceCodeVal.substring(98,108);
+		//开门时段
+		let Open_time = deviceCodeVal.substring(108,116);
+		//有效次数
+		let significant_figure = deviceCodeVal.substring(116,120);
+		//权限 特权
+		let privilege = deviceCodeVal.substring(120,122);
+		//状态
+		let status = deviceCodeVal.substring(122,124);
+		//节假日
+		let Holidays_Festivals = deviceCodeVal.substring(124,132);
+		//标志
+		let mark = deviceCodeVal.substring(132,134);
+		//出入时间
+		let access_time = deviceCodeVal.substring(134,146);
+		//数据 2
+		let date2 = deviceCodeVal.substring(146,220);
+		//卡号
+		let card_number2 = deviceCodeVal.substring(146,164);
+		//密码
+		let card_password2 = deviceCodeVal.substring(164,172);
+		//有效期
+		let validity2 = deviceCodeVal.substring(172,182);
+		//开门时段
+		let Open_time2 = deviceCodeVal.substring(182,190);
+		//有效次数
+		let significant_figure2 = deviceCodeVal.substring(190,194);
+		//权限 特权
+		let privilege2 = deviceCodeVal.substring(194,196);
+		//状态
+		let status2 = deviceCodeVal.substring(196,198);
+		//节假日
+		let Holidays_Festivals2 = deviceCodeVal.substring(198,206);
+		//标志
+		let mark2 = deviceCodeVal.substring(208,210);
+		//出入时间
+		let access_time2 = deviceCodeVal.substring(210,220);
+		//校验
+		let countCrd = deviceCodeVal.substring(220,222);
+		//首尾固定
+		let lastBatchCard = deviceCodeVal.substring(222,224);
+		//
+		analysisContext.append("<h6>原码:"+deviceCodeVal+"</h6>");
+		analysisContext.append("<h6>首固定:"+fixation+"十进: "+parseInt(fixation,16)+"</h6>");
+		analysisContext.append("<h6>序列号："+Sn+"  十进："+parseInt(Sn,16)+"</h6>");
+		analysisContext.append("<h6>密码："+password+"  十进："+parseInt(password,16)+"</h6>");
+		analysisContext.append("<h6>随机串："+random+"  十进："+parseInt(random,16)+"</h6>");
+		analysisContext.append("<h6>控制码："+control_code+"  十进："+parseInt(control_code,16)+"</h6>");
+		analysisContext.append("<h6>数据长度："+data_length+"  十进："+parseInt(data_length,16)+"</h6>");
+		analysisContext.append("<h6>卡信息个数："+Card_information+"  十进："+parseInt(Card_information,16)+"</h6>");
+		analysisContext.append("<h6>数据 1："+date+"  十进："+parseInt(date,16)+"</h6>");
+		analysisContext.append("<h6>数据 2："+date2+"  十进："+parseInt(date2,16)+"</h6>");
+		analysisContext.append("<h6>效验："+countCrd+"  十进："+parseInt(countCrd,16)+"</h6>");
+		analysisContext.append("<h6>尾固定："+lastBatchCard+"  十进："+parseInt(lastBatchCard,16)+"</h6>");
+		analysisContext.append("<br>");
+		analysisContext.append("<h6>数据 1："+date+"  十进："+parseInt(date,16)+"</h6>");
+		analysisContext.append("<h6>卡号："+card_number+"  十进："+parseInt(card_number,16)+"</h6>");
+		analysisContext.append("<h6>密码："+card_password+"  十进："+parseInt(card_password,16)+"</h6>");
+		analysisContext.append("<h6>有效期："+validity+"  十进："+parseInt(validity,16)+"</h6>");
+		analysisContext.append("<h6>开门时段："+Open_time+"  十进："+parseInt(Open_time,16)+"</h6>");
+		analysisContext.append("<h6>有效次数："+significant_figure+"  十进："+parseInt(significant_figure,16)+"</h6>");
+		analysisContext.append("<h6>权限 特权："+privilege+"  十进："+parseInt(privilege,16)+"</h6>");
+		analysisContext.append("<h6>状态："+status+"  十进："+parseInt(status,16)+"</h6>");
+		analysisContext.append("<h6>节假日："+Holidays_Festivals+"  十进："+parseInt(Holidays_Festivals,16)+"</h6>");
+		analysisContext.append("<h6>标志："+mark+"  十进："+parseInt(mark,16)+"</h6>");
+		analysisContext.append("<h6>出入时间："+access_time+"  十进："+parseInt(access_time,16)+"</h6>");
+		analysisContext.append("<br>");
+		analysisContext.append("<h6>数据 2："+date2+"  十进："+parseInt(date2,16)+"</h6>");
+		analysisContext.append("<h6>卡号："+card_number2+"  十进："+parseInt(card_number2,16)+"</h6>");
+		analysisContext.append("<h6>密码："+card_password2+"  十进："+parseInt(card_password2,16)+"</h6>");
+		analysisContext.append("<h6>有效期："+validity2+"  十进："+parseInt(validity2,16)+"</h6>");
+		analysisContext.append("<h6>开门时段："+Open_time2+"  十进："+parseInt(Open_time2,16)+"</h6>");
+		analysisContext.append("<h6>有效次数："+significant_figure2+"  十进："+parseInt(significant_figure2,16)+"</h6>");
+		analysisContext.append("<h6>权限 特权："+privilege2+"  十进："+parseInt(privilege2,16)+"</h6>");
+		analysisContext.append("<h6>状态："+status2+"  十进："+parseInt(status2,16)+"</h6>");
+		analysisContext.append("<h6>节假日："+Holidays_Festivals2+"  十进："+parseInt(Holidays_Festivals2,16)+"</h6>");
+		analysisContext.append("<h6>标志："+mark2+"  十进："+parseInt(mark2,16)+"</h6>");
+		analysisContext.append("<h6>出入时间："+access_time2+"  十进："+parseInt(access_time2,16)+"</h6>");
+	}
+</script>
+</body>
+</html>
