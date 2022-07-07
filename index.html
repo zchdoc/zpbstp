@@ -220,6 +220,7 @@
   let inputNameDeviceNum = $('input[name=deviceNum]');
   let inputNameDeviceSn = $('input[name=deviceSn]');
   let inputNameDeviceName = $('input[name=deviceName]');
+  // 输入 dec 解析 hex
   $(function () {
     console.info('inputNameDeviceNum:', inputNameDeviceNum);
     console.info('inputNameDeviceSn:', inputNameDeviceSn);
@@ -235,6 +236,18 @@
         c = '0' + c;
       }
       inputNameDeviceSn.val(c);
+    });
+    // 输入 hex 解析 dec
+    inputNameDeviceSn.on('input', function () {
+      let inputNameDeviceSnVal = inputNameDeviceSn.val();
+      if (((inputNameDeviceSnVal.length) % 2) !== 0) {
+        inputNameDeviceSnVal = '0' + inputNameDeviceSnVal;
+      }
+      console.info('inputNameDeviceSnVal:', inputNameDeviceSnVal, typeof inputNameDeviceSnVal);
+      let inputNameDeviceSnValIntVal = parseInt(inputNameDeviceSnVal, 16);
+      console.info('inputNameDeviceSnValIntVal:', inputNameDeviceSnValIntVal, typeof inputNameDeviceSnValIntVal);
+      inputNameDeviceNum.val(inputNameDeviceSnValIntVal);
+      inputNameDeviceName.val('设备-' + inputNameDeviceSnValIntVal);
     });
   });
 </script>
