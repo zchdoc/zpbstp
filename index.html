@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -157,6 +157,8 @@
             </svg>
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><a target="_blank" href="pages/zch-analyse.html">协议分析-XB</a></p>
+              <p class="card-text"><a target="_blank" href="pages/mingfei-analyse.html">协议分析-XB-MF</a></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
@@ -222,15 +224,15 @@
   let inputNameDeviceName = $('input[name=deviceName]');
   // 输入 dec 解析 hex
   $(function () {
-    console.info('inputNameDeviceNum:', inputNameDeviceNum);
-    console.info('inputNameDeviceSn:', inputNameDeviceSn);
+    // console.info('inputNameDeviceNum:', inputNameDeviceNum);
+    // console.info('inputNameDeviceSn:', inputNameDeviceSn);
     inputNameDeviceNum.on('input', function () {
       let inputDeviceNumVal = inputNameDeviceNum.val();
       inputNameDeviceNum.val(inputDeviceNumVal);
       inputNameDeviceName.val('设备-' + inputDeviceNumVal);
-      console.info('inputDeviceNumVal:', inputDeviceNumVal, typeof inputDeviceNumVal);
+      // console.info('inputDeviceNumVal:', inputDeviceNumVal, typeof inputDeviceNumVal);
       let inputDeviceNumValIntVal = parseInt(inputDeviceNumVal);
-      console.info('inputDeviceNumValIntVal:', inputDeviceNumValIntVal, typeof inputDeviceNumValIntVal);
+      // console.info('inputDeviceNumValIntVal:', inputDeviceNumValIntVal, typeof inputDeviceNumValIntVal);
       let c = inputDeviceNumValIntVal.toString(16).toUpperCase();
       while (c.length < 32) {
         c = '0' + c;
@@ -243,9 +245,9 @@
       if (((inputNameDeviceSnVal.length) % 2) !== 0) {
         inputNameDeviceSnVal = '0' + inputNameDeviceSnVal;
       }
-      console.info('inputNameDeviceSnVal:', inputNameDeviceSnVal, typeof inputNameDeviceSnVal);
+      // console.info('inputNameDeviceSnVal:', inputNameDeviceSnVal, typeof inputNameDeviceSnVal);
       let inputNameDeviceSnValIntVal = parseInt(inputNameDeviceSnVal, 16);
-      console.info('inputNameDeviceSnValIntVal:', inputNameDeviceSnValIntVal, typeof inputNameDeviceSnValIntVal);
+      // console.info('inputNameDeviceSnValIntVal:', inputNameDeviceSnValIntVal, typeof inputNameDeviceSnValIntVal);
       inputNameDeviceNum.val(inputNameDeviceSnValIntVal);
       inputNameDeviceName.val('设备-' + inputNameDeviceSnValIntVal);
     });
