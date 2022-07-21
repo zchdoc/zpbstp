@@ -13,7 +13,7 @@
   <link type="text/css" rel="stylesheet" href="../dist/css/bootstrap-reboot.css">
   <link href="../dist/zaddcss/zaddindex.css" rel="stylesheet">
   <style>
-    input[name='deviceCode'] {
+    input[name='deviceDataPackage'] {
       width: 90%;
       border-top: none;
       border-left: none;
@@ -66,7 +66,7 @@
   </section>
   <div class="album py-6 bg-light">
     <div class="container">
-      <a href="#" class="btn btn-secondary my-2" id="clearCheckedRadio">清空单选</a>
+      <a href="#" class="" id="clearCheckedRadio">清空单选</a>
       <!--是否勾选了兴邦专用-->
       <div class="form-check form-check-inline">
         <input class="form-check-input" style="display:none;" id="hideInlineRadioOptions" type="radio" name="inlineRadioOptions" value="">
@@ -98,15 +98,16 @@
         <select class="custom-select d-block w-20" id="protocol" required>
           <option value="">请选择协议类型</option>
           <option value="status">状态包</option>
-          <option value="reserve-water">预约水控机编号+秘钥预约消费</option>
+          <option value="reserve-water">上位机下发-微信-预约水控编号-秘钥-预约消费</option>
+          <option value="keyboard-water">设备请求-按键-编号-学工号-秘钥-在线消费</option>
         </select>
       </div>
       <!--是否勾选了兴邦专用 end-->
       <!--输入设备码 start -->
       <div class="form-check">
-        <label for="deviceCode">设备码：</label>
+        <label for="deviceDataPackage">设备码：</label>
         <!-- 状态包:00000000000000000000000000000007000000070000000000000202001F03080000000000000000000004D504190327162228000000010000B863 -->
-        <input name="deviceCode" id="deviceCode" type="text" value="0000000000000000000000000001D8DF0001D8DF00000000000003030077DF0C00000002010000044000000440015D0064000100010001ADB0000100000000271001FE0031303838000000000000000000000000000000008BFD000000000000000000000000000000000000007885BD6D000000000000000000000000000000000000608211607A636800000000000000B1EC" placeholder=""/>
+        <input name="deviceDataPackage" id="deviceDataPackage" type="text" value="0000000000000000000000000001D8DF0001D8DF00000000000003030077DF0C00000002010000044000000440015D0064000100010001ADB0000100000000271001FE0031303838000000000000000000000000000000008BFD000000000000000000000000000000000000007885BD6D000000000000000000000000000000000000608211607A636800000000000000B1EC" placeholder=""/>
         <!--输入备码 end -->
         <p id="analysisContext">
         </p>
@@ -142,7 +143,7 @@
   let pkgReserveWater = $('#pkgReserveWater');
   let pkgCrd = $('#pkgCrd');
   let analysisContext = $('#analysisContext');
-  let deviceCode = $('#deviceCode');
+  let deviceDataPackage = $('#deviceDataPackage');
   let clearCheckedRadio = $('#clearCheckedRadio');
   // let hideInlineRadioOptions = $('#hideInlineRadioOptions')
 </script>
@@ -152,7 +153,7 @@
   $(function () {
     // 内容模式 是否要加密
     pkgStatus.on('change', function () {
-      if (checkInputDeviceCode()) {
+      if (checkInputDeviceDataPackage()) {
         setPkgStatus();
       }
       else {
@@ -160,7 +161,7 @@
       }
     });
     pkgReserveWater.on('change', function () {
-      if (checkInputDeviceCode()) {
+      if (checkInputDeviceDataPackage()) {
         setReserveWater();
       }
       else {
@@ -168,24 +169,33 @@
       }
     });
     pkgCrd.on('change', function () {
-      if (checkInputDeviceCode()) {
+      if (checkInputDeviceDataPackage()) {
       }
       else {
         removeChecked();
       }
     });
-    deviceCode.on('input', function (e) {
+    deviceDataPackage.on('input', function (e) {
     });
+    // 清空单选
     clearCheckedRadio.on('click', function () {
       removeChecked();
+    });
+    // 监听选择 协议的变换 处理协议数据
+    $("#protocol").change(function () {
+      let selectedProtocolVal = $(this).children('option:selected').val();
+      console.info("selectedProtocolVal:", selectedProtocolVal);
+      if (selectedProtocolVal === 'keyboard-water') {
+
+      }
     });
   });
 </script>
 <!--functions-->
 <script type="text/javascript">
-  function checkInputDeviceCode() {
-    let deviceCodeVal = deviceCode.val();
-    if (null == deviceCodeVal || deviceCodeVal.length <= 0) {
+  function checkInputDeviceDataPackage() {
+    let deviceDataPackageVal = deviceDataPackage.val();
+    if (null == deviceDataPackageVal || deviceDataPackageVal.length <= 0) {
       alert('请先填写设备码');
       return false;
     }
@@ -194,6 +204,7 @@
     }
   }
   function removeChecked() {
+    analysisContext.empty();
     inlineRadioOptions.prop('checked', false);
   }
   function setPkgStatus() {
@@ -215,42 +226,42 @@
     // 0001 110 增量个数（2字节，高字节在前）
     // 0000 114 补助版本号（2字节，高字节在前）
     // B863 118 CRC校验（字节高字节在前）
-    let deviceCodeVal = deviceCode.val();
-    let deviceSn = deviceCodeVal.substring(0, 32);
+    let deviceDataPackageVal = deviceDataPackage.val();
+    let deviceSn = deviceDataPackageVal.substring(0, 32);
     //
-    let deviceNum = deviceCodeVal.substring(32, 40);
+    let deviceNum = deviceDataPackageVal.substring(32, 40);
     //
-    let subDeviceNum = deviceCodeVal.substring(40, 48);
+    let subDeviceNum = deviceDataPackageVal.substring(40, 48);
     //
-    let protocolType = deviceCodeVal.substring(48, 52);
+    let protocolType = deviceDataPackageVal.substring(48, 52);
     //
-    let deviceType = deviceCodeVal.substring(52, 56);
+    let deviceType = deviceDataPackageVal.substring(52, 56);
     //
-    let length = deviceCodeVal.substring(56, 60);
+    let length = deviceDataPackageVal.substring(56, 60);
     //
-    let mainFrame = deviceCodeVal.substring(60, 64);
+    let mainFrame = deviceDataPackageVal.substring(60, 64);
     //
-    let randomCode = deviceCodeVal.substring(64, 72);
+    let randomCode = deviceDataPackageVal.substring(64, 72);
     //
-    let countCrd = deviceCodeVal.substring(72, 76);
+    let countCrd = deviceDataPackageVal.substring(72, 76);
     //
-    let lastBatchCard = deviceCodeVal.substring(76, 80);
+    let lastBatchCard = deviceDataPackageVal.substring(76, 80);
     //
-    let lastBlackCard = deviceCodeVal.substring(80, 88);
+    let lastBlackCard = deviceDataPackageVal.substring(80, 88);
     // 系统状态信息（1字节；bit 0:黑名单是否已经发送完毕，0不完整； bit 1:终端是否有补助授权，1授权； bit 2: 1，有联机注册权，终端是否有联机注册授权）
-    let deviceStatusInfo = deviceCodeVal.substring(88, 90);
+    let deviceStatusInfo = deviceDataPackageVal.substring(88, 90);
     //
-    let deviceTime = deviceCodeVal.substring(90, 102);
+    let deviceTime = deviceDataPackageVal.substring(90, 102);
     //
-    let countBatchBlack = deviceCodeVal.substring(102, 106);
+    let countBatchBlack = deviceDataPackageVal.substring(102, 106);
     //
-    let countIncrementBlack = deviceCodeVal.substring(106, 110);
+    let countIncrementBlack = deviceDataPackageVal.substring(106, 110);
     //
-    let subversion = deviceCodeVal.substring(110, 114);
+    let subversion = deviceDataPackageVal.substring(110, 114);
     //
-    let crc = deviceCodeVal.substring(114, 118);
+    let crc = deviceDataPackageVal.substring(114, 118);
     analysisContext.empty();
-    analysisContext.append('<h6>原码:' + deviceCodeVal + '</h6>');
+    analysisContext.append('<h6>原码:' + deviceDataPackageVal + '</h6>');
     analysisContext.append('<h6>序列号：' + deviceSn + '  十进：' + parseInt(deviceSn, 16) + '</h6>');
     analysisContext.append('<h6>设备号：' + deviceNum + '  十进：' + parseInt(deviceNum, 16) + '</h6>');
     analysisContext.append('<h6>从设备号：' + subDeviceNum + '  十进：' + parseInt(subDeviceNum, 16) + '</h6>');
@@ -273,80 +284,80 @@
   }
   // 预约水控 编号加密钥
   function setReserveWater() {
-    let deviceCodeVal = deviceCode.val();
+    let deviceDataPackageVal = deviceDataPackage.val();
     //
-    let deviceSn = deviceCodeVal.substring(0, 32);
+    let deviceSn = deviceDataPackageVal.substring(0, 32);
     //
-    let deviceNum = deviceCodeVal.substring(32, 40);
+    let deviceNum = deviceDataPackageVal.substring(32, 40);
     //
-    let subDeviceNum = deviceCodeVal.substring(40, 48);
+    let subDeviceNum = deviceDataPackageVal.substring(40, 48);
     //
-    let protocolType = deviceCodeVal.substring(48, 52);
+    let protocolType = deviceDataPackageVal.substring(48, 52);
     //
-    let deviceType = deviceCodeVal.substring(52, 56);
+    let deviceType = deviceDataPackageVal.substring(52, 56);
     //
-    let length = deviceCodeVal.substring(56, 60);
+    let length = deviceDataPackageVal.substring(56, 60);
     //
-    let mainFrame = deviceCodeVal.substring(60, 64);
+    let mainFrame = deviceDataPackageVal.substring(60, 64);
     //
-    let randomCode = deviceCodeVal.substring(64, 72);
+    let randomCode = deviceDataPackageVal.substring(64, 72);
     // 下面是数据
-    // let countCrd = deviceCodeVal.substring(72, 76)
+    // let countCrd = deviceDataPackageVal.substring(72, 76)
     // 帖类型(1字节;00即实用水(ID卡用水、账号+密码用水);01预约用水)+
-    let frameType = deviceCodeVal.substring(72, 74);
+    let frameType = deviceDataPackageVal.substring(72, 74);
     // 帐号(4字节账号)+ 00000440
-    let userId = deviceCodeVal.substring(74, 82);
+    let userId = deviceDataPackageVal.substring(74, 82);
     // 卡号(4字节账号)+
-    let cardNo = deviceCodeVal.substring(82, 90);
+    let cardNo = deviceDataPackageVal.substring(82, 90);
     // 卡序号(1字节)+
-    let cardSeq = deviceCodeVal.substring(90, 92);
+    let cardSeq = deviceDataPackageVal.substring(90, 92);
     // 扣费模式(1字节)+
-    let chargingMode = deviceCodeVal.substring(92, 94);
+    let chargingMode = deviceDataPackageVal.substring(92, 94);
     // 费率(4字节,时间模式分/秒,流量模式分/脉冲)+
-    let chargingRate = deviceCodeVal.substring(94, 102);
+    let chargingRate = deviceDataPackageVal.substring(94, 102);
     // 卡计数器(2两字节)+
-    let cardOpCount = deviceCodeVal.substring(102, 106);
+    let cardOpCount = deviceDataPackageVal.substring(102, 106);
     // 大钱包余额(4四字节)+
-    let cardOddFare = deviceCodeVal.substring(106, 114);
+    let cardOddFare = deviceDataPackageVal.substring(106, 114);
     // 补助计数器(2两字节)+
-    let cardSubOpCount = deviceCodeVal.substring(114, 118);
+    let cardSubOpCount = deviceDataPackageVal.substring(114, 118);
     // 补助钱包余额(4四字节)+
-    let cardSubOddFare = deviceCodeVal.substring(118, 126);
+    let cardSubOddFare = deviceDataPackageVal.substring(118, 126);
     // 使用金额(2两字节)+
-    let opFare = deviceCodeVal.substring(126, 130);
+    let opFare = deviceDataPackageVal.substring(126, 130);
     // 水龙头索引(2两字节,第一字节水龙头索引、第二字节水龙头索引补码)+
-    let waterIndex = deviceCodeVal.substring(130, 134);
+    let waterIndex = deviceDataPackageVal.substring(130, 134);
     // 卡状态(1字节 0 正常卡 1挂失卡 2卡不存在)+
-    let cardIdStatus = deviceCodeVal.substring(134, 136);
+    let cardIdStatus = deviceDataPackageVal.substring(134, 136);
     // 学工号(20字节 4字节的账号,4字节的卡号其他补0)+
-    let studentNo = deviceCodeVal.substring(136, 176);
+    let studentNo = deviceDataPackageVal.substring(136, 176);
     // CRC校验(2字节CRC校验(对账号进行校验),高字节在前)+
-    let studentCrc = deviceCodeVal.substring(176, 180);
+    let studentCrc = deviceDataPackageVal.substring(176, 180);
     // 用水量(4四字节)+
-    let waterTakeCount = deviceCodeVal.substring(180, 188);
+    let waterTakeCount = deviceDataPackageVal.substring(180, 188);
     // 用水时间(4四字节)+
-    let waterTakeTime = deviceCodeVal.substring(188, 196);
+    let waterTakeTime = deviceDataPackageVal.substring(188, 196);
     // 用户编号(15字节,无用字节写0)+
-    let userNo = deviceCodeVal.substring(196, 226);
+    let userNo = deviceDataPackageVal.substring(196, 226);
     // 用户密码(6字节)+
-    let userPwd = deviceCodeVal.substring(226, 238);
+    let userPwd = deviceDataPackageVal.substring(226, 238);
     // 预约用水时间段(4字节的开始时间)+
-    let reserveTimePeriodBegin = deviceCodeVal.substring(238, 246);
+    let reserveTimePeriodBegin = deviceDataPackageVal.substring(238, 246);
     // 预约用水时间段(4字节的结束时间)+
-    let reserveTimePeriodEnd = deviceCodeVal.substring(246, 254);
+    let reserveTimePeriodEnd = deviceDataPackageVal.substring(246, 254);
     // 预约后失效时间(2字节)+
-    let reserveInvalidTime = deviceCodeVal.substring(254, 258);
+    let reserveInvalidTime = deviceDataPackageVal.substring(254, 258);
     // 水温控制(2字节)+
-    let waterTempControl = deviceCodeVal.substring(258, 262);
+    let waterTempControl = deviceDataPackageVal.substring(258, 262);
     // 时间戳(4字节)+
-    let timeStamp = deviceCodeVal.substring(262, 270);
+    let timeStamp = deviceDataPackageVal.substring(262, 270);
     // 姓名(10字节,高字节在前)+
-    let userName = deviceCodeVal.substring(270, 290);
+    let userName = deviceDataPackageVal.substring(270, 290);
     // CRC 2字节
-    let crc = deviceCodeVal.substring(290, 294);
+    let crc = deviceDataPackageVal.substring(290, 294);
     analysisContext.empty();
     analysisContext.append('<h6>原码:</h6>');
-    analysisContext.append('<h6 style="word-wrap: break-word">' + deviceCodeVal + '</h6>');
+    analysisContext.append('<h6 style="word-wrap: break-word">' + deviceDataPackageVal + '</h6>');
     analysisContext.append('<h6>序列号：' + deviceSn + '  十进：' + parseInt(deviceSn, 16) + '</h6>');
     analysisContext.append('<h6>设备号：' + deviceNum + '  十进：' + parseInt(deviceNum, 16) + '</h6>');
     analysisContext.append('<h6>从设备号：' + subDeviceNum + '  十进：' + parseInt(subDeviceNum, 16) + '</h6>');
@@ -358,79 +369,79 @@
     analysisContext.append('<h6><strong>--------------------------------------------------------------------</strong></h6>');
     // 下面为数据部分
     // // 帖类型(1字节;00即实用水(ID卡用水、账号+密码用水);01预约用水)+
-    // let frameType = deviceCodeVal.substring(72, 74);
+    // let frameType = deviceDataPackageVal.substring(72, 74);
     analysisContext.append('<h6>帖类型(1字节;00即实用水(ID卡用水、账号+密码用水);01预约用水)：' + frameType + '  十进：' + parseInt(frameType, 16) + '</h6>');
     // // 帐号(4字节账号)+ 00000440
-    // let userId = deviceCodeVal.substring(74, 82);
+    // let userId = deviceDataPackageVal.substring(74, 82);
     analysisContext.append('<h6>帐号(4字节账号)：' + userId + '  十进：' + parseInt(userId, 16) + '</h6>');
     // // 卡号(4字节账号)+
-    // let cardNo = deviceCodeVal.substring(82, 90);
+    // let cardNo = deviceDataPackageVal.substring(82, 90);
     analysisContext.append('<h6>卡号(4字节账号)：' + cardNo + '  十进：' + parseInt(cardNo, 16) + '</h6>');
     // // 卡序号(1字节)+
-    // let cardSeq = deviceCodeVal.substring(90, 92);
+    // let cardSeq = deviceDataPackageVal.substring(90, 92);
     analysisContext.append('<h6>卡序号(1字节)：' + cardSeq + '  十进：' + parseInt(cardSeq, 16) + '</h6>');
     // // 扣费模式(1字节)+
-    // let chargingMode = deviceCodeVal.substring(92, 94);
+    // let chargingMode = deviceDataPackageVal.substring(92, 94);
     analysisContext.append('<h6>扣费模式(1字节)：' + chargingMode + '  十进：' + parseInt(chargingMode, 16) + '</h6>');
     // // 费率(4字节,时间模式分/秒,流量模式分/脉冲)+
-    // let chargingRate = deviceCodeVal.substring(94, 102);
+    // let chargingRate = deviceDataPackageVal.substring(94, 102);
     analysisContext.append('<h6>费率(4字节,时间模式分/秒,流量模式分/脉冲)：' + chargingRate + '  十进：' + parseInt(chargingRate, 16) + '</h6>');
     // // 卡计数器(2两字节)+
-    // let cardOpCount = deviceCodeVal.substring(102, 106);
+    // let cardOpCount = deviceDataPackageVal.substring(102, 106);
     analysisContext.append('<h6>卡计数器(2两字节)：' + cardOpCount + '  十进：' + parseInt(cardOpCount, 16) + '</h6>');
     // // 大钱包余额(4四字节)+
-    // let cardOddFare = deviceCodeVal.substring(106, 114);
+    // let cardOddFare = deviceDataPackageVal.substring(106, 114);
     analysisContext.append('<h6>大钱包余额(4四字节)：' + cardOddFare + '  十进：' + parseInt(cardOddFare, 16) + '</h6>');
     // // 补助计数器(2两字节)+
-    // let cardSubOpCount = deviceCodeVal.substring(114, 118);
+    // let cardSubOpCount = deviceDataPackageVal.substring(114, 118);
     analysisContext.append('<h6>补助计数器(2两字节)：' + cardSubOpCount + '  十进：' + parseInt(cardSubOpCount, 16) + '</h6>');
     // // 补助钱包余额(4四字节)+
-    // let cardSubOddFare = deviceCodeVal.substring(118, 126);
+    // let cardSubOddFare = deviceDataPackageVal.substring(118, 126);
     analysisContext.append('<h6>补助钱包余额(4四字节)：' + cardSubOddFare + '  十进：' + parseInt(cardSubOddFare, 16) + '</h6>');
     // // 使用金额(2两字节)+
-    // let opFare = deviceCodeVal.substring(126, 130);
+    // let opFare = deviceDataPackageVal.substring(126, 130);
     analysisContext.append('<h6>使用金额(2两字节)：' + opFare + '  十进：' + parseInt(opFare, 16) + '</h6>');
     // // 水龙头索引(2两字节,第一字节水龙头索引、第二字节水龙头索引补码)+
-    // let waterIndex = deviceCodeVal.substring(130, 134);
+    // let waterIndex = deviceDataPackageVal.substring(130, 134);
     analysisContext.append('<h6>水龙头索引(2两字节,第一字节水龙头索引、第二字节水龙头索引补码)：' + waterIndex + '  十进：' + parseInt(waterIndex, 16) + '</h6>');
     // // 卡状态(1字节 0 正常卡 1挂失卡 2卡不存在)+
-    // let cardIdStatus = deviceCodeVal.substring(134, 136);
+    // let cardIdStatus = deviceDataPackageVal.substring(134, 136);
     analysisContext.append('<h6>卡状态(1字节 0 正常卡 1挂失卡 2卡不存在)：' + cardIdStatus + '  十进：' + parseInt(cardIdStatus, 16) + '</h6>');
     // // 学工号(20字节 4字节的账号,4字节的卡号其他补0)+
-    // let studentNo = deviceCodeVal.substring(136, 176);
+    // let studentNo = deviceDataPackageVal.substring(136, 176);
     analysisContext.append('<h6>学工号(20字节 4字节的账号,4字节的卡号其他补0)：' + studentNo + '  十进：' + parseInt(studentNo, 16) + '</h6>');
     // // CRC校验(2字节CRC校验(对账号进行校验),高字节在前)+
-    // let studentCrc = deviceCodeVal.substring(176, 180);
+    // let studentCrc = deviceDataPackageVal.substring(176, 180);
     analysisContext.append('<h6>CRC校验(2字节CRC校验(对账号进行校验),高字节在前)：' + studentCrc + '  十进：' + parseInt(studentCrc, 16) + '</h6>');
     // // 用水量(4四字节)+
-    // let waterTakeCount = deviceCodeVal.substring(180, 188);
+    // let waterTakeCount = deviceDataPackageVal.substring(180, 188);
     analysisContext.append('<h6>用水量(4四字节)：' + waterTakeCount + '  十进：' + parseInt(waterTakeCount, 16) + '</h6>');
     // // 用水时间(4四字节)+
-    // let waterTakeTime = deviceCodeVal.substring(188, 196);
+    // let waterTakeTime = deviceDataPackageVal.substring(188, 196);
     analysisContext.append('<h6>用水时间(4四字节)：' + waterTakeTime + '  十进：' + parseInt(waterTakeTime, 16) + '</h6>');
     // // 用户编号(15字节,无用字节写0)+
-    // let userNo = deviceCodeVal.substring(196, 226);
+    // let userNo = deviceDataPackageVal.substring(196, 226);
     analysisContext.append('<h6>用户编号(15字节,无用字节写0)：' + userNo + '  十进：' + parseInt(userNo, 16) + '</h6>');
     // // 用户密码(6字节)+
-    // let userPwd = deviceCodeVal.substring(226, 238);
+    // let userPwd = deviceDataPackageVal.substring(226, 238);
     analysisContext.append('<h6>用户密码(6字节)：' + userPwd + '  十进：' + parseInt(userPwd, 16) + '</h6>');
     // 预约用水时间段(4字节的开始时间)+
-    // let reserveTimePeriodBegin = deviceCodeVal.substring(238, 246);
+    // let reserveTimePeriodBegin = deviceDataPackageVal.substring(238, 246);
     analysisContext.append('<h6>预约用水时间段(4字节的开始时间)：' + reserveTimePeriodBegin + '  十进：' + parseInt(reserveTimePeriodBegin, 16) + '</h6>');
     // 预约用水时间段(4字节的结束时间)+
-    // let reserveTimePeriodEnd = deviceCodeVal.substring(246, 254);
+    // let reserveTimePeriodEnd = deviceDataPackageVal.substring(246, 254);
     analysisContext.append('<h6>预约用水时间段(4字节的结束时间)：' + reserveTimePeriodEnd + '  十进：' + parseInt(reserveTimePeriodEnd, 16) + '</h6>');
     // // 预约后失效时间(2字节)+
-    // let reserveInvalidTime = deviceCodeVal.substring(246, 250);
+    // let reserveInvalidTime = deviceDataPackageVal.substring(246, 250);
     analysisContext.append('<h6>预约后失效时间(2字节)：' + reserveInvalidTime + '  十进：' + parseInt(reserveInvalidTime, 16) + '</h6>');
     // // 水温控制(2字节)+
-    // let waterTempControl = deviceCodeVal.substring(250, 254);
+    // let waterTempControl = deviceDataPackageVal.substring(250, 254);
     analysisContext.append('<h6>水温控制(2字节)：' + waterTempControl + '  十进：' + parseInt(waterTempControl, 16) + '</h6>');
     // // 时间戳(4字节)+
-    // let timeStamp = deviceCodeVal.substring(254, 262);
+    // let timeStamp = deviceDataPackageVal.substring(254, 262);
     analysisContext.append('<h6>时间戳(4字节)：' + timeStamp + '  十进：' + parseInt(timeStamp, 16) + '</h6>');
     // // 姓名(10字节,高字节在前)+
-    // let userName = deviceCodeVal.substring(262, 282);
+    // let userName = deviceDataPackageVal.substring(262, 282);
     analysisContext.append('<h6>姓名(10字节,高字节在前)：' + userName + '  十进：' + parseInt(userName, 16) + '</h6>');
     // 校验
     analysisContext.append('<h6><strong>--------------------------------------------------------------------</strong></h6>');
