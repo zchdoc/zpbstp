@@ -2,10 +2,10 @@
 set http_proxy=http://127.0.0.1:10809
 set https_proxy=http://127.0.0.1:10809
 
-git pull origin_gitee
+git pull origin_gitee Dev22-0617-DeployServer
 echo "pull origin_gitee success"
-git pull origin_github
+git pull origin_github  Dev22-0617-DeployServer
 echo "pull origin_github success"
-git pull origin_gitlab
+git pull origin_gitlab  Dev22-0617-DeployServer
 echo "pull origin_gitlab success"
 
