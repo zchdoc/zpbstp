@@ -1,131 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="favicon.ico" />
-    <title>FastUrl</title>
-    <!--<link rel="stylesheet" href="./css/styles.css">-->
-  </head>
-  <style>
-    .custom-zch {
-      height: 21px;
-      position: relative;
-      /*display: flex;*/
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .divBoxTipsContent {
-      color: #ffffff;
-      border: 2px none #242424;
-      border-bottom-style: solid;
-      margin: auto;
-    }
-    td {
-      padding: 0 5px;
-      align-items: center;
-      text-align: center;
-      border: 1px solid #ccc;
-    }
-    .custom-zch-favicon {
-      width: 18px;
-      height: 18px;
-    }
-    a:link,
-    a:visited {
-      color: rgb(79, 79, 224); /* 你希望链接始终保持的颜色 */
-      text-decoration: none; /* 如果不想要下划线，也可以这样设置 */
-    }
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" href="favicon.ico"/>
+  <title>FastUrl</title>
+  <!--<link rel="stylesheet" href="./css/styles.css">-->
+</head>
+<style>
+  .custom-zch {
+    height: 21px;
+    position: relative;
+    /*display: flex;*/
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .divBoxTipsContent {
+    color: #ffffff;
+    border: 2px none #242424;
+    border-bottom-style: solid;
+    margin: auto;
+  }
+  td {
+    padding: 0 5px;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  .custom-zch-favicon {
+    width: 18px;
+    height: 18px;
+  }
+  a:link,
+  a:visited {
+    color: rgb(79, 79, 224); /* 你希望链接始终保持的颜色 */
+    text-decoration: none; /* 如果不想要下划线，也可以这样设置 */
+  }
+  a:hover {
+    color: rgb(245, 28, 28); /* 鼠标悬停时的颜色 */
+  }
+  a:active {
+    color: rgb(236, 222, 96); /* 链接被点击的时候的颜色 */
+  }
+  a:focus {
+    outline: none; /* 去掉默认的轮廓 */
+    color: rgb(103, 109, 24);
+  }
+</style>
+<body>
+<!--Chrome-->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😶
+  </caption>
+  <tr>
+    <td>chrome://settings</td>
+    <td>chrome://bookmarks</td>
+  </tr>
+  <tr>
+    <td style="width: 200px;"><p class="divBoxTipsContent">WLL4890</p></td>
+    <td style="width: 200px;"><p class="divBoxTipsContent">WLL4890</p></td>
+  </tr>
+</table>
+<!--XB-->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😐
+  </caption>
+  <tr>
+    <td><a target="_blank" href="http://1.singbon.com:81/singbon/backgroud/system/admin/login.do" class="custom-zch">j181b</a></td>
+    <td><a target="_blank" href="http://a2.4000063966.com:81/xb/login.do" class="custom-zch">a281b</a></td>
+    <td><a target="_blank" href="http://a3c.4000063966.com:8081/xb/login.do" class="custom-zch">a381b</a></td>
+    <td><a target="_blank" href="http://a4c.4000063966.com:8081/xb/login.do" class="custom-zch">a481b</a></td>
+    <td><a target="_blank" href="http://1.singbon.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">j1CompInfo</a></td>
+    <td><a target="_blank" href="http://a2.4000063966.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">a2CompInfo</a></td>
+    <td><a target="_blank" href="http://a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a3CompInfo</a></td>
+    <td><a target="_blank" href="http://a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a4CompInfo</a></td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td colspan="8"><a target="_blank" href="https://zghnzch.gitee.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
+  </tr>
+</table>
+<!--Zch-->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😃
+  </caption>
+  <tr>
+    <td><a target="_blank" href="https://twitter.com/" class="custom-zch">twitter</a></td>
+    <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
+    <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
+    <td><a target="_blank" href="https://github.com/trending?since=daily" class="custom-zch">github</a></td>
+    <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
+    <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
 
-    a:hover {
-      color: rgb(245, 28, 28); /* 鼠标悬停时的颜色 */
-    }
-
-    a:active {
-      color: rgb(236, 222, 96); /* 链接被点击的时候的颜色 */
-    }
-    a:focus {
-      outline: none; /* 去掉默认的轮廓 */
-      color: rgb(103, 109, 24);
-    }
-  </style>
-  <body>
-    <!--Chrome -->
-    <table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
-      <caption>
-        🙂😶
-      </caption>
-      <tr>
-        <td>chrome://settings</td>
-        <td>chrome://bookmarks</td>
-      </tr>
-      <tr>
-        <td style="width: 200px;"><p class="divBoxTipsContent">WLL4890</p></td>
-        <td style="width: 200px;"><p class="divBoxTipsContent">WLL4890</p></td>
-      </tr>
-    </table>
-    <!--XB-->
-    <table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
-      <caption>
-        😐
-      </caption>
-      <tr>
-        <td><a target="_blank" href="http://1.singbon.com:81/singbon/backgroud/system/admin/login.do" class="custom-zch">j181b</a></td>
-        <td><a target="_blank" href="http://a2.4000063966.com:81/xb/login.do" class="custom-zch">a281b</a></td>
-        <td><a target="_blank" href="http://a3c.4000063966.com:8081/xb/login.do" class="custom-zch">a381b</a></td>
-        <td><a target="_blank" href="http://a4c.4000063966.com:8081/xb/login.do" class="custom-zch">a481b</a></td>
-        <td><a target="_blank" href="http://1.singbon.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">j1CompInfo</a></td>
-        <td><a target="_blank" href="http://a2.4000063966.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">a2CompInfo</a></td>
-        <td><a target="_blank" href="http://a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a3CompInfo</a></td>
-        <td><a target="_blank" href="http://a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a4CompInfo</a></td>
-      </tr>
-      <tr></tr>
-      <tr>
-        <td colspan="8"><a target="_blank" href="https://zghnzch.gitee.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
-      </tr>
-    </table>
-    <!--Zch-->
-    <table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
-      <caption>
-        😃
-      </caption>
-      <tr>
-        <td><a target="_blank" href="https://twitter.com/" class="custom-zch">twitter</a></td>
-        <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
-        <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
-        <td><a target="_blank" href="https://github.com/trending?since=daily" class="custom-zch">github</a></td>
-        <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
-        <td><a target="_blank" href="https://connect.linux.do/" class="custom-zch">LVlinux.do</a></td>
-        <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
-        <td>
-          <a target="_blank" href="https://www.baidu.com" class="custom-zch"> <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" class="custom-zch-favicon" /><span class="custom-zch-text">baidu</span> </a>
-        </td>
-      </tr>
-    </table>
-    <!--AI-EN -->
-    <table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
-      <caption>
-        😁
-      </caption>
-      <tr>
-        <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">coze.en</a></td>
-        <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">chat.openai</a></td>
-        <td><a target="_blank" href="https://groq.com/" class="custom-zch">groq</a></td>
-        <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">chat.mistral</a></td>
-        <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">perplexity</a></td>
-      </tr>
-    </table>
-    <!--AI-ZH -->
-    <table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
-      <caption>
-        😂
-      </caption>
-      <tr>
-        <td><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">moonshot</a></td>
-        <td><a target="_blank" href="https://www.coze.cn/sign?redirect=%2Fspace%2F7346541960162869283%2Fbot" class="custom-zch">coze.cn</a></td>
-        <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">tongyi</a></td>
-        <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">chatglm</a></td>
-        <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">xfyun</a></td>
-      </tr>
-    </table>
-  </body>
+  </tr>
+</table>
+<!--git-->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    🙂
+  </caption>
+  <tr>
+    <td><a target="_blank" href="https://app.netlify.com/" class="custom-zch">netlify</a></td>
+    <td><a target="_blank" href="https://github.com/trending?since=daily" class="custom-zch">github-t</a></td>
+    <td><a target="_blank" href="https://github.com/trending?since=weekly" class="custom-zch">github-w</a></td>
+    <td><a target="_blank" href="https://github.com/trending?since=monthly" class="custom-zch">github-m</a></td>
+    <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github-zch</a></td>
+    <td><a target="_blank" href="https://gitee.com/" class="custom-zch">gitee</a></td>
+    <td><a target="_blank" href="https://codeup.aliyun.com/" class="custom-zch">codeup</a></td>
+    <td><a target="_blank" href="https://gitlab.com/" class="custom-zch">gitlab</a></td>
+  </tr>
+</table>
+<!--AI-EN -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😁
+  </caption>
+  <tr>
+    <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">coze.en</a></td>
+    <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">chat.openai</a></td>
+    <td><a target="_blank" href="https://groq.com/" class="custom-zch">groq</a></td>
+    <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">chat.mistral</a></td>
+    <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">perplexity</a></td>
+  </tr>
+</table>
+<!--AI-ZH -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😂
+  </caption>
+  <tr>
+    <td><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">moonshot</a></td>
+    <td><a target="_blank" href="https://www.coze.cn/sign?redirect=%2Fspace%2F7346541960162869283%2Fbot" class="custom-zch">coze.cn</a></td>
+    <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">tongyi</a></td>
+    <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">chatglm</a></td>
+    <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">xfyun</a></td>
+  </tr>
+</table>
+<!--Searches -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😅
+  </caption>
+  <tr>
+    <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
+    <td><a target="_blank" href="https://www.duckduckgo.com" class="custom-zch">duckduckgo</a></td>
+    <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
+    <td>
+      <a target="_blank" href="https://www.baidu.com" class="custom-zch">
+        <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" class="custom-zch-favicon"/>
+        <span class="custom-zch-text">baidu</span>
+      </a>
+    </td>
+    <td><a target="_blank" href="https://www.sogou.com" class="custom-zch">sogou</a></td>
+    <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
+  </tr>
+</table>
+</body>
 </html>
