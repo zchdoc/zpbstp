@@ -157,5 +157,36 @@
     <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
   </tr>
 </table>
+<!-- remove duplicate elements -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+  <caption>
+    😆
+  </caption>
+  <tr>
+    <td>
+      <label>
+        <!--16,5,5,5,16,15,5,4,16,15,15,4,a,b,c,a,c,d,f,f,e,e,b-->
+        <input type="text" style="border: none; background-color: transparent; width: 100%;" placeholder="input your duplicate elements here" class="duplicate-elements">
+      </label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="duplication-removed-element"></p>
+    </td>
+  </tr>
+</table>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // remove duplicate elements
+    const input = document.querySelector('.duplicate-elements');
+    const output = document.querySelector('.duplication-removed-element');
+    input.addEventListener('input', function () {
+      const elements = input.value.split(',');
+      const uniqueElements = [...new Set(elements.map(element => element.trim()))];
+      output.textContent = uniqueElements.join(',');
+    });
+  });
+</script>
 </html>
