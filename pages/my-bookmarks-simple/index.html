@@ -25,6 +25,7 @@
     align-items: center;
     text-align: center;
     border: 1px solid #ccc;
+    border-radius: 5px;
   }
   .custom-zch-favicon {
     width: 18px;
@@ -45,10 +46,25 @@
     outline: none; /* 去掉默认的轮廓 */
     color: rgb(103, 109, 24);
   }
+  .table-urls {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+  .about-tools-remove-duplicate {
+    width: 28%;
+  }
+  .duplicate-elements-input {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
+  }
 </style>
 <body>
 <!--Chrome-->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<!-- style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto" -->
+<table class="table-urls about-chrome">
   <caption>
     😶
   </caption>
@@ -62,7 +78,7 @@
   </tr>
 </table>
 <!--XB-->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-xb">
   <caption>
     😐
   </caption>
@@ -82,7 +98,7 @@
   </tr>
 </table>
 <!--Zch-->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-socialize">
   <caption>
     😃
   </caption>
@@ -96,7 +112,7 @@
   </tr>
 </table>
 <!--git-->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-git">
   <caption>
     🙂
   </caption>
@@ -112,7 +128,7 @@
   </tr>
 </table>
 <!--AI-EN -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-ai-en">
   <caption>
     😁
   </caption>
@@ -125,7 +141,7 @@
   </tr>
 </table>
 <!--AI-ZH -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-ai-cn">
   <caption>
     😂
   </caption>
@@ -138,7 +154,7 @@
   </tr>
 </table>
 <!--Searches -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<table class="table-urls about-search-engines">
   <caption>
     😅
   </caption>
@@ -157,7 +173,7 @@
   </tr>
 </table>
 <!-- some translate websites -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto"> 
+<table class="table-urls about-search-translate">
   <caption>
     😉
   </caption>
@@ -172,7 +188,7 @@
   </tr>
 </table>
 <!-- remove duplicate elements -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto;width: 25%;">
+<table class="table-urls about-tools-remove-duplicate">
   <caption>
     信息去重😆英文逗号隔开
   </caption>
@@ -180,7 +196,8 @@
     <td>
       <label>
         <!--16,5,5,5,16,15,5,4,16,15,15,4,a,b,c,a,c,d,f,f,e,e,b-->
-        <input type="text" style="border: none; background-color: transparent; width: 100%;height: 50px;" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements">
+        <!-- style="border: none; background-color: transparent; width: 100%;height: 50px;" -->
+        <input type="text" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements-input">
       </label>
     </td>
   </tr>
@@ -192,23 +209,23 @@
 </table>
 </body>
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function () {
-  // remove duplicate elements
-  const input = document.querySelector(".duplicate-elements")
-  const output = document.querySelector(".duplication-removed-element")
-  // 去重
-  input.addEventListener("input", function () {
-    let inputValue = input.value;
-    // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
-    // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
-    //   inputValue = inputValue.replace(/，/g, ",");
-    // }
-    // 用于检测是否包含中文标点符号 ，。、等 
-    inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
-    const elements = inputValue.split(",");
-    const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
-    output.textContent = uniqueElements.join(",");
+  document.addEventListener("DOMContentLoaded", function () {
+    // remove duplicate elements
+    const input = document.querySelector(".duplicate-elements-input")
+    const output = document.querySelector(".duplication-removed-element")
+    // 去重
+    input.addEventListener("input", function () {
+      let inputValue = input.value;
+      // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
+      // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
+      //   inputValue = inputValue.replace(/，/g, ",");
+      // }
+      // 用于检测是否包含中文标点符号 ，。、等
+      inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
+      const elements = inputValue.split(",");
+      const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
+      output.textContent = uniqueElements.join(",");
+    })
   })
-})
 </script>
 </html>
