@@ -156,36 +156,59 @@
     <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
   </tr>
 </table>
-<!-- remove duplicate elements -->
-<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto">
+<!-- some translate websites -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto"> 
   <caption>
-    😆
+    😉
   </caption>
   <tr>
+    <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
+    <td><a target="_blank" href="https://translate.google.cn" class="custom-zch">fy-google-cn</a></td>
+    <td><a target="_blank" href="https://cn.bing.com/translator" class="custom-zch">fy-bing</a></td>
+    <td><a target="_blank" href="https://fanyi.baidu.com/mtpe-individual/multimodal" class="custom-zch">fy-baidu-ai</a></td>
+    <td><a target="_blank" href="https://fanyi.baidu.com/" class="custom-zch">fy-baidu</a></td>
+    <td><a target="_blank" href="https://www.coze.cn/store/bot/7353552059817426959" class="custom-zch">fy-coze-cn-zch</a></td>
+    <td><a target="_blank" href="https://www.coze.com/store/bot/7367281276442804225" class="custom-zch">fy-coze-en-zch</a></td>
+  </tr>
+</table>
+<!-- remove duplicate elements -->
+<table style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto;width: 22%;">
+  <caption>
+    信息去重😆逗号隔开
+  </caption>
+  <tr style="height: 30px;">
     <td>
       <label>
         <!--16,5,5,5,16,15,5,4,16,15,15,4,a,b,c,a,c,d,f,f,e,e,b-->
-        <input type="text" style="border: none; background-color: transparent; width: 100%;" placeholder="input your duplicate elements here" class="duplicate-elements">
+        <input type="text" style="border: none; background-color: transparent; width: 100%;" placeholder="用逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements">
       </label>
     </td>
   </tr>
-  <tr>
+  <tr style="height: 30px;">
     <td>
       <p class="duplication-removed-element"></p>
     </td>
   </tr>
 </table>
 </body>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // remove duplicate elements
-    const input = document.querySelector('.duplicate-elements');
-    const output = document.querySelector('.duplication-removed-element');
-    input.addEventListener('input', function () {
-      const elements = input.value.split(',');
-      const uniqueElements = [...new Set(elements.map(element => element.trim()))];
-      output.textContent = uniqueElements.join(',');
-    });
-  });
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+  // remove duplicate elements
+  const input = document.querySelector(".duplicate-elements")
+  const output = document.querySelector(".duplication-removed-element")
+  // 去重
+  input.addEventListener("input", function () {
+    let inputValue = input.value;
+    // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
+    // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
+    //   inputValue = inputValue.replace(/，/g, ",");
+    // }
+    // 用于检测是否包含中文标点符号 ，。、等 
+    inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
+    const elements = inputValue.split(",");
+    const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
+    output.textContent = uniqueElements.join(",");
+  })
+})
 </script>
 </html>
