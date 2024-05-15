@@ -10,22 +10,26 @@
   .custom-zch {
     height: 21px;
     position: relative;
-    /*display: flex;*/
     text-decoration: none;
     cursor: pointer;
-  }
-  .divBoxTipsContent {
-    color: #ffffff;
-    border: 2px none #242424;
-    border-bottom-style: solid;
-    margin: auto;
   }
   td {
     padding: 0 5px;
     align-items: center;
     text-align: center;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  .duplicate-elements-input {
+    border: none;
+    border-radius: 50px;
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
   }
   .custom-zch-favicon {
     width: 18px;
@@ -47,23 +51,16 @@
     color: rgb(103, 109, 24);
   }
   .table-urls {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
+    border: 5px solid #ccc;
+    border-radius: 10px;
     margin: 20px auto;
   }
   .about-tools-remove-duplicate {
     width: 28%;
   }
-  .duplicate-elements-input {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    height: 50px;
-  }
 </style>
 <body>
 <!--Chrome-->
-<!-- style="border: 1px solid #ccc; border-collapse: collapse; margin: 20px auto" -->
 <table class="table-urls about-chrome">
   <caption>
     😶
@@ -81,18 +78,25 @@
     😐
   </caption>
   <tr>
-    <td><a target="_blank" href="http://1.singbon.com:81/singbon/backgroud/system/admin/login.do" class="custom-zch">j181b</a></td>
-    <td><a target="_blank" href="http://a2.4000063966.com:81/xb/login.do" class="custom-zch">a281b</a></td>
-    <td><a target="_blank" href="http://a3c.4000063966.com:8081/xb/login.do" class="custom-zch">a381b</a></td>
-    <td><a target="_blank" href="http://a4c.4000063966.com:8081/xb/login.do" class="custom-zch">a481b</a></td>
+    <td><a target="_blank" href="http://1.singbon.com:81/" class="custom-zch">j1c</a></td>
+    <td><a target="_blank" href="http://a2.4000063966.com:81/" class="custom-zch">a2c</a></td>
+    <td><a target="_blank" href="http://a3c.4000063966.com:8081/" class="custom-zch">a3c</a></td>
+    <td><a target="_blank" href="http://a4c.4000063966.com:8081/" class="custom-zch">a4c</a></td>
     <td><a target="_blank" href="http://1.singbon.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">j1CompInfo</a></td>
     <td><a target="_blank" href="http://a2.4000063966.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">a2CompInfo</a></td>
+    <td><a target="_blank" href="http://cdz.4000063966.com:8081/" class="custom-zch">cdzc</a></td>
+  </tr>
+  <tr>
+    <td><a target="_blank" href="http://1.singbon.com:81/singbon/backgroud/system/admin/login.do" class="custom-zch">j1cb</a></td>
+    <td><a target="_blank" href="http://a2.4000063966.com:81/xb/login.do" class="custom-zch">a2cb</a></td>
+    <td><a target="_blank" href="http://a3c.4000063966.com:8081/xb/login.do" class="custom-zch">a3cb</a></td>
+    <td><a target="_blank" href="http://a4c.4000063966.com:8081/xb/login.do" class="custom-zch">a4cb</a></td>
     <td><a target="_blank" href="http://a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a3CompInfo</a></td>
     <td><a target="_blank" href="http://a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a4CompInfo</a></td>
+    <td><a target="_blank" href="https://cdz.4000063966.com:84/login" class="custom-zch">cdzcb</a></td>
   </tr>
-  <tr></tr>
   <tr>
-    <td colspan="8"><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
+    <td colspan="10"><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
   </tr>
 </table>
 <!--Zch-->
@@ -163,7 +167,7 @@
     <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
     <td>
       <a target="_blank" href="https://www.baidu.com" class="custom-zch">
-        <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" class="custom-zch-favicon"/>
+        <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" style="display: none;" class="custom-zch-favicon"/>
         <span class="custom-zch-text">baidu</span>
       </a>
     </td>
@@ -189,13 +193,11 @@
 <!-- remove duplicate elements -->
 <table class="table-urls about-tools-remove-duplicate">
   <caption>
-    信息去重😆英文逗号隔开
+    😆
   </caption>
   <tr style="height: 50px;">
     <td>
       <label>
-        <!--16,5,5,5,16,15,5,4,16,15,15,4,a,b,c,a,c,d,f,f,e,e,b-->
-        <!-- style="border: none; background-color: transparent; width: 100%;height: 50px;" -->
         <input type="text" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements-input">
       </label>
     </td>
