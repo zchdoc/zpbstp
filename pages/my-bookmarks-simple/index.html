@@ -7,11 +7,15 @@
   <!--<link rel="stylesheet" href="./css/styles.css">-->
 </head>
 <style>
+  body {
+    background-color: #ffffffff;
+  }
   .custom-zch {
     height: 21px;
     position: relative;
     text-decoration: none;
     cursor: pointer;
+    color: #0069d9;
   }
   td {
     padding: 0 5px;
@@ -84,34 +88,35 @@
     😐
   </caption>
   <tr>
-    <td><a target="_blank" href="http://1.singbon.com:81/" class="custom-zch">j1c</a></td>
-    <td><a target="_blank" href="http://a2.4000063966.com:81/" class="custom-zch">a2c</a></td>
-    <td><a target="_blank" href="http://a3c.4000063966.com:8081/" class="custom-zch">a3c</a></td>
-    <td><a target="_blank" href="http://a4c.4000063966.com:8081/" class="custom-zch">a4c</a></td>
-    <td><a target="_blank" href="http://1.singbon.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">j1CompInfo</a></td>
-    <td><a target="_blank" href="http://a2.4000063966.com:81/netInterface/singbon/companyIndex.do" class="custom-zch">a2CompInfo</a></td>
-    <td><a target="_blank" href="http://cdz.4000063966.com:8081/" class="custom-zch">cdzc</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81')" class="custom-zch">j1c</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81')" class="custom-zch">a2c</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081')" class="custom-zch">a3c</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081')" class="custom-zch">a4c</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">j1CompInfo</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">a2CompInfo</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081')" class="custom-zch">cdzc</a></td>
     <td rowspan="2"><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
   </tr>
   <tr>
-    <td><a target="_blank" href="http://1.singbon.com:81/singbon/backgroud/system/admin/login.do" class="custom-zch">j1cb</a></td>
-    <td><a target="_blank" href="http://a2.4000063966.com:81/xb/login.do" class="custom-zch">a2cb</a></td>
-    <td><a target="_blank" href="http://a3c.4000063966.com:8081/xb/login.do" class="custom-zch">a3cb</a></td>
-    <td><a target="_blank" href="http://a4c.4000063966.com:8081/xb/login.do" class="custom-zch">a4cb</a></td>
-    <td><a target="_blank" href="http://a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a3CompInfo</a></td>
-    <td><a target="_blank" href="http://a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do" class="custom-zch">a4CompInfo</a></td>
-    <td><a target="_blank" href="https://cdz.4000063966.com:84/login" class="custom-zch">cdzcb</a></td>
-
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">j1cb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')" class="custom-zch">a2cb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3CompInfo</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4CompInfo</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:84/login')" href="https://" class="custom-zch">cdzcb</a></td>
   </tr>
   <tr>
-    <td colspan="3">
+    <td colspan="3" style="border: none;color: #ffffff">
       郑州兴邦科技有限公司
     </td>
-    <td colspan="2">
+    <td colspan="2" style="border: none;color: #ffffff">
       郑州兴邦电子股份有限公司
     </td>
-    <td colspan="2">chrome://chrome-urls</td>
-    <td></td>
+    <td colspan="2" style="border: none;color: #ffffff">
+      chrome://chrome-urls
+    </td>
+    <td style="border: none;color: #ffffff"></td>
   </tr>
 </table>
 <!--Zch-->
@@ -220,6 +225,10 @@
 </body>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
+    removeDuplicateElements();
+  })
+  // remove duplicate elements
+  function removeDuplicateElements() {
     // remove duplicate elements
     const input = document.querySelector(".duplicate-elements-input")
     const output = document.querySelector(".duplication-removed-element")
@@ -236,6 +245,13 @@
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
       output.textContent = uniqueElements.join(",");
     })
-  })
+  }
+  // 打开链接
+  function openHttpLinkInNewTab(url) {
+    console.info(this);
+    url = 'http' + '://' + url;
+    // 在新标签页中打开链接
+    window.open(url, '_blank');
+  }
 </script>
 </html>
