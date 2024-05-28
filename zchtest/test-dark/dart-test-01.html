@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    :root {
+      --color: #1E1F22;
+      --bg-color: #F7F8FA;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color: #F7F8FA;
+        --bg-color: #1E1F22;
+      }
+    }
+    body {
+      color: var(--color);
+      background-color: var(--bg-color);
+    }
+  </style>
+</head>
+<body>
+Hello Theme!
+<button id="btnChangeToDarkTheme">切换到暗色主题</button>
+<button id="btnChangeToLightTheme">切换到亮色主题</button>
+</body>
+<script>
+  // 当文档加载完毕时执行
+  document.addEventListener('DOMContentLoaded', function () {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme)');
+    console.info('mediaQuery:', mediaQuery, typeof mediaQuery);
+    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
+    console.info('mediaQueryListDark:', mediaQueryListDark, typeof mediaQueryListDark);
+    // 添加主题变动监控事件 mediaQueryListDark.addListener(handleChange)
+    mediaQueryListDark.addEventListener('change', handleChange);
+    // 移除主题变动监控事件 mediaQueryListDark.removeListener(handleChange)
+    mediaQueryListDark.removeEventListener('change', handleChange);
+    if (mediaQueryListDark.matches) {
+      // 系统当前是暗色(dark)主题
+      console.info('系统当前是暗色(dark)主题');
+    }
+    const mediaQueryListLight = window.matchMedia('(prefers-color-scheme:light)');
+    if (mediaQueryListLight.matches) {
+      // 系统当前是亮色(light)主题
+      console.info('系统当前是亮色(light)主题');
+    }
+    // 获取按钮
+    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
+    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
+    // 为按钮添加事件监听器
+    darkThemeBtn.addEventListener('click', function () {
+      changeThemeToDark();
+    });
+    lightThemeBtn.addEventListener('click', function () {
+      changeThemeToLight();
+    });
+  });
+  function handleChange(mediaQueryListEvent) {
+    if (mediaQueryListEvent.matches) {
+      // 用户切换到了暗色(dark)主题
+      changeThemeToDark();
+    }
+    else {
+      // 用户切换到了亮色(light)主题
+      changeThemeToLight();
+    }
+  }
+  function changeThemeToDark() {
+    document.documentElement.style.setProperty('--color', '#F7F8FA');
+    document.documentElement.style.setProperty('--bg-color', '#1E1F22');
+  }
+  function changeThemeToLight() {
+    document.documentElement.style.setProperty('--color', '#1E1F22');
+    document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
+  }
+</script>
+</html>

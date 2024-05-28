@@ -7,15 +7,34 @@
   <!--<link rel="stylesheet" href="./css/styles.css">-->
 </head>
 <style>
-  body {
-    background-color: #ffffffff;
+  :root {
+    --color: #1E1F22;
+    --bg-color: #F7F8FA;
   }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color: #F7F8FA;
+      --bg-color: #1E1F22;
+      --a-href-color: #F7F8FA;
+    }
+  }
+  body {
+    color: var(--color);
+    background-color: var(--bg-color);
+  }
+  body, html {
+    font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin: 0;
+    min-height: unset;
+    min-width: unset;
+    padding: 0;
+  }
+  /*color: #0069d9;*/
   .custom-zch {
     height: 21px;
     position: relative;
     text-decoration: none;
     cursor: pointer;
-    color: #0069d9;
   }
   td {
     padding: 0 5px;
@@ -39,13 +58,15 @@
     width: 18px;
     height: 18px;
   }
-  a:link,
+  a:link {
+    color: var(--a-href-color); /* 链接的默认颜色 */
+  }
   a:visited {
     color: rgb(79, 79, 224); /* 你希望链接始终保持的颜色 */
     text-decoration: none; /* 如果不想要下划线，也可以这样设置 */
   }
   a:hover {
-    color: rgb(245, 28, 28); /* 鼠标悬停时的颜色 */
+    color: #1890ff; /* 鼠标悬停时的颜色 */
   }
   a:active {
     color: rgb(236, 222, 96); /* 链接被点击的时候的颜色 */
@@ -64,6 +85,14 @@
   }
 </style>
 <body>
+<!--dark-light 🌞🌝🌜🌛🌚🌙-->
+<table class="table-urls about-chrome">
+  <caption></caption>
+  <tr>
+    <td><a href="#" id="btnChangeToLightTheme">🌞</a></td>
+    <td><a href="#" id="btnChangeToDarkTheme">🌜</a></td>
+  </tr>
+</table>
 <!--Chrome-->
 <table class="table-urls about-chrome" style="display: none;">
   <caption>
@@ -104,7 +133,7 @@
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3CompInfo</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4CompInfo</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:84/login')" href="https://" class="custom-zch">cdzcb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:84/login')" class="custom-zch">cdzcb</a></td>
   </tr>
   <tr>
     <td colspan="3" style="border: none;color: #ffffff">
@@ -130,7 +159,7 @@
     <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
     <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
     <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/nav-z/" class="custom-zch">nav-z</a></td>
+    <td><a target="_blank" href="https://zchdoc.github.io/nav-z" class="custom-zch">nav-z</a></td>
   </tr>
 </table>
 <!--Git-->
@@ -226,6 +255,35 @@
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     removeDuplicateElements();
+    const mediaQuery = window.matchMedia('(prefers-color-scheme)');
+    console.info('mediaQuery:', mediaQuery, typeof mediaQuery);
+    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
+    console.info('mediaQueryListDark:', mediaQueryListDark, typeof mediaQueryListDark);
+    // 添加主题变动监控事件 mediaQueryListDark.addListener(handleChange)
+    mediaQueryListDark.addEventListener('change', handleChange);
+    // 移除主题变动监控事件 mediaQueryListDark.removeListener(handleChange)
+    mediaQueryListDark.removeEventListener('change', handleChange);
+    if (mediaQueryListDark.matches) {
+      // 系统当前是暗色(dark)主题
+      console.info('系统当前是暗色(dark)主题');
+      changeALinkColor('#F7F8FA');
+    }
+    const mediaQueryListLight = window.matchMedia('(prefers-color-scheme:light)');
+    if (mediaQueryListLight.matches) {
+      // 系统当前是亮色(light)主题
+      console.info('系统当前是亮色(light)主题');
+      changeALinkColor('#1E1F22');
+    }
+    // 获取按钮
+    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
+    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
+    // 为按钮添加事件监听器
+    darkThemeBtn.addEventListener('click', function () {
+      changeThemeToDark();
+    });
+    lightThemeBtn.addEventListener('click', function () {
+      changeThemeToLight();
+    });
   })
   // remove duplicate elements
   function removeDuplicateElements() {
@@ -252,6 +310,30 @@
     url = 'http' + '://' + url;
     // 在新标签页中打开链接
     window.open(url, '_blank');
+  }
+  //
+  function handleChange(mediaQueryListEvent) {
+    if (mediaQueryListEvent.matches) {
+      // 用户切换到了暗色(dark)主题
+      changeThemeToDark();
+    }
+    else {
+      // 用户切换到了亮色(light)主题
+      changeThemeToLight();
+    }
+  }
+  function changeThemeToDark() {
+    document.documentElement.style.setProperty('--color', '#F7F8FA');
+    document.documentElement.style.setProperty('--bg-color', '#1E1F22');
+    changeALinkColor('#F7F8FA');
+  }
+  function changeThemeToLight() {
+    document.documentElement.style.setProperty('--color', '#1E1F22');
+    document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
+    changeALinkColor('#1E1F22');
+  }
+  function changeALinkColor(color) {
+    document.documentElement.style.setProperty('--a-href-color', color);
   }
 </script>
 </html>
