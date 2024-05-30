@@ -23,7 +23,9 @@
     background-color: var(--bg-color);
   }
   body, html {
-    font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    /*font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
+    font-size: 16px;
     margin: 0;
     min-height: unset;
     min-width: unset;
@@ -59,17 +61,18 @@
     height: 18px;
   }
   a:link {
-    color: var(--a-href-color); /* 链接的默认颜色 */
+    color: var(--a-href-color);
   }
   a:visited {
     /*color: rgb(79, 79, 224);*/
+    color: var(--a-href-color);
     text-decoration: none;
   }
   a:hover {
-    color: #1890ff; /* 鼠标悬停时的颜色 */
+    color: #1890ff;
   }
   a:active {
-    color: rgb(236, 222, 96); /* 链接被点击的时候的颜色 */
+    color: rgb(236, 222, 96);
   }
   a:focus {
     outline: none; /* 去掉默认的轮廓 */
