@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="favicon.ico"/>
+  <link rel="icon" href="../favicon.ico"/>
   <title>FastUrl</title>
   <!--<link rel="stylesheet" href="./css/styles.css">-->
 </head>
@@ -259,36 +259,67 @@
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     removeDuplicateElements();
-    const mediaQuery = window.matchMedia('(prefers-color-scheme)');
-    console.info('mediaQuery:', mediaQuery, typeof mediaQuery);
-    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
-    console.info('mediaQueryListDark:', mediaQueryListDark, typeof mediaQueryListDark);
-    // 添加主题变动监控事件 mediaQueryListDark.addListener(handleChange)
-    mediaQueryListDark.addEventListener('change', handleChange);
-    // 移除主题变动监控事件 mediaQueryListDark.removeListener(handleChange)
-    mediaQueryListDark.removeEventListener('change', handleChange);
-    if (mediaQueryListDark.matches) {
-      // 系统当前是暗色(dark)主题
-      console.info('系统当前是暗色(dark)主题');
-      changeALinkColor('#F7F8FA');
-    }
-    const mediaQueryListLight = window.matchMedia('(prefers-color-scheme:light)');
-    if (mediaQueryListLight.matches) {
-      // 系统当前是亮色(light)主题
-      console.info('系统当前是亮色(light)主题');
-      changeALinkColor('#1E1F22');
-    }
+    monitorSystemThemeChange();
     // 获取按钮
     const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
     const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
     // 为按钮添加事件监听器
     darkThemeBtn.addEventListener('click', function () {
-      changeThemeToDark();
+      changeTheme('dark', true);
     });
     lightThemeBtn.addEventListener('click', function () {
-      changeThemeToLight();
+      changeTheme('light', true);
     });
   })
+  // 打开链接
+  function openHttpLinkInNewTab(url) {
+    console.info(this);
+    url = 'http' + '://' + url;
+    // 在新标签页中打开链接
+    window.open(url, '_blank');
+  }
+  function monitorSystemThemeChange() {
+    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
+    mediaQueryListDark.addEventListener('change', handleChange);
+    // 检查localStorage 中的偏好设置
+    const savedTheme = localStorage.getItem('theme');
+    console.info('savedTheme:', savedTheme, typeof savedTheme);
+    if (savedTheme) {
+      changeTheme(savedTheme, false);
+    }
+    else {
+      // 第一次没有用户自定义主题时，根据系统主题变化
+      console.info('根据系统主题变化')
+      handleChange(mediaQueryListDark);
+    }
+  }
+  function handleChange(mediaQueryListEvent) {
+    if (mediaQueryListEvent.matches) {
+      changeTheme('dark', false);
+    }
+    else {
+      changeTheme('light', false);
+    }
+  }
+  function changeTheme(theme, isUserInitiated) {
+    if (theme === 'dark') {
+      document.documentElement.style.setProperty('--color', '#F7F8FA');
+      document.documentElement.style.setProperty('--bg-color', '#1E1F22');
+      changeALinkColor('#F7F8FA');
+    }
+    else {
+      document.documentElement.style.setProperty('--color', '#1E1F22');
+      document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
+      changeALinkColor('#1E1F22');
+    }
+    if (isUserInitiated) {
+      // 如果是用户切换主题, 则保存到localstorage
+      localStorage.setItem('theme', theme);
+    }
+  }
+  function changeALinkColor(color) {
+    document.documentElement.style.setProperty('--a-href-color', color);
+  }
   // remove duplicate elements
   function removeDuplicateElements() {
     // remove duplicate elements
@@ -307,37 +338,6 @@
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
       output.textContent = uniqueElements.join(",");
     })
-  }
-  // 打开链接
-  function openHttpLinkInNewTab(url) {
-    console.info(this);
-    url = 'http' + '://' + url;
-    // 在新标签页中打开链接
-    window.open(url, '_blank');
-  }
-  //
-  function handleChange(mediaQueryListEvent) {
-    if (mediaQueryListEvent.matches) {
-      // 用户切换到了暗色(dark)主题
-      changeThemeToDark();
-    }
-    else {
-      // 用户切换到了亮色(light)主题
-      changeThemeToLight();
-    }
-  }
-  function changeThemeToDark() {
-    document.documentElement.style.setProperty('--color', '#F7F8FA');
-    document.documentElement.style.setProperty('--bg-color', '#1E1F22');
-    changeALinkColor('#F7F8FA');
-  }
-  function changeThemeToLight() {
-    document.documentElement.style.setProperty('--color', '#1E1F22');
-    document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
-    changeALinkColor('#1E1F22');
-  }
-  function changeALinkColor(color) {
-    document.documentElement.style.setProperty('--a-href-color', color);
   }
 </script>
 </html>

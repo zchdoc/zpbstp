@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR-Styling-3</title>
+  <script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+    }
+    .options {
+      width: 50%;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .preview {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: inline-block;
+      width: 200px;
+    }
+    select, input {
+      width: 200px;
+    }
+    h2, h4 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="options">
+  <h3>QR Code Options</h3>
+  <div class="form-group">
+    <label for="width">width:</label>
+    <input type="number" id="width" value="300">
+  </div>
+  <div class="form-group">
+    <label for="height">height:</label>
+    <input type="number" id="height" value="300">
+  </div>
+  <div class="form-group">
+    <label for="type">type:</label>
+    <select id="type">
+      <option value="canvas">canvas</option>
+      <option value="svg">svg</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="data">data:</label>
+    <input type="text" id="data" value="https://example.com">
+  </div>
+  <div class="form-group">
+    <label for="margin">margin:</label>
+    <input type="number" id="margin" value="10">
+  </div>
+  <div class="form-group">
+    <label for="image">image:</label>
+    <input type="text" id="image" value="">
+  </div>
+  <!--qrOptions-->
+  <h4>qrOptions</h4>
+  <div class="form-group">
+    <label for="qrOptions-typeNumber">typeNumber:</label>
+    <select id="qrOptions-typeNumber">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="qrOptions-mode">mode:</label>
+    <select id="qrOptions-mode">
+      <option value="Numeric">Numeric</option>
+      <option value="Alphanumeric">Alphanumeric</option>
+      <option value="Byte">Byte</option>
+      <option value="Kanji">Kanji</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="qrOptions-errorCorrectionLevel">errorCorrectionLevel:</label>
+    <select id="qrOptions-errorCorrectionLevel">
+      <option value="L">L</option>
+      <option value="M">M</option>
+      <option value="Q">Q</option>
+      <option value="H">H</option>
+    </select>
+  </div>
+  <!--imageOptions-->
+  <h4>imageOptions</h4>
+  <div class="form-group">
+    <label for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
+    <select id="imageOptions-hideBackgroundDots">
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="imageOptions-imageSize">imageSize:</label>
+    <input type="number" id="imageOptions-imageSize" value="0.4" step="0.1">
+  </div>
+  <div class="form-group">
+    <label for="imageOptions-margin">margin:</label>
+    <input type="number" id="imageOptions-margin" value="10">
+  </div>
+  <div class="form-group">
+    <label for="imageOptions-crossOrigin">crossOrigin:</label>
+    <select id="imageOptions-crossOrigin">
+      <option value="anonymous">anonymous</option>
+      <option value="use-credentials">use-credentials</option>
+    </select>
+  </div>
+  <!--dotsOptions-->
+  <h4>dotsOptions</h4>
+  <div class="form-group">
+    <label for="dotsOptions-color">color:</label>
+    <input type="color" id="dotsOptions-color" value="#000000">
+  </div>
+  <div class="form-group">
+    <label for="dotsOptions-type">type:</label>
+    <select id="dotsOptions-type">
+      <option value="square">square</option>
+      <option value="dots">dots</option>
+      <option value="rounded">rounded</option>
+      <option value="extra-rounded">extra-rounded</option>
+      <option value="classy">classy</option>
+      <option value="classy-rounded">classy-rounded</option>
+    </select>
+  </div>
+  <!--cornersSquareOptions-->
+  <h4>cornersSquareOptions</h4>
+  <div class="form-group">
+    <label for="cornersSquareOptions-color">color:</label>
+    <input type="color" id="cornersSquareOptions-color" value="#000000">
+  </div>
+  <div class="form-group">
+    <label for="cornersSquareOptions-type">type:</label>
+    <select id="cornersSquareOptions-type">
+      <option value="square">square</option>
+      <option value="dot">dot</option>
+      <option value="extra-rounded">extra-rounded</option>
+    </select>
+  </div>
+  <!--cornersDotOptions-->
+  <h4>cornersDotOptions</h4>
+  <div class="form-group">
+    <label for="cornersDotOptions-color">color:</label>
+    <input type="color" id="cornersDotOptions-color" value="#000000">
+  </div>
+  <div class="form-group">
+    <label for="cornersDotOptions-type">type:</label>
+    <select id="cornersDotOptions-type">
+      <option value="square">square</option>
+      <option value="dot">dot</option>
+    </select>
+  </div>
+  <!--backgroundOptions-->
+  <h4>backgroundOptions</h4>
+  <div class="form-group">
+    <label for="backgroundOptions-color">color:</label>
+    <input type="color" id="backgroundOptions-color" value="#ffffff">
+  </div>
+</div>
+<div class="preview">
+  <div id="qrcode"></div>
+</div>
+<script>
+  let qrCode;
+  function updateQRCode() {
+    const options = {
+      width: parseInt(document.getElementById('width').value),
+      height: parseInt(document.getElementById('height').value),
+      type: document.getElementById('type').value,
+      data: document.getElementById('data').value,
+      margin: parseInt(document.getElementById('margin').value),
+      image: document.getElementById('image').value,
+      qrOptions: {
+        typeNumber: parseInt(document.getElementById('qrOptions-typeNumber').value),
+        // mode: document.getElementById('qrOptions-mode').value,
+        errorCorrectionLevel: document.getElementById('qrOptions-errorCorrectionLevel').value
+      },
+      imageOptions: {
+        hideBackgroundDots: document.getElementById('imageOptions-hideBackgroundDots').value === 'true',
+        imageSize: parseFloat(document.getElementById('imageOptions-imageSize').value),
+        margin: parseInt(document.getElementById('imageOptions-margin').value),
+        crossOrigin: document.getElementById('imageOptions-crossOrigin').value
+      },
+      dotsOptions: {
+        color: document.getElementById('dotsOptions-color').value,
+        type: document.getElementById('dotsOptions-type').value
+      },
+      cornersSquareOptions: {
+        color: document.getElementById('cornersSquareOptions-color').value,
+        type: document.getElementById('cornersSquareOptions-type').value
+      },
+      cornersDotOptions: {
+        color: document.getElementById('cornersDotOptions-color').value,
+        type: document.getElementById('cornersDotOptions-type').value
+      },
+      backgroundOptions: {
+        color: document.getElementById('backgroundOptions-color').value
+      }
+    };
+    if (qrCode) {
+      console.info('qrCode1:',qrCode);
+      qrCode.update(options);
+    }
+    else {
+      console.info('qrCode2:',qrCode);
+      qrCode = new QRCodeStyling(options);
+      qrCode.append(document.getElementById("qrcode"));
+    }
+  }
+  // Add event listeners to all input and select elements
+  document.querySelectorAll('input, select').forEach(element => {
+    element.addEventListener('change', updateQRCode);
+  });
+  // Initial QR code generation
+  window.onload = updateQRCode;
+</script>
+</body>
+</html>

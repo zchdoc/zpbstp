@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR-Styling-4-1</title>
+  <script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+    }
+    .options {
+      width: 50%;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .preview {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: inline-block;
+      width: 200px;
+    }
+    select, input {
+      width: 200px;
+    }
+    h2, h4 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="options">
+  <h3>QR Code Options</h3>
+  <!-- ... (previous form groups remain unchanged) ... -->
+  <!--dotsOptions-->
+  <h4>dotsOptions</h4>
+  <div class="form-group">
+    <label for="dotsOptions-color">color:</label>
+    <input type="color" id="dotsOptions-color" value="#000000">
+  </div>
+  <div class="form-group">
+    <label for="dotsOptions-type">type:</label>
+    <select id="dotsOptions-type">
+      <option value="square">square</option>
+      <option value="dots">dots</option>
+      <option value="rounded">rounded</option>
+      <option value="extra-rounded">extra-rounded</option>
+      <option value="classy">classy</option>
+      <option value="classy-rounded">classy-rounded</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="dotsOptions-gradient">gradient:</label>
+    <select id="dotsOptions-gradient">
+      <option value="none">None</option>
+      <option value="linear">Linear</option>
+      <option value="radial">Radial</option>
+    </select>
+  </div>
+  <div id="dotsGradientOptions" style="display:none;">
+    <div class="form-group">
+      <label for="dotsOptions-gradient-color1">Color 1:</label>
+      <input type="color" id="dotsOptions-gradient-color1" value="#000000">
+    </div>
+    <div class="form-group">
+      <label for="dotsOptions-gradient-color2">Color 2:</label>
+      <input type="color" id="dotsOptions-gradient-color2" value="#ffffff">
+    </div>
+  </div>
+  <!--cornersSquareOptions-->
+  <h4>cornersSquareOptions</h4>
+  <!-- ... (previous cornersSquareOptions remain unchanged) ... -->
+  <div class="form-group">
+    <label for="cornersSquareOptions-gradient">gradient:</label>
+    <select id="cornersSquareOptions-gradient">
+      <option value="none">None</option>
+      <option value="linear">Linear</option>
+      <option value="radial">Radial</option>
+    </select>
+  </div>
+  <div id="cornersSquareGradientOptions" style="display:none;">
+    <div class="form-group">
+      <label for="cornersSquareOptions-gradient-color1">Color 1:</label>
+      <input type="color" id="cornersSquareOptions-gradient-color1" value="#000000">
+    </div>
+    <div class="form-group">
+      <label for="cornersSquareOptions-gradient-color2">Color 2:</label>
+      <input type="color" id="cornersSquareOptions-gradient-color2" value="#ffffff">
+    </div>
+  </div>
+  <!--cornersDotOptions-->
+  <h4>cornersDotOptions</h4>
+  <!-- ... (previous cornersDotOptions remain unchanged) ... -->
+  <div class="form-group">
+    <label for="cornersDotOptions-gradient">gradient:</label>
+    <select id="cornersDotOptions-gradient">
+      <option value="none">None</option>
+      <option value="linear">Linear</option>
+      <option value="radial">Radial</option>
+    </select>
+  </div>
+  <div id="cornersDotGradientOptions" style="display:none;">
+    <div class="form-group">
+      <label for="cornersDotOptions-gradient-color1">Color 1:</label>
+      <input type="color" id="cornersDotOptions-gradient-color1" value="#000000">
+    </div>
+    <div class="form-group">
+      <label for="cornersDotOptions-gradient-color2">Color 2:</label>
+      <input type="color" id="cornersDotOptions-gradient-color2" value="#ffffff">
+    </div>
+  </div>
+  <!--backgroundOptions-->
+  <h4>backgroundOptions</h4>
+  <!-- ... (previous backgroundOptions remain unchanged) ... -->
+  <div class="form-group">
+    <label for="backgroundOptions-gradient">gradient:</label>
+    <select id="backgroundOptions-gradient">
+      <option value="none">None</option>
+      <option value="linear">Linear</option>
+      <option value="radial">Radial</option>
+    </select>
+  </div>
+  <div id="backgroundGradientOptions" style="display:none;">
+    <div class="form-group">
+      <label for="backgroundOptions-gradient-color1">Color 1:</label>
+      <input type="color" id="backgroundOptions-gradient-color1" value="#ffffff">
+    </div>
+    <div class="form-group">
+      <label for="backgroundOptions-gradient-color2">Color 2:</label>
+      <input type="color" id="backgroundOptions-gradient-color2" value="#f0f0f0">
+    </div>
+  </div>
+</div>
+<div class="preview">
+  <div id="qrcode"></div>
+  <button id="downloadPNG">Download PNG</button>
+  <button id="downloadSVG">Download SVG</button>
+</div>
+<script>
+  let qrCode;
+  function updateQRCode() {
+    const options = {
+      width: parseInt(document.getElementById('width').value),
+      height: parseInt(document.getElementById('height').value),
+      type: document.getElementById('type').value,
+      data: document.getElementById('data').value,
+      margin: parseInt(document.getElementById('margin').value),
+      image: document.getElementById('image').value,
+      qrOptions: {
+        typeNumber: parseInt(document.getElementById('qrOptions-typeNumber').value),
+        errorCorrectionLevel: document.getElementById('qrOptions-errorCorrectionLevel').value
+      },
+      imageOptions: {
+        hideBackgroundDots: document.getElementById('imageOptions-hideBackgroundDots').value === 'true',
+        imageSize: parseFloat(document.getElementById('imageOptions-imageSize').value),
+        margin: parseInt(document.getElementById('imageOptions-margin').value),
+        crossOrigin: document.getElementById('imageOptions-crossOrigin').value
+      },
+      dotsOptions: {
+        color: document.getElementById('dotsOptions-color').value,
+        type: document.getElementById('dotsOptions-type').value,
+        gradient: getGradient('dotsOptions')
+      },
+      cornersSquareOptions: {
+        color: document.getElementById('cornersSquareOptions-color').value,
+        type: document.getElementById('cornersSquareOptions-type').value,
+        gradient: getGradient('cornersSquareOptions')
+      },
+      cornersDotOptions: {
+        color: document.getElementById('cornersDotOptions-color').value,
+        type: document.getElementById('cornersDotOptions-type').value,
+        gradient: getGradient('cornersDotOptions')
+      },
+      backgroundOptions: {
+        color: document.getElementById('backgroundOptions-color').value,
+        gradient: getGradient('backgroundOptions')
+      }
+    };
+    if (qrCode) {
+      qrCode.update(options);
+    }
+    else {
+      qrCode = new QRCodeStyling(options);
+      qrCode.append(document.getElementById("qrcode"));
+    }
+  }
+  function getGradient(optionType) {
+    const gradientType = document.getElementById(`${optionType}-gradient`).value;
+    if (gradientType === 'none') return null;
+    return {
+      type: gradientType,
+      rotation: 0,
+      colorStops: [
+        {offset: 0, color: document.getElementById(`${optionType}-gradient-color1`).value},
+        {offset: 1, color: document.getElementById(`${optionType}-gradient-color2`).value}
+      ]
+    };
+  }
+  function toggleGradientOptions(optionType) {
+    const gradientSelect = document.getElementById(`${optionType}-gradient`);
+    const gradientOptions = document.getElementById(`${optionType}GradientOptions`);
+    gradientOptions.style.display = gradientSelect.value !== 'none' ? 'block' : 'none';
+  }
+  // Add event listeners to all input and select elements
+  document.querySelectorAll('input, select').forEach(element => {
+    element.addEventListener('change', updateQRCode);
+  });
+  // Add event listeners for gradient toggles
+  ['dotsOptions', 'cornersSquareOptions', 'cornersDotOptions', 'backgroundOptions'].forEach(optionType => {
+    const gradientSelect = document.getElementById(`${optionType}-gradient`);
+    gradientSelect.addEventListener('change', () => {
+      toggleGradientOptions(optionType);
+      updateQRCode();
+    });
+  });
+  // Download buttons
+  document.getElementById('downloadPNG').addEventListener('click', () => {
+    qrCode.download({name: 'qr-code', extension: 'png'});
+  });
+  document.getElementById('downloadSVG').addEventListener('click', () => {
+    qrCode.download({name: 'qr-code', extension: 'svg'});
+  });
+  // Get raw data (you can use this function as needed)
+  async function getRawData() {
+    const rawData = await qrCode.getRawData();
+    console.log('Raw QR code data:', rawData);
+    // You can further process or display this data as needed
+  }
+  // Initial QR code generation
+  window.onload = () => {
+    updateQRCode();
+    ['dotsOptions', 'cornersSquareOptions', 'cornersDotOptions', 'backgroundOptions'].forEach(toggleGradientOptions);
+  };
+</script>
+</body>
+</html>
