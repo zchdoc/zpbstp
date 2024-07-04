@@ -303,6 +303,7 @@
       }
     };
     if (qrCode) {
+      console.info('Updating QR Code:', qrCode);
       qrCode.update(options);
     }
     else {
@@ -325,7 +326,10 @@
   function toggleGradientOptions(optionType) {
     const gradientSelect = document.getElementById(`${optionType}-gradient`);
     const gradientOptions = document.getElementById(`${optionType}GradientOptions`);
-    gradientOptions.style.display = gradientSelect.value !== 'none' ? 'block' : 'none';
+    console.info('gradientOptions:', gradientOptions, typeof gradientOptions);
+    if (gradientOptions) {
+      gradientOptions.style.display = gradientSelect.value !== 'none' ? 'block' : 'none';
+    }
   }
   // Add event listeners to all input and select elements
   document.querySelectorAll('input, select').forEach(element => {

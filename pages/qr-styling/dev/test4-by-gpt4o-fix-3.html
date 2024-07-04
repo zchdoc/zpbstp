@@ -10,7 +10,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #ffffff;
+      background-color: #b2afaf;
       display: flex;
       flex-direction: column;
     }
@@ -168,6 +168,7 @@
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-gradient-type">gradient type:</label>
       <select id="dotsOptions-gradient-type">
+        <option value="none">None</option>
         <option value="linear">linear</option>
         <option value="radial">radial</option>
       </select>
@@ -221,6 +222,7 @@
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-gradient-type">gradient type:</label>
       <select id="cornersSquareOptions-gradient-type">
+        <option value="none">None</option>
         <option value="linear">linear</option>
         <option value="radial">radial</option>
       </select>
@@ -255,6 +257,7 @@
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-gradient-type">gradient type:</label>
       <select id="cornersDotOptions-gradient-type">
+        <option value="none">None</option>
         <option value="linear">linear</option>
         <option value="radial">radial</option>
       </select>
@@ -282,6 +285,7 @@
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-gradient-type">gradient type:</label>
       <select id="backgroundOptions-gradient-type">
+        <option value="none">None</option>
         <option value="linear">linear</option>
         <option value="radial">radial</option>
       </select>
@@ -327,7 +331,7 @@
         color: document.getElementById('dotsOptions-color').value,
         type: document.getElementById('dotsOptions-type').value,
         gradient: {
-          type: document.getElementById('dotsOptions-gradient-type').value,
+          type: document.getElementById('dotsOptions-gradient-type').value === 'none' ? null : document.getElementById('dotsOptions-gradient-type').value,
           colorStops: [
             {offset: 0, color: document.getElementById('dotsOptions-gradient-color1').value},
             {offset: 1, color: document.getElementById('dotsOptions-gradient-color2').value}
