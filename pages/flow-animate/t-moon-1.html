@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Liquid Background</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #liquidCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="liquidCanvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('liquidCanvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  class LiquidParticle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.radius = Math.random() * 5 + 1;
+      this.speedX = (Math.random() - 0.5) * 2;
+      this.speedY = (Math.random() - 0.5) * 2;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      // 边界反弹
+      if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+        this.speedX *= -1;
+      }
+      if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+        this.speedY *= -1;
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0, 123, 255, 0.5)';
+      ctx.fill();
+    }
+  }
+
+  const particles = [];
+  function createParticles() {
+    for (let i = 0; i < 50; i++) {
+      particles.push(new LiquidParticle(Math.random() * canvas.width, Math.random() * canvas.height));
+    }
+  }
+
+  createParticles();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+    }
+  }
+
+  animate();
+</script>
+
+</body>
+</html>
