@@ -83,6 +83,7 @@
       background-color: transparent;
       backdrop-filter: none;
     }
+    /* .options-right:hover */
     .options-left:hover, .options-right:hover {
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
@@ -90,9 +91,9 @@
     .options-left, .options-right {
       width: 100px;
       flex: 2;
-      padding: 30px 30px;
+      padding: 30px 30px 10px;
       border-radius: 10px;
-      margin: 0 10px;
+      margin: 0 10px 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .preview {
@@ -113,13 +114,13 @@
       display: inline-block;
       width: 200px;
     }
-    input[type="text"],input[type="number"] {
+    input[type="text"], input[type="number"] {
       width: 300px;
     }
-    input[type="color"]{
+    input[type="color"] {
       width: 310px;
     }
-    select{
+    select {
       width: 310px;
     }
     select, input {
@@ -315,7 +316,7 @@
         <option value="webp">webp</option>
         <option value="jpeg">svg</option>
       </select>
-      <button id="get-raw-data">Get Raw Data</button>
+      <button id="get-raw-data">Console Raw Data</button>
     </div>
     <div><a href="../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
   </div>
@@ -610,7 +611,18 @@
   async function getRawData() {
     const rawData = await qrCode.getRawData();
     console.log('Raw QR code data-2:', rawData);
-    // You can further process or display this data as needed
+    console.log('Raw QR code data-3:', URL.createObjectURL(rawData));
+    // 创建一个 FileReader 对象
+    let reader = new FileReader();
+    // 当 FileReader 完成读取操作后，处理结果
+    reader.onloadend = function () {
+      // 结果数据包含在 reader.result 中，是一个 base64 编码的 Data URL
+      let base64data = reader.result;
+      // 如果你只需要 Base64 编码部分，可以使用以下代码提取 let base64String = base64data.split(',')[1];
+      console.log(base64data);
+    };
+    // 开始读取 Blob 对象
+    reader.readAsDataURL(rawData);
   }
   // Initial QR code generation
   window.onload = updateQRCode;
