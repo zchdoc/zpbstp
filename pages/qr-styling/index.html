@@ -63,8 +63,15 @@
     }
     .header {
       text-align: center;
-      color: #ffffff;
+      /*color: #ffffff;*/
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      width: 200px;
+      margin: 0 auto;
+      height: 20px;
+      padding-top: 2px;
+      border-radius: 50px;
     }
     .content {
       display: flex;
@@ -76,14 +83,14 @@
       background-color: transparent;
       backdrop-filter: none;
     }
-    .options-left:hover, .options-right:hover, .preview:hover {
+    .options-left:hover, .options-right:hover {
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
     }
     .options-left, .options-right {
       width: 100px;
       flex: 2;
-      padding: 30px 50px 0;
+      padding: 30px 30px;
       border-radius: 10px;
       margin: 0 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -106,19 +113,21 @@
       display: inline-block;
       width: 200px;
     }
-    select, input {
+    input[type="text"],input[type="number"] {
       width: 300px;
+    }
+    input[type="color"]{
+      width: 310px;
+    }
+    select{
+      width: 310px;
+    }
+    select, input {
       background-color: rgba(255, 255, 255, 0.2);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       padding: 5px;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
     }
     select:focus, input:focus {
       outline: none;
@@ -128,13 +137,12 @@
       background-color: #2a2a2a;
       color: #ffffff;
     }
-    h2, h4 {
-      margin-top: 20px;
-      margin-bottom: 10px;
+    h5 {
+      margin-top: 10px;
+      margin-bottom: 5px;
       color: #ffffff;
     }
     button {
-      margin-top: 10px;
       background-color: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
@@ -158,13 +166,18 @@
     }
     .to-official-demo:hover {
       cursor: pointer;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(111, 113, 120);
+    }
+    #qr-data-tip {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
 <div class="dynamic-background"></div>
-<div class='header'><h3>QR Styling Options</h3></div>
+<div class='header'>QR Styling Options</div>
 <div class='content'>
   <div class="options-left">
     <div class="form-group">
@@ -195,7 +208,7 @@
       <input type="text" id="image" value="">
     </div>
     <!--qrOptions-->
-    <h4>qrOptions</h4>
+    <h5>qrOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="qrOptions-typeNumber">typeNumber:</label>
       <select id="qrOptions-typeNumber">
@@ -226,7 +239,7 @@
       </select>
     </div>
     <!--imageOptions-->
-    <h4>imageOptions</h4>
+    <h5>imageOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
       <select id="imageOptions-hideBackgroundDots">
@@ -250,7 +263,7 @@
       </select>
     </div>
     <!--dotsOptions-->
-    <h4>dotsOptions</h4>
+    <h5>dotsOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-color">color:</label>
       <input type="color" id="dotsOptions-color" value="#000000">
@@ -267,7 +280,7 @@
       </select>
     </div>
     <!--dotsOptions-gradient-->
-    <h4>dotsOptions Gradient</h4>
+    <h5>dotsOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-gradient-type">gradient type:</label>
       <select id="dotsOptions-gradient-type">
@@ -308,7 +321,7 @@
   </div>
   <div class="options-right">
     <!--cornersSquareOptions-->
-    <h4>cornersSquareOptions</h4>
+    <h5>cornersSquareOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-color">color:</label>
       <input type="color" id="cornersSquareOptions-color" value="#000000">
@@ -322,7 +335,7 @@
       </select>
     </div>
     <!--cornersSquareOptions-gradient-->
-    <h4>cornersSquareOptions Gradient</h4>
+    <h5>cornersSquareOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-gradient-type">gradient type:</label>
       <select id="cornersSquareOptions-gradient-type">
@@ -344,7 +357,7 @@
       <input type="number" id="cornersSquareOptions-gradient-rotation" value="0">
     </div>
     <!--cornersDotOptions-->
-    <h4>cornersDotOptions</h4>
+    <h5>cornersDotOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-color">color:</label>
       <input type="color" id="cornersDotOptions-color" value="#000000">
@@ -358,7 +371,7 @@
       </select>
     </div>
     <!--cornersDotOptions-gradient-->
-    <h4>cornersDotOptions Gradient</h4>
+    <h5>cornersDotOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-gradient-type">gradient type:</label>
       <select id="cornersDotOptions-gradient-type">
@@ -380,13 +393,13 @@
       <input type="number" id="cornersDotOptions-gradient-rotation" value="0">
     </div>
     <!--backgroundOptions-->
-    <h4>backgroundOptions</h4>
+    <h5>backgroundOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-color">color:</label>
       <input type="color" id="backgroundOptions-color" value="#ffffff">
     </div>
     <!--backgroundOptions-gradient-->
-    <h4>backgroundOptions Gradient</h4>
+    <h5>backgroundOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-gradient-type">gradient type:</label>
       <select id="backgroundOptions-gradient-type">
