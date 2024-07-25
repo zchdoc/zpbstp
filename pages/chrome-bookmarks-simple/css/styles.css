@@ -55,8 +55,16 @@
   align-content: center;
 }
 .nav-tips {
-  text-align: center;
-  font-size: small;
+  position: absolute; /* 或者 fixed，取决于你的需求 */
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center; /* 使文本水平居中 */
+  width: 100%; /* 宽度可以自定义，这里设置为100%，占满整个页面宽度 */
+}
+#nav-tips-content-fixed,
+#nav-tips-content {
+  display: inline;
 }
 /* 以下为 ul li 样式 */
 .urlsDiv {
