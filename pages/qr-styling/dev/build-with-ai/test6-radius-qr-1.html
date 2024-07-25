@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR-Styling-4-3-4</title>
   <!--<script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>-->
-  <script type="text/javascript" src="../../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
+  <script type="text/javascript" src="../../../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,9 +24,8 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: linear-gradient(125deg, #282323, #111c11, #04071e, rgba(32, 0, 6, 0.77));
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
+      background: linear-gradient(to bottom, #2473ab 0%, #1e528e 70%, #5b7983 100%);
+      background-size: 101% 101%;
     }
     .dynamic-background::after {
       content: "";
@@ -35,36 +34,21 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FFFFFF' d='M41.9,-72.5C54.1,-67,63.6,-54.9,71.8,-41.8C80,-28.7,86.9,-14.4,88,0.6C89.1,15.7,84.3,31.3,75.5,44.2C66.7,57,53.8,67,39.8,73.3C25.7,79.5,10.4,81.9,-3.8,79.1C-17.9,76.3,-35.8,68.3,-48.3,56.8C-60.8,45.3,-67.9,30.4,-70.5,15.3C-73.1,0.3,-71.1,-14.9,-65.6,-28.1C-60.1,-41.3,-51.1,-52.6,-39.7,-58.4C-28.2,-64.3,-14.1,-64.8,0.5,-65.7C15.1,-66.6,30.2,-67.9,41.9,-72.5Z' transform='translate(100 100)' /%3E%3C/svg%3E");
       background-size: 50% 50%;
       background-repeat: no-repeat;
       background-position: 80% 80%;
       opacity: 0.1;
-      animation: blobAnimation 20s ease-in-out infinite alternate;
-    }
-    @keyframes gradientAnimation {
-      0% {
-        background-position: 0 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0 50%;
-      }
-    }
-    @keyframes blobAnimation {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate(20px, 20px) rotate(360deg);
-      }
     }
     .header {
       text-align: center;
-      color: #ffffff;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      width: 200px;
+      margin: 30px auto 0;
+      height: 20px;
+      padding-top: 2px;
+      border-radius: 50px;
     }
     .content {
       display: flex;
@@ -76,16 +60,17 @@
       background-color: transparent;
       backdrop-filter: none;
     }
-    .options-left:hover, .options-right:hover, .preview:hover {
+    /* .options-right:hover */
+    .options-left, .options-right, .preview {
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
     }
     .options-left, .options-right {
       width: 100px;
       flex: 2;
-      padding: 30px 50px 0;
+      padding: 30px 30px 10px;
       border-radius: 10px;
-      margin: 0 10px;
+      margin: 0 10px 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .preview {
@@ -97,6 +82,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 10px;
+      margin: 0 10px 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .form-group {
@@ -106,19 +92,21 @@
       display: inline-block;
       width: 200px;
     }
-    select, input {
+    input[type="text"], input[type="number"] {
       width: 300px;
+    }
+    input[type="color"] {
+      width: 310px;
+    }
+    select {
+      width: 310px;
+    }
+    select, input {
       background-color: rgba(255, 255, 255, 0.2);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       padding: 5px;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
     }
     select:focus, input:focus {
       outline: none;
@@ -128,9 +116,9 @@
       background-color: #2a2a2a;
       color: #ffffff;
     }
-    h2, h4 {
-      margin-top: 20px;
-      margin-bottom: 10px;
+    h5 {
+      margin-top: 10px;
+      margin-bottom: 5px;
       color: #ffffff;
     }
     button {
@@ -157,13 +145,18 @@
     }
     .to-official-demo:hover {
       cursor: pointer;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(111, 113, 120);
+    }
+    #qr-data-tip {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
 <div class="dynamic-background"></div>
-<div class='header'><h3>QR Styling Options</h3></div>
+<div class='header'>QR Styling Options</div>
 <div class='content'>
   <div class="options-left">
     <div class="form-group">
@@ -194,7 +187,7 @@
       <input type="text" id="image" value="">
     </div>
     <!--qrOptions-->
-    <h4>qrOptions</h4>
+    <h5>qrOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="qrOptions-typeNumber">typeNumber:</label>
       <select id="qrOptions-typeNumber">
@@ -225,7 +218,7 @@
       </select>
     </div>
     <!--imageOptions-->
-    <h4>imageOptions</h4>
+    <h5>imageOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
       <select id="imageOptions-hideBackgroundDots">
@@ -249,7 +242,7 @@
       </select>
     </div>
     <!--dotsOptions-->
-    <h4>dotsOptions</h4>
+    <h5>dotsOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-color">color:</label>
       <input type="color" id="dotsOptions-color" value="#000000">
@@ -266,7 +259,7 @@
       </select>
     </div>
     <!--dotsOptions-gradient-->
-    <h4>dotsOptions Gradient</h4>
+    <h5>dotsOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-gradient-type">gradient type:</label>
       <select id="dotsOptions-gradient-type">
@@ -301,13 +294,13 @@
         <option value="webp">webp</option>
         <option value="jpeg">svg</option>
       </select>
-      <button id="get-raw-data">Get Raw Data</button>
+      <button id="get-raw-data">Console Raw Data</button>
     </div>
-    <div><a href="../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
+    <div><a href="../../../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
   </div>
   <div class="options-right">
     <!--cornersSquareOptions-->
-    <h4>cornersSquareOptions</h4>
+    <h5>cornersSquareOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-color">color:</label>
       <input type="color" id="cornersSquareOptions-color" value="#000000">
@@ -321,7 +314,7 @@
       </select>
     </div>
     <!--cornersSquareOptions-gradient-->
-    <h4>cornersSquareOptions Gradient</h4>
+    <h5>cornersSquareOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-gradient-type">gradient type:</label>
       <select id="cornersSquareOptions-gradient-type">
@@ -343,7 +336,7 @@
       <input type="number" id="cornersSquareOptions-gradient-rotation" value="0">
     </div>
     <!--cornersDotOptions-->
-    <h4>cornersDotOptions</h4>
+    <h5>cornersDotOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-color">color:</label>
       <input type="color" id="cornersDotOptions-color" value="#000000">
@@ -357,7 +350,7 @@
       </select>
     </div>
     <!--cornersDotOptions-gradient-->
-    <h4>cornersDotOptions Gradient</h4>
+    <h5>cornersDotOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-gradient-type">gradient type:</label>
       <select id="cornersDotOptions-gradient-type">
@@ -379,13 +372,13 @@
       <input type="number" id="cornersDotOptions-gradient-rotation" value="0">
     </div>
     <!--backgroundOptions-->
-    <h4>backgroundOptions</h4>
+    <h5>backgroundOptions</h5>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-color">color:</label>
       <input type="color" id="backgroundOptions-color" value="#ffffff">
     </div>
     <!--backgroundOptions-gradient-->
-    <h4>backgroundOptions Gradient</h4>
+    <h5>backgroundOptions Gradient</h5>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-gradient-type">gradient type:</label>
       <select id="backgroundOptions-gradient-type">
@@ -408,8 +401,8 @@
     </div>
   </div>
 </div>
-<script src="../../../js/van-ta-js/three.r134.min.js"></script>
-<script src="../../../js/van-ta-js/van-ta.birds.min.js"></script>
+<!--<script src="../../../js/van-ta-js/three.r134.min.js"></script>-->
+<!--<script src="../../../js/van-ta-js/van-ta.birds.min.js"></script>-->
 <script>
   // document on ready function
   console.info(window);
@@ -596,20 +589,21 @@
   async function getRawData() {
     const rawData = await qrCode.getRawData();
     console.log('Raw QR code data-2:', rawData);
-    // You can further process or display this data as needed
+    console.log('Raw QR code data-3:', URL.createObjectURL(rawData));
+    // 创建一个 FileReader 对象
+    let reader = new FileReader();
+    // 当 FileReader 完成读取操作后，处理结果
+    reader.onloadend = function () {
+      // 结果数据包含在 reader.result 中，是一个 base64 编码的 Data URL
+      let base64data = reader.result;
+      // 如果你只需要 Base64 编码部分，可以使用以下代码提取 let base64String = base64data.split(',')[1];
+      console.log(base64data);
+    };
+    // 开始读取 Blob 对象
+    reader.readAsDataURL(rawData);
   }
   // Initial QR code generation
   window.onload = updateQRCode;
-  VANTA.BIRDS({
-    el: ".dynamic-background",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00
-  })
 </script>
 </body>
 </html>

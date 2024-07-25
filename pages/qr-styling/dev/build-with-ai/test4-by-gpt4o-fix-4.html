@@ -5,73 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR-Styling-4-3-4</title>
   <!--<script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>-->
-  <script type="text/javascript" src="../../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
+  <script type="text/javascript" src="../../../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #b2afaf;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-      overflow: hidden;
-      color: #ffffff;
-    }
-    .dynamic-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: linear-gradient(to bottom, #2473ab 0%, #1e528e 70%, #5b7983 100%);
-      background-size: 101% 101%;
-    }
-    .dynamic-background::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: 50% 50%;
-      background-repeat: no-repeat;
-      background-position: 80% 80%;
-      opacity: 0.1;
     }
     .header {
       text-align: center;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      background-color: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      width: 200px;
-      margin: 30px auto 0;
-      height: 20px;
-      padding-top: 2px;
-      border-radius: 50px;
     }
     .content {
       display: flex;
       flex: 1;
       margin: 10px;
     }
-    .options-left, .options-right, .preview {
-      transition: all 0.3s ease;
-      background-color: transparent;
-      backdrop-filter: none;
-    }
-    /* .options-right:hover */
-    .options-left, .options-right, .preview {
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-    }
     .options-left, .options-right {
       width: 100px;
       flex: 2;
-      padding: 30px 30px 10px;
+      padding: 30px 50px 0;
+      background-color: #e7e4e4;
       border-radius: 10px;
-      margin: 0 10px 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 0 10px;
     }
     .preview {
       flex: 2;
@@ -81,9 +39,8 @@
       text-align: center;
       justify-content: center;
       align-items: center;
+      background-color: rgba(255, 255, 255, 0);
       border-radius: 10px;
-      margin: 0 10px 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .form-group {
       margin-bottom: 10px;
@@ -92,71 +49,25 @@
       display: inline-block;
       width: 200px;
     }
-    input[type="text"], input[type="number"] {
+    select, input {
       width: 300px;
     }
-    input[type="color"] {
-      width: 310px;
-    }
-    select {
-      width: 310px;
-    }
-    select, input {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 5px;
-      padding: 5px;
-    }
-    select:focus, input:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-    select option {
-      background-color: #2a2a2a;
-      color: #ffffff;
-    }
-    h5 {
-      margin-top: 10px;
-      margin-bottom: 5px;
-      color: #ffffff;
+    h2, h4 {
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
     button {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-    .to-official-demo {
-      color: #ffffff;
-      text-decoration: underline;
-      transition: color 0.3s ease;
+      margin-top: 10px;
     }
     .to-official-demo:hover {
       cursor: pointer;
-      color: rgb(111, 113, 120);
-    }
-    #qr-data-tip {
-      word-break: break-all;
-      overflow-wrap: break-word;
-      white-space: pre-wrap;
+      text-decoration: underline;
+      color: #d60c0c;
     }
   </style>
 </head>
 <body>
-<div class="dynamic-background"></div>
-<div class='header'>QR Styling Options</div>
+<div class='header'><h3>QR Styling Options</h3></div>
 <div class='content'>
   <div class="options-left">
     <div class="form-group">
@@ -187,7 +98,7 @@
       <input type="text" id="image" value="">
     </div>
     <!--qrOptions-->
-    <h5>qrOptions</h5>
+    <h4>qrOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="qrOptions-typeNumber">typeNumber:</label>
       <select id="qrOptions-typeNumber">
@@ -218,7 +129,7 @@
       </select>
     </div>
     <!--imageOptions-->
-    <h5>imageOptions</h5>
+    <h4>imageOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
       <select id="imageOptions-hideBackgroundDots">
@@ -242,7 +153,7 @@
       </select>
     </div>
     <!--dotsOptions-->
-    <h5>dotsOptions</h5>
+    <h4>dotsOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-color">color:</label>
       <input type="color" id="dotsOptions-color" value="#000000">
@@ -259,7 +170,7 @@
       </select>
     </div>
     <!--dotsOptions-gradient-->
-    <h5>dotsOptions Gradient</h5>
+    <h4>dotsOptions Gradient</h4>
     <div class="form-group">
       <label class='qr-optional' for="dotsOptions-gradient-type">gradient type:</label>
       <select id="dotsOptions-gradient-type">
@@ -294,13 +205,13 @@
         <option value="webp">webp</option>
         <option value="jpeg">svg</option>
       </select>
-      <button id="get-raw-data">Console Raw Data</button>
+      <button id="get-raw-data">Get Raw Data</button>
     </div>
-    <div><a href="../../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
+    <div><a href="../../../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
   </div>
   <div class="options-right">
     <!--cornersSquareOptions-->
-    <h5>cornersSquareOptions</h5>
+    <h4>cornersSquareOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-color">color:</label>
       <input type="color" id="cornersSquareOptions-color" value="#000000">
@@ -314,7 +225,7 @@
       </select>
     </div>
     <!--cornersSquareOptions-gradient-->
-    <h5>cornersSquareOptions Gradient</h5>
+    <h4>cornersSquareOptions Gradient</h4>
     <div class="form-group">
       <label class='qr-optional' for="cornersSquareOptions-gradient-type">gradient type:</label>
       <select id="cornersSquareOptions-gradient-type">
@@ -336,7 +247,7 @@
       <input type="number" id="cornersSquareOptions-gradient-rotation" value="0">
     </div>
     <!--cornersDotOptions-->
-    <h5>cornersDotOptions</h5>
+    <h4>cornersDotOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-color">color:</label>
       <input type="color" id="cornersDotOptions-color" value="#000000">
@@ -350,7 +261,7 @@
       </select>
     </div>
     <!--cornersDotOptions-gradient-->
-    <h5>cornersDotOptions Gradient</h5>
+    <h4>cornersDotOptions Gradient</h4>
     <div class="form-group">
       <label class='qr-optional' for="cornersDotOptions-gradient-type">gradient type:</label>
       <select id="cornersDotOptions-gradient-type">
@@ -372,13 +283,13 @@
       <input type="number" id="cornersDotOptions-gradient-rotation" value="0">
     </div>
     <!--backgroundOptions-->
-    <h5>backgroundOptions</h5>
+    <h4>backgroundOptions</h4>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-color">color:</label>
       <input type="color" id="backgroundOptions-color" value="#ffffff">
     </div>
     <!--backgroundOptions-gradient-->
-    <h5>backgroundOptions Gradient</h5>
+    <h4>backgroundOptions Gradient</h4>
     <div class="form-group">
       <label class='qr-optional' for="backgroundOptions-gradient-type">gradient type:</label>
       <select id="backgroundOptions-gradient-type">
@@ -401,8 +312,6 @@
     </div>
   </div>
 </div>
-<!--<script src="../../../js/van-ta-js/three.r134.min.js"></script>-->
-<!--<script src="../../../js/van-ta-js/van-ta.birds.min.js"></script>-->
 <script>
   // document on ready function
   console.info(window);
@@ -589,18 +498,7 @@
   async function getRawData() {
     const rawData = await qrCode.getRawData();
     console.log('Raw QR code data-2:', rawData);
-    console.log('Raw QR code data-3:', URL.createObjectURL(rawData));
-    // 创建一个 FileReader 对象
-    let reader = new FileReader();
-    // 当 FileReader 完成读取操作后，处理结果
-    reader.onloadend = function () {
-      // 结果数据包含在 reader.result 中，是一个 base64 编码的 Data URL
-      let base64data = reader.result;
-      // 如果你只需要 Base64 编码部分，可以使用以下代码提取 let base64String = base64data.split(',')[1];
-      console.log(base64data);
-    };
-    // 开始读取 Blob 对象
-    reader.readAsDataURL(rawData);
+    // You can further process or display this data as needed
   }
   // Initial QR code generation
   window.onload = updateQRCode;
