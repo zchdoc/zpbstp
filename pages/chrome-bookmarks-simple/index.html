@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./favicon.ico" />
+  <title>Bookmark Manager</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<style>
+  .divBox {
+    border: salmon solid 2px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #fff;
+    margin: auto;
+    width: 924px;
+  }
+  .ulBox {
+    /*border: blueviolet solid 2px;*/
+    /*border-radius: 5px;*/
+    display: flex;
+    flex-flow: row wrap;
+    list-style: outside;
+    /*margin-top: 2px;*/
+    position: relative
+  }
+  .liItem {
+    /*padding-top: 16px;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*flex-shrink: 1;*/
+    /*flex-basis: 0*/
+  }
+  .divBox .liItem {
+    flex-basis: 22%
+  }
+  .custom-zch {
+    height: 21px;
+    position: relative;
+    /*display: flex;*/
+    text-decoration: none;
+    cursor: pointer
+  }
+  .divBoxTipsContent {
+    color: #FFFFFF;
+    border: 2px none #242424;
+    border-left-style: solid;
+    width: 20%;
+    margin: auto;
+  }
+  .divBoxTips {
+    text-align: center;
+  }
+  td {
+    padding: 0 5px;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  .custom-zch-favicon {
+    width: 18px;
+    height: 18px;
+  }
+</style>
+<body>
+<div class="nav">
+  <a class="link_nav" id="go-root" href="#">返回根级</a>
+  <a class="link_nav" id="go-back" href="#">返回上级</a>
+  <a class="link_nav" href="#">添加书签</a>
+  <a class="link_nav" href="#">删除书签</a>
+  <a class="link_nav" target="_blank" href="./data/json/Bookmarks.json">编辑书签</a>
+  <a class="link_nav" target="_blank" href="./some-text.html">SomeTextHtml</a>
+  <a class="link_nav" target="_blank" href="./SomeText.md">SomeTextMd</a>
+</div>
+<div id="container"></div>
+<div class="nav-tips">
+  <p id="nav-tips-content"></p>
+</div>
+<script src="./js/script.js"></script>
+</body>
+</html>
