@@ -3,16 +3,10 @@ set http_proxy=http://127.0.0.1:10809
 set https_proxy=http://127.0.0.1:10809
 
 cd ../../
-@REM 获取当前时间
-for /f "delims=" %%a in ('wmic OS Get localdatetime ^| find "."') do set datetime=%%a
-set "timestamp=!datetime:~0,4!!datetime:~4,2!!datetime:~6,2!_!datetime:~8,2!!datetime:~10,2!!datetime:~12,2!"
 
-@REM 设置提交消息
-set commit_msg=update at %timestamp%
-
-@REM 提交
+@REM commit
 git add .
-git commit -m "%commit_msg%"
+git commit -m "at: %date% %time%"
 
 @REM 推送
 git push origin_gitee
