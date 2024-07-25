@@ -6,7 +6,9 @@ cd ../../
 
 @REM commit
 git add .
-git commit -m "at: %date% %time%"
+for /f "tokens=2 delims==" %%I in ('wmic os get localdatetime /format:list') do set datetime=%%I
+set datetime=%datetime:~2,10%
+git commit -m "at: %datetime%"
 
 @REM 推送
 git push origin_gitee
