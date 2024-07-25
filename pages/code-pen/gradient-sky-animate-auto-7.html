@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smooth 12-Second Sky Gradient Animation</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    .gradient-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .gradient-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: screen;
+    }
+    #layer1 { animation: gradient1 10s infinite; }
+
+    @keyframes gradient1 {
+      /*0%, 100% { background: #00000c; }*/
+      0%, 100% { background: linear-gradient(to bottom, #154277 0%, #576e71 30%, #e1c45e 70%, #b26339 100%); }
+      0%, 100% { background: linear-gradient(to bottom, #163C52 0%, #4F4F47 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      0%, 100% { background: linear-gradient(to bottom, #071B26 0%, #071B26 30%, #8A3B12 80%, #240E03 100%); }
+      /*84% { background: linear-gradient(to bottom, #010A10 30%, #59230B 80%, #2F1107 100%); }*/
+      /*88% { background: linear-gradient(to bottom, #090401 50%, #4B1D06 100%); }*/
+      /*92% { background: linear-gradient(to bottom, #00000c 80%, #150800 100%); }*/
+      0%, 100% { background: #00000c; }
+      10% { background: linear-gradient(to bottom, #163C52 0%, #4F4F47 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      20% { background: linear-gradient(to bottom, #163C54 0%, #4F4F49 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C56 0%, #4F4F51 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C58 0%, #4F4F53 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C60 0%, #4F4F55 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C62 0%, #4F4F57 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C64 0%, #4F4F59 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C66 0%, #4F4F61 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+      30% { background: linear-gradient(to bottom, #163C68 0%, #4F4F64 20%, #C5752D 40%, #B7490F 60%, #2F1107 80%); }
+    }
+  </style>
+</head>
+<body>
+<div class="gradient-container">
+  <div class="gradient-layer" id="layer1"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smooth 12-Second Sky Gradient Animation</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    .gradient-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .gradient-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: screen;
+    }
+    #layer1 { animation: gradient1 12s infinite; }
+    #layer2 { animation: gradient2 12s infinite; }
+    #layer3 { animation: gradient3 12s infinite; }
+
+    @keyframes gradient1 {
+      0%, 100% { background: #00000c; }
+      25% { background: #020111; }
+      50% { background: #20202c; }
+      75% { background: #40405c; }
+    }
+    @keyframes gradient2 {
+      0%, 100% { background: #00000c; }
+      25% { background: #191621; }
+      50% { background: #515175; }
+      75% { background: #6f71aa; }
+    }
+    @keyframes gradient3 {
+      0%, 100% { background: #00000c; }
+      25% { background: #3a3a52; }
+      50% { background: #8a76ab; }
+      75% { background: #b1b5ea; }
+    }
+  </style>
+</head>
+<body>
+<div class="gradient-container">
+  <div class="gradient-layer" id="layer1"></div>
+  <div class="gradient-layer" id="layer2"></div>
+  <div class="gradient-layer" id="layer3"></div>
+</div>
+</body>
+</html>
