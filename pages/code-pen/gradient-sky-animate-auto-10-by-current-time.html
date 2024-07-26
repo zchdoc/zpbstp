@@ -5,7 +5,6 @@
   <title>sky-gradient</title>
 </head>
 <style>
-  /* https://codepen.io/billyysea/pen/nLroLY */
   html, body {
     width: 100%;
     height: 100%;
@@ -15,32 +14,34 @@
     overflow: hidden;
   }
   .sky-gradient {
-    position: relative;
     z-index: 1;
     float: left;
-    width: 4%;
-    height: 20%;
     cursor: pointer;
-    transition: box-shadow 150ms, z-index 0ms;
-  }
-  .sky-gradient:hover {
-    z-index: 2;
-    box-shadow: 0 -5px 10px black;
-  }
-  .sky-gradient::after {
     content: "";
-    position: absolute;
-    top: 100%;
-    width: 2500%;
-    height: 400%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: inherit;
     transform: translateZ(0);
-    opacity: 0;
-    transition: opacity 0s 1s;
+    /*opacity: 1;*/
+    /*transition: opacity 0s 10s;*/
+    animation: fadeIn 5s ease-out;
+    opacity: 0; /* 初始时所有div都是隐藏的 */
+    transition: opacity 4s; /* 添加过渡效果 */
+    display: none;
   }
-  .sky-gradient:hover::after {
+  .sky-gradient.active {
     opacity: 1;
-    transition: opacity 1s 0s;
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   .sky-gradient:nth-child(1)::after {
     left: 0;
@@ -190,24 +191,6 @@
   .sky-gradient-23 {
     background: linear-gradient(to bottom, #00000c 80%, #150800 100%);
   }
-  /*# sourceMappingURL=test.css.map */
-  /* Animation */
-  @keyframes fadeInOut {
-    0%, 100% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-  .animate {
-    /*animation: fadeInOut 2s ease-in-out;*/
-    animation: fadeInOut 2s ease-out;
-  }
-  div {
-    height: 100%;
-    width: 100%;
-  }
 </style>
 <body>
 <div class="sky-gradient sky-gradient-00">00</div>
@@ -235,18 +218,21 @@
 <div class="sky-gradient sky-gradient-22">22</div>
 <div class="sky-gradient sky-gradient-23">23</div>
 <div class="sky-gradient sky-gradient-24">24</div>
+</body>
 <script>
   const gradients = document.querySelectorAll('.sky-gradient');
   let currentIndex = 0;
-  function animateGradient(index) {
-    gradients[index].classList.add('animate');
-    setTimeout(() => {
-      gradients[index].classList.remove('animate');
-      currentIndex = (currentIndex + 1) % gradients.length;
-      setTimeout(() => animateGradient(currentIndex), 1000); // 1-second interval
-    }, 2000); // 2-second animation duration
+  // 初始显示第一个div
+  gradients[0].classList.add('active');
+  function cycleGradients() {
+    // 隐藏当前div
+    gradients[currentIndex].classList.remove('active');
+    // 更新索引
+    currentIndex = (currentIndex + 1) % gradients.length;
+    // 显示下一个div
+    gradients[currentIndex].classList.add('active');
   }
-  animateGradient(currentIndex);
+  // 每5秒执行一次
+  setInterval(cycleGradients, 10000);
 </script>
-</body>
 </html>

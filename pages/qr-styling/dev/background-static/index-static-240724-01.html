@@ -83,7 +83,7 @@
     input[type="text"], input[type="number"] {
       width: 190px;
     }
-    input[type="color"], select {
+    input[type="color"],select {
       width: 197px;
     }
     select, input {
@@ -132,7 +132,7 @@
       cursor: pointer;
       /*color: rgb(111, 113, 120);*/
     }
-    #download-type {
+    #download-type{
       width: 100px;
       height: 41px;
       font-size: large;
@@ -151,7 +151,7 @@
     /*  border: #ffffff solid 5px;*/
     /*  border-radius: 15px;*/
     /*}*/
-    #qrcode canvas {
+    #qrcode canvas{
       border-radius: 20px;
     }
   </style>
@@ -286,6 +286,7 @@
     <div><p id="qr-data-tip">qr data</p></div>
     <div id="qrcode"></div>
     <div>
+      <button id="download">Download</button>
       <label class='download-optional' for="download-type"></label>
       <!-- string ('png' 'jpeg' 'webp' 'svg') -->
       <select id="download-type">
@@ -294,9 +295,7 @@
         <option value="webp">webp</option>
         <option value="jpeg">svg</option>
       </select>
-      <button id="download">Download</button>
-      <button id="download-radius">DownloadRadius</button>
-      <button id="get-raw-data">RawData</button>
+      <button id="get-raw-data">Raw Data</button>
     </div>
     <div><a href="../qr-styling-official/index.html" target="_blank" class="to-official-demo">official-demo</a></div>
   </div>
@@ -579,11 +578,6 @@
     console.info('downloading as:', downloadType)
     qrCode.download({name: 'qr-code', extension: downloadType});
   });
-  document.getElementById('download-radius').addEventListener('click', () => {
-    const downloadType = document.getElementById('download-type').value;
-    console.info('download-radius as:', downloadType)
-    downloadRoundedImage(downloadType);
-  });
   // Get raw data button
   document.getElementById('get-raw-data').addEventListener('click', function () {
     qrCode.getRawData().then(data => {
@@ -611,110 +605,6 @@
   }
   // Initial QR code generation
   window.onload = updateQRCode;
-</script>
-<script>
-  function downloadRoundedImage() {
-    // 获取原始 canvas
-    const originalCanvas = document.querySelector('#qrcode canvas');
-    // 创建新的 canvas
-    const newCanvas = document.createElement('canvas');
-    newCanvas.width = originalCanvas.width;
-    newCanvas.height = originalCanvas.height;
-    const ctx = newCanvas.getContext('2d');
-    // 设置圆角半径
-    const radius = 20;
-    // 绘制圆角矩形路径
-    ctx.beginPath();
-    ctx.moveTo(radius, 0);
-    ctx.lineTo(newCanvas.width - radius, 0);
-    ctx.quadraticCurveTo(newCanvas.width, 0, newCanvas.width, radius);
-    ctx.lineTo(newCanvas.width, newCanvas.height - radius);
-    ctx.quadraticCurveTo(newCanvas.width, newCanvas.height, newCanvas.width - radius, newCanvas.height);
-    ctx.lineTo(radius, newCanvas.height);
-    ctx.quadraticCurveTo(0, newCanvas.height, 0, newCanvas.height - radius);
-    ctx.lineTo(0, radius);
-    ctx.quadraticCurveTo(0, 0, radius, 0);
-    ctx.closePath();
-    // 裁剪成圆角形状
-    ctx.clip();
-    // 绘制原始 canvas 内容到新 canvas
-    ctx.drawImage(originalCanvas, 0, 0);
-    // 创建下载链接
-    const link = document.createElement('a');
-    link.download = 'rounded-qrcode.png';
-    link.href = newCanvas.toDataURL('image/png');
-    link.click();
-  }
-  function downloadRoundedImage(imageType = 'png') {
-    // 获取原始 canvas
-    let originalCanvas = document.querySelector('#qrcode canvas');
-    // 创建新的 canvas
-    const newCanvas = document.createElement('canvas');
-    newCanvas.width = originalCanvas.width;
-    newCanvas.height = originalCanvas.height;
-    const ctx = newCanvas.getContext('2d');
-    // 设置圆角半径
-    const radius = 20;
-    // 绘制圆角矩形路径
-    ctx.beginPath();
-    ctx.moveTo(radius, 0);
-    ctx.lineTo(newCanvas.width - radius, 0);
-    ctx.quadraticCurveTo(newCanvas.width, 0, newCanvas.width, radius);
-    ctx.lineTo(newCanvas.width, newCanvas.height - radius);
-    ctx.quadraticCurveTo(newCanvas.width, newCanvas.height, newCanvas.width - radius, newCanvas.height);
-    ctx.lineTo(radius, newCanvas.height);
-    ctx.quadraticCurveTo(0, newCanvas.height, 0, newCanvas.height - radius);
-    ctx.lineTo(0, radius);
-    ctx.quadraticCurveTo(0, 0, radius, 0);
-    ctx.closePath();
-    // 裁剪成圆角形状
-    ctx.clip();
-    // 绘制原始 canvas 内容到新 canvas
-    ctx.drawImage(originalCanvas, 0, 0);
-    // 根据图片类型设置 MIME 类型和文件扩展名
-    let mimeType, fileExtension;
-    switch (imageType.toLowerCase()) {
-      case 'jpeg':
-      case 'jpg':
-        mimeType = 'image/jpeg';
-        fileExtension = 'jpg';
-        break;
-      case 'webp':
-        mimeType = 'image/webp';
-        fileExtension = 'webp';
-        break;
-      case 'svg':
-        // 注意：Canvas 不能直接导出 SVG，这里需要额外处理
-        console.warn('SVG export is not supported directly from Canvas');
-        mimeType = 'image/svg+xml';
-        fileExtension = 'svg';
-        break;
-      case 'tif':
-      case 'tiff':
-        // 注意：Canvas 不能直接导出 TIFF，这里需要额外处理
-        console.warn('TIFF export is not supported directly from Canvas');
-        mimeType = 'image/tiff';
-        fileExtension = 'tif';
-        break;
-      case 'png':
-      default:
-        mimeType = 'image/png';
-        fileExtension = 'png';
-        break;
-    }
-    // 创建下载链接
-    const link = document.createElement('a');
-    link.download = `rounded-qrcode.${fileExtension}`;
-    // 对于 SVG 和 TIFF，我们需要特殊处理
-    if (imageType.toLowerCase() === 'svg' || imageType.toLowerCase() === 'tif' || imageType.toLowerCase() === 'tiff') {
-      alert(`${imageType.toUpperCase()} format is not directly supported. Defaulting to PNG.`);
-      link.href = newCanvas.toDataURL('image/png');
-    }
-    else {
-      link.href = newCanvas.toDataURL(mimeType);
-    }
-    link.click();
-  }
 </script>
 </body>
 </html>
