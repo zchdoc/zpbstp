@@ -1,6 +1,7 @@
 // 存储父级目录的历史，每一项是一个代表书签节点的数组
 let parentStack = [];
 let navTipContent = document.getElementById("nav-tips-content");
+let navTipContentFixTxt = document.getElementById("nav-tips-content-fixed");
 function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
   const parent = document.getElementById(parentId);
   parent.innerHTML = ""; // Clear the parent container
@@ -30,8 +31,8 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
           "bookmark.type:bookmark.name:",
           bookmark.type + ":" + bookmark.name
         );
-        // navTipContent.textContent = navTipContent.textContent + '💼' + bookmark.type + ":" + bookmark.name;
         navTipContent.textContent = navTipContent.textContent + "💼" + bookmark.name;
+        navTipContentFixTxt.textContent = "current:";
         createBookmarkElements(bookmark.children, parentId, bookmark);
       });
       foldersGroup.appendChild(div);
@@ -61,6 +62,7 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
       a.target = "_blank";
       a.addEventListener("click", () => {
         navTipContent.textContent = navTipContent.textContent + "🔗" + bookmark.name;
+        navTipContentFixTxt.textContent = "current:";
       });
       // a.appendChild(img); // 将img元素添加到li里
       li.appendChild(a); // 将a元素添加到li里
@@ -85,12 +87,15 @@ function goBack(parentId) {
     let currentBookMarkType = parentStack[1]?.type;
     if (currentBookMarkType === "folder") {
       navTipContent.textContent = "💼" + parentStack[1]?.name;
+      navTipContentFixTxt.textContent = "current:";
     }
     else if (currentBookMarkType === "url") {
       navTipContent.textContent = "🔗" + parentStack[1]?.name;
+      navTipContentFixTxt.textContent = "current:";
     }
     else {
       navTipContent.textContent = "";
+      navTipContentFixTxt.textContent = "";
     }
     createBookmarkElements(parentBookmark.children, parentId, null);
   }
@@ -109,6 +114,7 @@ function init() {
         data.roots.bookmark_bar
       );
       navTipContent.textContent = "";
+      navTipContentFixTxt.textContent = "";
     });
 }
 document.addEventListener("DOMContentLoaded", function() {
