@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>批量生成SVG</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input {
+      margin: 10px 0;
+      padding: 5px;
+    }
+    button {
+      padding: 5px 10px;
+    }
+    #svgContainer {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    svg {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>批量生成SVG</h1>
+<input type="text" id="input1" placeholder="输入内容1">
+<input type="text" id="input2" placeholder="输入内容2">
+<button onclick="generateSVGs()">生成SVG</button>
+<div id="svgContainer"></div>
+
+<script>
+  function generateSVGs() {
+    const input1 = document.getElementById('input1').value;
+    const input2 = document.getElementById('input2').value;
+    const container = document.getElementById('svgContainer');
+    container.innerHTML = '';
+
+    const isNumber1 = !isNaN(input1) && input1 !== '';
+    const isNumber2 = !isNaN(input2) && input2 !== '';
+
+    if (isNumber1 && isNumber2 && Number(input2) > Number(input1)) {
+      for (let i = Number(input1); i <= Number(input2); i++) {
+        container.appendChild(createSVG(i.toString()));
+      }
+    } else {
+      container.appendChild(createSVG(input1));
+    }
+  }
+
+  function createSVG(text) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "100");
+    svg.setAttribute("height", "100");
+
+    const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textElement.setAttribute("x", "50");
+    textElement.setAttribute("y", "50");
+    textElement.setAttribute("text-anchor", "middle");
+    textElement.setAttribute("dominant-baseline", "central");
+    textElement.setAttribute("font-size", "24");
+    textElement.textContent = text;
+
+    svg.appendChild(textElement);
+    return svg;
+  }
+</script>
+</body>
+</html>

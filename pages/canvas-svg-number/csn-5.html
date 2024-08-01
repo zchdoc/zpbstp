@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSN-5</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #ffffff;
+    }
+    .input-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: inline-block;
+      width: 150px;
+    }
+    input, select {
+      margin: 5px 0;
+      padding: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      margin-top: 10px;
+    }
+    #svgContainer {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    svg {
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+<div class="input-group">
+  <label for="svgWidth">svgWidth：</label>
+  <input type="number" id="svgWidth" placeholder="" value="100">
+</div>
+<div class="input-group">
+  <label for="svgHeight">svgWidth：</label>
+  <input type="number" id="svgHeight" placeholder="" value="100">
+</div>
+<div class="input-group">
+  <label for="input1">起始数字/文本：</label>
+  <input type="text" id="input1" placeholder="输入内容1" value="4199999990">
+</div>
+<div class="input-group">
+  <label for="input2">结束数字（可选）：</label>
+  <input type="text" id="input2" placeholder="输入内容2" value="4199999999">
+</div>
+<div class="input-group">
+  <label for="borderRadius">边角半径：</label>
+  <input type="number" id="borderRadius" min="0" value="10">
+</div>
+<div class="input-group">
+  <label for="backgroundColor">背景颜色：</label>
+  <input type="color" id="backgroundColor" value="rgba(0,0,0,0)">
+</div>
+<div class="input-group">
+  <label for="gradientType">渐变类型：</label>
+  <select id="gradientType">
+    <option value="none">None</option>
+    <option value="linear">Linear</option>
+    <option value="radial">Radial</option>
+  </select>
+</div>
+<div class="input-group">
+  <label for="gradientColor1">渐变色1：</label>
+  <input type="color" id="gradientColor1" value="#ff0000">
+</div>
+<div class="input-group">
+  <label for="gradientColor2">渐变色2：</label>
+  <input type="color" id="gradientColor2" value="#0000ff">
+</div>
+<!-- 添加新的字体样式选项 -->
+<div class="input-group">
+  <label for="fontFamily">字体：</label>
+  <select id="fontFamily">
+    <option value="Arial">Arial</option>
+    <option value="Arial Black" selected>Arial Black</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Helvetica">Helvetica</option>
+    <option value="Times New Roman">Times New Roman</option>
+  </select>
+</div>
+<div class="input-group">
+  <label for="fontWeight">字体粗细：</label>
+  <select id="fontWeight">
+    <option value="normal">Normal</option>
+    <option value="bold" selected>Bold</option>
+  </select>
+</div>
+<div class="input-group">
+  <label for="textColor">文字颜色：</label>
+  <input type="color" id="textColor" value="#000000">
+</div>
+<div class="input-group">
+  <label for="textFontSize">文字大小：</label>
+  <input type="number" id="textFontSize" value="20">
+</div>
+<div class="input-group">
+  <label for="textWrapLength">文字换行长度：</label>
+  <input type="number" id="textWrapLength" value="5">
+</div>
+<button onclick="generateSVGs()">生成SVG</button>
+<div id="svgContainer"></div>
+<script>
+  function generateSVGs() {
+    const input1 = document.getElementById('input1').value;
+    const input2 = document.getElementById('input2').value;
+    const borderRadius = document.getElementById('borderRadius').value;
+    const backgroundColor = document.getElementById('backgroundColor').value;
+    const gradientType = document.getElementById('gradientType').value;
+    const gradientColor1 = document.getElementById('gradientColor1').value;
+    const gradientColor2 = document.getElementById('gradientColor2').value;
+    const fontFamily = document.getElementById('fontFamily').value;
+    const fontWeight = document.getElementById('fontWeight').value;
+    const textColor = document.getElementById('textColor').value;
+    const container = document.getElementById('svgContainer');
+    const textFontSize = document.getElementById('textFontSize').value;
+    const textWrapLength = document.getElementById('textWrapLength').value;
+    const svgWidth = document.getElementById('svgWidth').value;
+    const svgHeight = document.getElementById('svgHeight').value;
+    container.innerHTML = '';
+    const isNumber1 = !isNaN(input1) && input1 !== '';
+    const isNumber2 = !isNaN(input2) && input2 !== '';
+    if (isNumber1 && isNumber2 && Number(input2) > Number(input1)) {
+      for (let i = Number(input1); i <= Number(input2); i++) {
+        container.appendChild(createSVG(i.toString(), borderRadius, backgroundColor, //
+          gradientType, gradientColor1, gradientColor2, fontFamily,//
+          fontWeight, textColor, textFontSize, textWrapLength, svgWidth, svgHeight));
+      }
+    }
+    else {
+      container.appendChild(createSVG(input1, borderRadius, backgroundColor, //
+        gradientType, gradientColor1, gradientColor2, fontFamily, //
+        fontWeight, textColor, textFontSize, textWrapLength, svgWidth, svgHeight));
+    }
+  }
+  function createSVG(text, borderRadius, backgroundColor,//
+                     gradientType, gradientColor1, gradientColor2,//
+                     fontFamily, fontWeight, textColor, textFontSize, textWrapLength, svgWidth, svgHeight) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", svgWidth);
+    svg.setAttribute("height", svgHeight);
+    svg.setAttribute("viewBox", "0 0 100 100");
+    // 创建背景矩形
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("width", svgWidth);
+    rect.setAttribute("height", svgHeight);
+    rect.setAttribute("rx", borderRadius);
+    rect.setAttribute("ry", borderRadius);
+    console.info("backgroundColor", backgroundColor);
+    // 设置背景颜色或渐变
+    if (gradientType === "none") {
+      rect.setAttribute("fill", backgroundColor);
+    }
+    else {
+      const gradientId = `gradient-${Date.now()}`;
+      const gradient = createGradient(gradientType, gradientId, gradientColor1, gradientColor2);
+      svg.appendChild(gradient);
+      rect.setAttribute("fill", `url(#${gradientId})`);
+    }
+    svg.appendChild(rect);
+    // 处理文本
+    const lines = splitText(text, textWrapLength);
+    const lineHeight = 20;
+    const startY = 50 - (lineHeight * (lines.length - 1)) / 2;
+    lines.forEach((line, index) => {
+      const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textElement.setAttribute("x", "50");
+      textElement.setAttribute("y", (startY + index * lineHeight).toString());
+      textElement.setAttribute("text-anchor", "middle");
+      textElement.setAttribute("dominant-baseline", "central");
+      textElement.setAttribute("font-size", textFontSize);
+      textElement.setAttribute("font-family", fontFamily);
+      textElement.setAttribute("font-weight", fontWeight);
+      textElement.setAttribute("fill", textColor);
+      textElement.textContent = (line).toString();
+      svg.appendChild(textElement);
+    });
+    return svg;
+  }
+  function splitText(text, textWrapLength) {
+    console.info('textWrapLength:', textWrapLength, typeof textWrapLength);
+    textWrapLength = parseInt(textWrapLength);
+    if (text.length <= textWrapLength) {
+      return [text];
+    }
+    const lines = [];
+    for (let i = 0; i < text.length; i += textWrapLength) {
+      lines.push(text.slice(i, i + textWrapLength));
+    }
+    return lines;
+  }
+  function createGradient(type, id, color1, color2) {
+    const ns = "http://www.w3.org/2000/svg";
+    const gradient = document.createElementNS(ns, type === "linear" ? "linearGradient" : "radialGradient");
+    gradient.setAttribute("id", id);
+    if (type === "linear") {
+      gradient.setAttribute("x1", "0%");
+      gradient.setAttribute("y1", "0%");
+      gradient.setAttribute("x2", "100%");
+      gradient.setAttribute("y2", "100%");
+    }
+    const stop1 = document.createElementNS(ns, "stop");
+    stop1.setAttribute("offset", "0%");
+    stop1.setAttribute("stop-color", color1);
+    const stop2 = document.createElementNS(ns, "stop");
+    stop2.setAttribute("offset", "100%");
+    stop2.setAttribute("stop-color", color2);
+    gradient.appendChild(stop1);
+    gradient.appendChild(stop2);
+    return gradient;
+  }
+</script>
+</body>
+</html>

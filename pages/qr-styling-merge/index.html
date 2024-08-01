@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
+  <title>QR</title>
+</head>
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+  const qrCode = new QRCodeStyling({
+    width: 300,
+    height: 300,
+    type: "svg",
+    data: "hello",
+    image: "./t1.png",
+    dotsOptions: {
+      color: "#4267b2",
+      type: "rounded"
+    },
+    backgroundOptions: {
+      color: "#e9ebee",
+    },
+    imageOptions: {
+      crossOrigin: "anonymous",
+      margin: 20
+    }
+  });
+  qrCode.append(document.getElementById("canvas"));
+</script>
+</body>
+</html>
