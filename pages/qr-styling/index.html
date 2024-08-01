@@ -213,7 +213,7 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="data">data:</label>
-        <input type="text" id="data" value="qr data">
+        <input type="text" id="data" value="http://a2.4000063966.com/q.do?v=2&s=4299999999">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="margin">margin:</label>
@@ -221,7 +221,7 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="image">image:</label>
-        <input type="text" id="image" value="">
+        <input type="text" id="image" value="./t1.png">
       </div>
       <!--qrOptions-->
       <h5>qrOptions</h5>
@@ -250,7 +250,7 @@
         <select id="qrOptions-errorCorrectionLevel">
           <option value="L">L</option>
           <option value="M">M</option>
-          <option value="Q">Q</option>
+          <option value="Q" selected>Q</option>
           <option value="H">H</option>
         </select>
       </div>
@@ -260,12 +260,12 @@
         <label class='qr-optional' for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
         <select id="imageOptions-hideBackgroundDots">
           <option value="true">true</option>
-          <option value="false">false</option>
+          <option value="false" selected>false</option>
         </select>
       </div>
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-imageSize">imageSize:</label>
-        <input type="number" id="imageOptions-imageSize" value="0.4" step="0.1">
+        <input type="number" id="imageOptions-imageSize" value="0.5" step="0.01">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-margin">margin:</label>
@@ -512,6 +512,7 @@
     let qrOptionsTypeNumber = parseInt(qrOptionsTypeVal);
     let qrOptionsMode = document.getElementById('qrOptions-mode').value;
     let qrOptionsErrorCorrectionLevel = document.getElementById('qrOptions-errorCorrectionLevel').value;
+    console.info('qrOptionsErrorCorrectionLevel:', qrOptionsErrorCorrectionLevel);
     //
     let qrImageOptionsHideBackgroundDots = document.getElementById('imageOptions-hideBackgroundDots').value === 'true';
     let qrImageOptionsImageSize = parseFloat(document.getElementById('imageOptions-imageSize').value);
