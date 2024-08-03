@@ -2,6 +2,7 @@
 let parentStack = [];
 let navTipContent = document.getElementById("nav-tips-content");
 let navTipContentFixTxt = document.getElementById("nav-tips-content-fixed");
+
 function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
   const parent = document.getElementById(parentId);
   parent.innerHTML = ""; // Clear the parent container
@@ -79,6 +80,7 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
     parent.appendChild(urlsGroup);
   }
 }
+
 function goBack(parentId) {
   // 确保有多于一个历史记录才能后退
   if (parentStack.length > 1) {
@@ -104,6 +106,7 @@ function goBack(parentId) {
     alert("we are here at the root🤚✋🤙💅👐🙌🤲🤞✌🖖");
   }
 }
+
 function init() {
   fetch("./data/json/Bookmarks.json")
     .then((response) => response.json())
@@ -117,7 +120,8 @@ function init() {
       navTipContentFixTxt.textContent = "";
     });
 }
-document.addEventListener("DOMContentLoaded", function() {
+
+document.addEventListener("DOMContentLoaded", function () {
   init();
   document.getElementById("go-back").addEventListener("click", (event) => {
     event.preventDefault();
@@ -128,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
     init();
   });
 });
+
 /**
  * // 转换主域名 有些地址的域名不是主域名
  * 例如 http://zghnzch.gitee.io/favicon.ico 需要转换为 http://www.gitee.io/favicon.ico

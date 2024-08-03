@@ -85,6 +85,7 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
     }
   });
 }
+
 function goBack(parentId) {
   // 必须确保有超过一个历史记录，这样我们才能后退
   if (parentStack.length > 1) {
