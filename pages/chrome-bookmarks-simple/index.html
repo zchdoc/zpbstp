@@ -53,24 +53,20 @@
   <a class="link_nav" href="#" id="btnChangeToDarkTheme">🌜</a>
 </div>
 <div id="container"></div>
+<div id="paramDisplay"></div>
 <div class="nav-tips">
   <p id="nav-tips-content-fixed"></p>
   <p id="nav-tips-content"></p>
 </div>
 <script src="./js/script.js"></script>
+<script src="../../js/zch/getUrlParam.js"></script>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     monitorSystemThemeChange();
-    // 获取按钮
-    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
-    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
-    // 为按钮添加事件监听器
-    darkThemeBtn.addEventListener('click', function () {
-      changeTheme('dark', true);
-    });
-    lightThemeBtn.addEventListener('click', function () {
-      changeTheme('light', true);
-    });
+    addEventListenerToThemeChangeBtn();
+    addEventListenerToBookmarkNavBtn();
+    getCurrentUrlParam();
+    //
   })
   function monitorSystemThemeChange() {
     const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
@@ -87,6 +83,18 @@
       console.info('根据系统主题变化')
       handleChange(mediaQueryListDark);
     }
+  }
+  function addEventListenerToThemeChangeBtn() {
+    // 获取按钮
+    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
+    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
+    // 为按钮添加事件监听器
+    darkThemeBtn.addEventListener('click', function () {
+      changeTheme('dark', true);
+    });
+    lightThemeBtn.addEventListener('click', function () {
+      changeTheme('light', true);
+    });
   }
   function handleChange(mediaQueryListEvent) {
     if (mediaQueryListEvent.matches) {
@@ -114,6 +122,35 @@
   }
   function changeALinkColor(color) {
     document.documentElement.style.setProperty('--a-href-color', color);
+  }
+  function getCurrentUrlParam() {
+    // 调用函数获取参数
+    const urlJsonParams = getUrlParamsToJson();
+    console.log('urlParams:', urlJsonParams, typeof urlJsonParams);
+    console.log('urlParamsData:', urlJsonParams.name);
+    // 显示参数
+    for (const [key, value] of Object.entries(urlJsonParams)) {
+      // p.textContent = `${key}: ${JSON.stringify(value)}`;
+      // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
+      // console.log('urlParams3:', `${key}`, `${value}`);
+      console.log('urlParams1:', key, value);
+    }
+    if (urlJsonParams && urlJsonParams.name) {
+      loadBookmarkData(urlJsonParams.name);
+      return;
+    }
+    alert('urlJsonParams.data is null' + urlJsonParams);
+    console.error('urlJsonParams.data is null:', urlJsonParams);
+  }
+  function addEventListenerToBookmarkNavBtn() {
+    document.getElementById("go-back").addEventListener("click", (event) => {
+      event.preventDefault();
+      goBack("container");
+    });
+    document.getElementById("go-root").addEventListener("click", (event) => {
+      event.preventDefault();
+      loadBookmarkData();
+    });
   }
 </script>
 </body>

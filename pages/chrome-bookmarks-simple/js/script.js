@@ -18,7 +18,66 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
   if (parentBookmark) {
     parentStack.push(parentBookmark);
   }
-  bookmarks.forEach((bookmark) => {
+  console.info('bookmarks:', bookmarks, typeof bookmarks);
+  console.info('bookmarks.length:', bookmarks.length);
+  console.info('bookmarks.isArray:', Array.isArray(bookmarks));
+  if (Array.isArray(bookmarks)) {
+    bookmarks.forEach((bookmark) => {
+      if (bookmark.type === "folder") {
+        // 对于folder, 创建div并添加到foldersGroup
+        const div = document.createElement("div");
+        div.className = "folder";
+        div.textContent = bookmark.name;
+        div.id = bookmark.guid;
+        div.title = bookmark.name;
+        // 💼
+        div.addEventListener("click", () => {
+          console.log(
+            "bookmark.type:bookmark.name:",
+            bookmark.type + ":" + bookmark.name
+          );
+          navTipContent.textContent = navTipContent.textContent + "💼" + bookmark.name;
+          navTipContentFixTxt.textContent = "current:";
+          createBookmarkElements(bookmark.children, parentId, bookmark);
+        });
+        foldersGroup.appendChild(div);
+      }
+      else if (bookmark.type === "url") {
+        // 对于url, 创建a标签并包装到li标签中
+        const li = document.createElement("li");
+        li.className = "urlsLi";
+        // // 创建一个 img 标签 用于显示图标 favicon.ico
+        // const img = document.createElement("img");
+        // // 地址是 url 后的第一个 / 加上 favicon.ico 作为图片地址
+        // img.src = "http" + "://" + +bookmark.url.split("/")[2] + "/favicon.ico";
+        // img.title = bookmark.name + "👉" + bookmark.url;
+        // img.className = "custom-zch-favicon";
+        // 创建一个p标签用于显示书签名称
+        const p = document.createElement("span");
+        p.textContent = bookmark.name;
+        p.className = "name";
+        // 创建一个 a 标签 用于显示书签名称和链接
+        const a = document.createElement("a");
+        a.href = bookmark.url;
+        a.textContent = bookmark.name;
+        a.textContent = "🔗";
+        a.title = bookmark.name + "👉" + bookmark.url;
+        a.className = "link";
+        a.id = bookmark.guid;
+        a.target = "_blank";
+        a.addEventListener("click", () => {
+          navTipContent.textContent = navTipContent.textContent + "🔗" + bookmark.name;
+          navTipContentFixTxt.textContent = "current:";
+        });
+        // a.appendChild(img); // 将img元素添加到li里
+        li.appendChild(a); // 将a元素添加到li里
+        li.appendChild(p); // 将p元素添加到li里
+        urlsGroupUl.appendChild(li); // 将li元素添加到urlsGroupUl里
+      }
+    });
+  }
+  else {
+    let bookmark = bookmarks;
     if (bookmark.type === "folder") {
       // 对于folder, 创建div并添加到foldersGroup
       const div = document.createElement("div");
@@ -70,7 +129,8 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
       li.appendChild(p); // 将p元素添加到li里
       urlsGroupUl.appendChild(li); // 将li元素添加到urlsGroupUl里
     }
-  });
+  }
+
   // 如果foldersGroup有子节点，则将其添加到父级容器
   if (foldersGroup.hasChildNodes()) {
     parent.appendChild(foldersGroup);
@@ -107,31 +167,36 @@ function goBack(parentId) {
   }
 }
 
-function init() {
-  fetch("./data/json/Bookmarks.json")
+function loadBookmarkData(loadJsonData) {
+  console.log("loadJsonData:", loadJsonData);
+  const dataFile = "./data/json/Bookmarks.json";
+  fetch(dataFile)
     .then((response) => response.json())
     .then((data) => {
-      createBookmarkElements(
-        data.roots.bookmark_bar.children,
-        "container",
-        data.roots.bookmark_bar
-      );
+      let data1 = data.roots.bookmark_bar;
+      console.log("data1:", data1);
+      let data2 = data1.children;
+      console.log("data2-1:", data2);
+      if (loadJsonData && loadJsonData !== 'all') {
+        // const [key, value] of Object.entries(data2)
+        // for (const [key, value] of Object.entries(data2)) {
+        //   console.info("key:", key, "value:", value);
+        // }
+        // const data2Element of data2
+        for (const data2Element of data2) {
+          if (data2Element.name === loadJsonData) {
+            console.info("data2Element:", data2Element);
+            data2 = data2Element.children;
+          }
+        }
+      }
+      const parentId = "container";
+      console.log("data2-2:", data2);
+      createBookmarkElements(data2, parentId, data1);
       navTipContent.textContent = "";
       navTipContentFixTxt.textContent = "";
     });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  init();
-  document.getElementById("go-back").addEventListener("click", (event) => {
-    event.preventDefault();
-    goBack("container");
-  });
-  document.getElementById("go-root").addEventListener("click", (event) => {
-    event.preventDefault();
-    init();
-  });
-});
 
 /**
  * // 转换主域名 有些地址的域名不是主域名
