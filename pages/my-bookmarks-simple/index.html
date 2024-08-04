@@ -11,6 +11,7 @@
     --color: #1E1F22;
     --bg-color: #F7F8FA;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --color: #F7F8FA;
@@ -18,19 +19,32 @@
       --a-href-color: #F7F8FA;
     }
   }
+
+  @keyframes gradient_background-pan {
+    0% {
+      background-position: 0;
+    }
+    100% {
+      background-position: -200%;
+    }
+  }
+
   body {
+
     color: var(--color);
     background-color: var(--bg-color);
   }
+
   body, html {
-    /*font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;*/
-    font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    /*font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
     font-size: 16px;
     margin: 0;
     min-height: unset;
     min-width: unset;
     padding: 0;
   }
+
   /*color: #0069d9;*/
   .custom-zch {
     height: 21px;
@@ -38,8 +52,9 @@
     text-decoration: none;
     cursor: pointer;
   }
+
   td {
-    padding: 0 5px;
+    padding: 2px 8px;
     align-items: center;
     text-align: center;
     border: 1px solid #ccc;
@@ -48,7 +63,32 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
+    animation: moveLight 5s linear infinite;
+    background-size: 200% 200%;
+    /*background: radial-gradient(circle at 100% 0%, white 0%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);*/
+    filter: blur(0px);
+    /*background: radial-gradient(circle at 100% 0%, #701b1b 0%, rgb(39, 161, 73) 0%, rgba(255, 255, 255, 0) 100%);*/
+    will-change: auto;
   }
+
+  @keyframes moveLight {
+    0% {
+      background-position: 100% 0%;
+    }
+    25% {
+      background-position: 100% 100%;
+    }
+    50% {
+      background-position: 0% 100%;
+    }
+    75% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 0%;
+    }
+  }
+
   .duplicate-elements-input {
     border: none;
     border-radius: 50px;
@@ -56,33 +96,41 @@
     width: 100%;
     height: 50px;
   }
+
   .custom-zch-favicon {
     width: 18px;
     height: 18px;
   }
+
   a:link {
     color: var(--a-href-color);
   }
+
   a:visited {
     /*color: rgb(79, 79, 224);*/
     color: var(--a-href-color);
     text-decoration: none;
   }
+
   a:hover {
     color: #1890ff;
   }
+
   a:active {
     color: rgb(236, 222, 96);
   }
+
   a:focus {
     outline: none; /* 去掉默认的轮廓 */
     color: rgb(103, 109, 24);
   }
+
   .table-urls {
-    border: 5px solid #ccc;
+    border: 0 solid #ccc;
     border-radius: 10px;
     margin: 20px auto;
   }
+
   .about-tools-remove-duplicate {
     width: 28%;
   }
@@ -118,7 +166,6 @@
 <!--XB😐-->
 <table class="table-urls about-xb">
   <caption>
-    😐
   </caption>
   <!--xb-client-login-->
   <tr>
@@ -140,12 +187,12 @@
   </tr>
   <!--info-query-->
   <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">j1Ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">a2Ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3Ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4Ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">cdzCi</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">enjs</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">j1ci</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">a2ci</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3ci</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4ci</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">cdzci</a></td>
+    <td><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">en-js</a></td>
   </tr>
   <!--text tips-->
   <tr>
@@ -160,9 +207,7 @@
 </table>
 <!--Zch😃-->
 <table class="table-urls about-socialize">
-  <caption>
-    😃
-  </caption>
+  <caption></caption>
   <tr>
     <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
     <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
@@ -176,16 +221,15 @@
 <table class="table-urls about-socialize">
   <tr>
     <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">bookmark-pin-tree</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">bookmark-ai</a></td>
+    <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">pin-tree-dev</a></td>
   </tr>
 </table>
 <!--Git-->
 <table class="table-urls about-git">
   <caption>
-    🙂
   </caption>
   <tr>
     <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github</a></td>
@@ -199,7 +243,6 @@
 <!-- AI custom coze -->
 <table class="table-urls about-ai" style="display: none;">
   <caption>
-    😁
   </caption>
   <tr>
     <td><a target="_blank" href="https://www.coze.com/store/bot/7327573529078235142" class="custom-zch">general</a></td>
@@ -212,7 +255,6 @@
 <!--AI -->
 <table class="table-urls about-ai">
   <caption>
-    😁
   </caption>
   <tr>
     <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">coze.en</a></td>
@@ -227,7 +269,7 @@
   <tr>
     <td><a target="_blank" href="https://www.coze.cn/space/7346541960162869283/bot" class="custom-zch">coze.cn</a></td>
     <td><a target="_blank" href="https://www.doubao.com/chat/" class="custom-zch">doubao</a></td>
-    <td colspan="2"><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">kimi-moon</a></td>
+    <td colspan="2"><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">kimi-moonshot</a></td>
     <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">tongyi</a></td>
     <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">chatglm</a></td>
     <td><a target="_blank" href="https://chat.deepseek.com/coder" class="custom-zch">deepseek</a></td>
@@ -236,8 +278,8 @@
   <tr>
     <td><a target="_blank" href="https://yiyan.baidu.com/" class="custom-zch">yiyan</a></td>
     <td><a target="_blank" href="https://yuanbao.tencent.com/" class="custom-zch">hunyuan</a></td>
-    <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">lingyiwanwu</a></td>
-    <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">chat306</a></td>
+    <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">lingyi</a></td>
+    <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">ai360</a></td>
     <td colspan="2"><a target="_blank" href="https://chat.lmsys.org/?leaderboard" class="custom-zch">sort-lmsys</a></td>
     <td colspan="2"><a target="_blank" href="https://www.superclueai.com/" class="custom-zch">sort-superclueai</a></td>
   </tr>
@@ -245,7 +287,6 @@
 <!--Searches -->
 <table class="table-urls about-search-engines">
   <caption>
-    😅
   </caption>
   <tr>
     <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
@@ -264,7 +305,6 @@
 <!-- Translate -->
 <table class="table-urls about-search-translate">
   <caption>
-    😉
   </caption>
   <tr>
     <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
@@ -280,7 +320,6 @@
 <!-- remove duplicate elements -->
 <table class="table-urls about-tools-remove-duplicate" style="display: none">
   <caption>
-    😆
   </caption>
   <tr style="height: 50px;">
     <td>
@@ -310,6 +349,11 @@
     lightThemeBtn.addEventListener('click', function () {
       changeTheme('light', true);
     });
+    // 使用方法
+    // let elements = document.querySelectorAll('.table-urls td');
+    // for (const element of elements) {
+    //   updateGradient(element);
+    // }
   })
   // 打开链接
   function openHttpLinkInNewTab(url) {
@@ -379,6 +423,19 @@
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
       output.textContent = uniqueElements.join(",");
     })
+  }
+  //
+  function updateGradient(element) {
+    let angle = 0;
+    function animate() {
+      angle = (angle + 1) % 360;
+      const x = 50 + 50 * Math.cos(angle * Math.PI / 180);
+      const y = 50 + 50 * Math.sin(angle * Math.PI / 180);
+      // element.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, white 0%, rgba(255,255,255,0) 50%)`;
+      element.style.backgroundImage = `radial-gradient(${x}% ${y}% at ${120 - x}% ${100 - y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
   }
 </script>
 </html>

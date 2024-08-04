@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>光点围绕div转圈</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 100px auto;
+      border: 2px solid #000;
+      position: relative;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 5s linear infinite;
+    }
+    @keyframes spin {
+      0% {
+        transform: translate(-10%, -10%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <div class="dot"></div>
+</div>
+
+<script>
+  // JavaScript 用于创建多个光点
+  const box = document.querySelector('.box');
+  const numberOfDots = 5; // 光点数量
+  for (let i = 0; i < numberOfDots; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.animationDuration = `${5 + i * 2}s`; // 每个光点的动画时间略有不同
+    dot.style.animationDelay = `-${i * 2}s`; // 动画开始时间错开
+    box.appendChild(dot);
+  }
+</script>
+
+</body>
+</html>
