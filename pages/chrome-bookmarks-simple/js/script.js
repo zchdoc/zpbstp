@@ -57,10 +57,10 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
         p.textContent = bookmark.name;
         p.className = "name";
         // 创建一个 a 标签 用于显示书签名称和链接
-        const a = document.createElement("a");
+        const a: HTMLAnchorElement = document.createElement("a");
         a.href = bookmark.url;
-        a.textContent = bookmark.name;
-        a.textContent = "🔗";
+        // a.textContent = bookmark.name
+        a.textContent = "🔗"+bookmark.name;
         a.title = bookmark.name + "👉" + bookmark.url;
         a.className = "link";
         a.id = bookmark.guid;
@@ -71,7 +71,7 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
         });
         // a.appendChild(img); // 将img元素添加到li里
         li.appendChild(a); // 将a元素添加到li里
-        li.appendChild(p); // 将p元素添加到li里
+        // li.appendChild(p); // 将p元素添加到li里
         urlsGroupUl.appendChild(li); // 将li元素添加到urlsGroupUl里
       }
     });
@@ -114,8 +114,8 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
       // 创建一个 a 标签 用于显示书签名称和链接
       const a = document.createElement("a");
       a.href = bookmark.url;
-      a.textContent = bookmark.name;
-      a.textContent = "🔗";
+      // a.textContent = bookmark.name
+      a.textContent = "🔗"+bookmark.name;
       a.title = bookmark.name + "👉" + bookmark.url;
       a.className = "link";
       a.id = bookmark.guid;
@@ -126,7 +126,7 @@ function createBookmarkElements(bookmarks, parentId, parentBookmark = null) {
       });
       // a.appendChild(img); // 将img元素添加到li里
       li.appendChild(a); // 将a元素添加到li里
-      li.appendChild(p); // 将p元素添加到li里
+      // li.appendChild(p); // 将p元素添加到li里
       urlsGroupUl.appendChild(li); // 将li元素添加到urlsGroupUl里
     }
   }
