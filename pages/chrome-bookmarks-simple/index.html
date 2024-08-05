@@ -126,6 +126,11 @@
   function getCurrentUrlParam() {
     // 调用函数获取参数
     const urlJsonParams = getUrlParamsToJson();
+
+    if (urlJsonParams && urlJsonParams.name) {
+      loadBookmarkData(urlJsonParams.name);
+      return;
+    }
     console.log('urlParams:', urlJsonParams, typeof urlJsonParams);
     console.log('urlParamsData:', urlJsonParams.name);
     // 显示参数
@@ -135,11 +140,8 @@
       // console.log('urlParams3:', `${key}`, `${value}`);
       console.log('urlParams1:', key, value);
     }
-    if (urlJsonParams && urlJsonParams.name) {
-      loadBookmarkData(urlJsonParams.name);
-      return;
-    }
-    alert('urlJsonParams.data is null' + urlJsonParams);
+    loadBookmarkData("all");
+    // alert('urlJsonParams.data is null' + urlJsonParams)
     console.error('urlJsonParams.data is null:', urlJsonParams);
   }
   function addEventListenerToBookmarkNavBtn() {
