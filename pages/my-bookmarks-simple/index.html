@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <link rel="icon" href="favicon.ico"/>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.ico" />
   <title>FastUrl</title>
   <!--<link rel="stylesheet" href="./css/styles.css">-->
 </head>
@@ -11,6 +12,7 @@
     --color: #1E1F22;
     --bg-color: #F7F8FA;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --color: #F7F8FA;
@@ -18,25 +20,30 @@
       --a-href-color: #F7F8FA;
     }
   }
+
   body {
     color: var(--color);
     background-color: var(--bg-color);
   }
-  body, html {
+
+  body,
+  html {
     /*font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;*/
     /*font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
     /*font-size: 16px;*/
     /*margin: 0;*/
     /*min-height: unset;*/
     /*min-width: unset;*/
-    /*padding: 0;*/
+    padding: 0;
   }
+
   /*color: #0069d9;*/
   .custom-zch {
     height: 21px;
     position: relative;
     cursor: pointer;
   }
+
   td {
     padding: 2px 8px;
     align-items: center;
@@ -54,23 +61,29 @@
     /*background: radial-gradient(circle at 100% 0%, #701b1b 0%, rgb(39, 161, 73) 0%, rgba(255, 255, 255, 0) 100%);*/
     will-change: auto;
   }
+
   @keyframes moveLight {
     0% {
       background-position: 100% 0;
     }
+
     25% {
       background-position: 100% 100%;
     }
+
     50% {
       background-position: 0 100%;
     }
+
     75% {
       background-position: 0 0;
     }
+
     100% {
       background-position: 100% 0;
     }
   }
+
   .duplicate-elements-input {
     border: none;
     border-radius: 50px;
@@ -78,244 +91,286 @@
     width: 100%;
     height: 50px;
   }
+
   .custom-zch-favicon {
     width: 18px;
     height: 18px;
   }
+
   a:link {
     color: var(--a-href-color);
     text-decoration: none;
   }
+
   a:visited {
     color: var(--a-href-color);
   }
+
   a:hover {
     color: #1890ff;
   }
+
   a:active {
     color: rgb(236, 222, 96);
   }
+
   a:focus {
-    outline: none; /* 去掉默认的轮廓 */
+    outline: none;
+    /* 去掉默认的轮廓 */
     color: rgb(103, 109, 24);
   }
+
   .table-urls {
     border: 0 solid #ccc;
     border-radius: 10px;
     margin: 20px auto;
   }
+
   .about-tools-remove-duplicate {
     width: 28%;
   }
+
   .theme-switch {
     width: 30px;
     height: 30px;
     border-radius: 100px;
   }
+
   /*鼠标悬停 指针变成手型*/
   .theme-switch:hover {
     cursor: pointer;
   }
+
   #btnChangeToLightTheme {
     background-color: #F7F8FA;
   }
+
   #btnChangeToDarkTheme {
     background-color: #1E1F22;
   }
 </style>
+
 <body>
-<!--dark-light 🌞🌝🌜🌛🌚🌙-->
-<!--dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
-<table class="table-urls about-chrome">
-  <caption></caption>
-  <tr>
-    <td>
-      <div class="theme-switch" id="btnChangeToLightTheme"></div>
-      <!--    </td>-->
-      <!--    <td>-->
-      <div class="theme-switch" id="btnChangeToDarkTheme"></div>
-    </td>
-  </tr>
-</table>
-<!--Chrome 😶-->
-<table class="table-urls about-chrome" style="display: none;">
-  <caption>
-    😶
-  </caption>
-  <tr>
-    <td>chrome://chrome-urls</td>
-    <td>chrome://settings</td>
-  </tr>
-  <tr>
-    <td>chrome://bookmarks</td>
-    <td>chrome://extensions</td>
-  </tr>
-  <tr>
-    <td>chrome://history</td>
-    <td>chrome://downloads</td>
-  </tr>
-</table>
-<!--XB😐-->
-<table class="table-urls about-xb">
-  <caption>
-  </caption>
-  <!--xb-client-login-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81')" class="custom-zch">j1c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81')" class="custom-zch">a2c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081')" class="custom-zch">a3c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081')" class="custom-zch">a4c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081')" class="custom-zch">cdzc</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81')" class="custom-zch">gxcdzc</a></td>
-  </tr>
-  <!--xb-login-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">j1cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')" class="custom-zch">a2cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')" class="custom-zch">cdzcb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
-  </tr>
-  <!--info-query-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">j1ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">a2ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">cdzci</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html" class="custom-zch">en-js</a></td>
-  </tr>
-</table>
-<!-- Zch-Dev-Html -->
-<table class="table-urls about-socialize">
-  <tr>
-    <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr</a></td>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a></td>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a></td>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">bookmark-ai</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">pin-tree-dev</a></td>
-  </tr>
-</table>
-<!--Zch😃-->
-<table class="table-urls about-socialize">
-  <caption></caption>
-  <tr>
-    <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
-    <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
-    <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
-    <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
-    <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
-    <td><a target="_blank" href="https://www.52pojie.cn/" class="custom-zch">52pj</a></td>
-  </tr>
-</table>
-<!--Git-->
-<table class="table-urls about-git">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github</a></td>
-    <td><a target="_blank" href="https://gitee.com/" class="custom-zch">gitee</a></td>
-    <td><a target="_blank" href="https://codeup.aliyun.com/" class="custom-zch">codeup</a></td>
-    <td><a target="_blank" href="https://gitlab.com/" class="custom-zch">gitlab</a></td>
-    <td><a target="_blank" href="https://gitcode.com/" class="custom-zch">csdn-git</a></td>
-    <td><a target="_blank" href="https://github.com/trending?since=monthly" class="custom-zch">github-m</a></td>
-  </tr>
-</table>
-<!-- AI custom coze -->
-<table class="table-urls about-ai" style="display: none;">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://www.coze.com/store/bot/7327573529078235142" class="custom-zch">general</a></td>
-    <td><a target="_blank" href="https://www.coze.com/store/bot/7343826037555527688" class="custom-zch">java</a></td>
-    <td><a target="_blank" href="https://www.coze.com/store/bot/7350809361293524999" class="custom-zch">python</a></td>
-    <td><a target="_blank" href="https://www.coze.com/store/bot/7367304585830187024" class="custom-zch">front</a></td>
-    <td><a target="_blank" href="https://www.coze.com/store/bot/7373965682830147592" class="custom-zch">mysql</a></td>
-  </tr>
-</table>
-<!--AI -->
-<table class="table-urls about-ai">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">coze.en</a></td>
-    <td><a target="_blank" href="https://www.ciciai.com/" class="custom-zch">cocici</a></td>
-    <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">openai</a></td>
-    <td><a target="_blank" href="https://claude.ai/new" class="custom-zch">claude</a></td>
-    <td><a target="_blank" href="https://groq.com/" class="custom-zch">groq</a></td>
-    <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">mistral</a></td>
-    <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">perplexity</a></td>
-    <td><a target="_blank" href="https://gemini.google.com/app" class="custom-zch">gemini</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://www.coze.cn/space/7346541960162869283/bot" class="custom-zch">coze.cn</a></td>
-    <td><a target="_blank" href="https://www.doubao.com/chat/" class="custom-zch">doubao</a></td>
-    <td colspan="2"><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">kimi-moonshot</a></td>
-    <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">tongyi</a></td>
-    <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">chatglm</a></td>
-    <td><a target="_blank" href="https://chat.deepseek.com/coder" class="custom-zch">deepseek</a></td>
-    <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">xunfeiyun</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://yiyan.baidu.com/" class="custom-zch">yiyan</a></td>
-    <td><a target="_blank" href="https://yuanbao.tencent.com/" class="custom-zch">hunyuan</a></td>
-    <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">lingyi</a></td>
-    <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">ai360</a></td>
-    <td colspan="2"><a target="_blank" href="https://chat.lmsys.org/?leaderboard" class="custom-zch">sort-lmsys</a></td>
-    <td colspan="2"><a target="_blank" href="https://www.superclueai.com/" class="custom-zch">sort-superclueai</a></td>
-  </tr>
-</table>
-<!--Searches -->
-<table class="table-urls about-search-engines">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
-    <td><a target="_blank" href="https://www.duckduckgo.com" class="custom-zch">duckduckgo</a></td>
-    <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
-    <td>
-      <a target="_blank" href="https://www.baidu.com" class="custom-zch">
-        <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" style="display: none;" class="custom-zch-favicon"/>
-        <span class="custom-zch-text">baidu</span>
-      </a>
-    </td>
-    <td><a target="_blank" href="https://www.sogou.com" class="custom-zch">sogou</a></td>
-    <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
-  </tr>
-</table>
-<!-- Translate -->
-<table class="table-urls about-search-translate">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
-    <td><a target="_blank" href="https://cn.bing.com/translator" class="custom-zch">fy-bing</a></td>
-    <td><a target="_blank" href="https://www.deepl.com/zh/translator" class="custom-zch">fy-deepl</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://translate.google.com.hk/?hl=zh-CN&sl=auto&tl=en&op=translate" class="custom-zch">fy-google-zh</a></td>
-    <td><a target="_blank" href="https://fanyi.baidu.com/" class="custom-zch">fy-baidu</a></td>
-    <td><a target="_blank" href="https://fanyi.youdao.com/#/" class="custom-zch">fy-youdao</a></td>
-  </tr>
-</table>
-<!-- remove duplicate elements -->
-<table class="table-urls about-tools-remove-duplicate" style="display: none">
-  <caption>
-  </caption>
-  <tr style="height: 50px;">
-    <td>
-      <label>
-        <input type="text" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements-input">
-      </label>
-    </td>
-  </tr>
-  <tr style="height: 50px;">
-    <td>
-      <p class="duplication-removed-element"></p>
-    </td>
-  </tr>
-</table>
+  <!--dark-light 🌞🌝🌜🌛🌚🌙-->
+  <!--dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
+  <table class="table-urls about-chrome">
+    <caption></caption>
+    <tr>
+      <td>
+        <div class="theme-switch" id="btnChangeToLightTheme"></div>
+        <!--    </td>-->
+        <!--    <td>-->
+        <div class="theme-switch" id="btnChangeToDarkTheme"></div>
+      </td>
+    </tr>
+  </table>
+  <!--Chrome 😶-->
+  <table class="table-urls about-chrome" style="display: none;">
+    <caption>
+      😶
+    </caption>
+    <tr>
+      <td>chrome://chrome-urls</td>
+      <td>chrome://settings</td>
+    </tr>
+    <tr>
+      <td>chrome://bookmarks</td>
+      <td>chrome://extensions</td>
+    </tr>
+    <tr>
+      <td>chrome://history</td>
+      <td>chrome://downloads</td>
+    </tr>
+  </table>
+  <!--XB😐-->
+  <table class="table-urls about-xb">
+    <caption>
+    </caption>
+    <!--xb-client-login-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81')" class="custom-zch">j1c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81')" class="custom-zch">a2c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081')" class="custom-zch">a3c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081')" class="custom-zch">a4c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081')" class="custom-zch">cdzc</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81')" class="custom-zch">gxcdzc</a>
+      </td>
+    </tr>
+    <!--xb-login-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/singbon/backgroud/system/admin/login.do')"
+          class="custom-zch">j1cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')"
+          class="custom-zch">a2cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')"
+          class="custom-zch">a3cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')"
+          class="custom-zch">a4cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')"
+          class="custom-zch">cdzcb</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')"
+          class="custom-zch">gxcdzcb</a></td>
+    </tr>
+    <!--info-query-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">j1ci</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a2ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a3ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a4ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">cdzci</a></td>
+      <td><a target="_blank" href="https://zchdoc.github.io/zpbstp/pages/zch-encrypt-js.html"
+          class="custom-zch">en-js</a></td>
+    </tr>
+  </table>
+  <!-- Zch-Dev-Html -->
+  <table class="table-urls about-socialize">
+    <tr>
+      <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr</a></td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a>
+      </td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a>
+      </td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">bookmark-ai</a>
+      </td>
+      <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">pin-tree-dev</a></td>
+    </tr>
+  </table>
+  <!--Searches -->
+  <table class="table-urls about-search-engines">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
+      <td><a target="_blank" href="https://www.duckduckgo.com" class="custom-zch">duckduckgo</a></td>
+      <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
+      <td>
+        <a target="_blank" href="https://www.baidu.com" class="custom-zch">
+          <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" style="display: none;"
+            class="custom-zch-favicon" />
+          <span class="custom-zch-text">baidu</span>
+        </a>
+      </td>
+      <td><a target="_blank" href="https://www.sogou.com" class="custom-zch">sogou</a></td>
+      <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
+    </tr>
+  </table>
+  <!--Zch😃-->
+  <table class="table-urls about-socialize">
+    <caption></caption>
+    <tr>
+      <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
+      <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
+      <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
+      <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
+      <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
+      <td><a target="_blank" href="https://www.52pojie.cn/" class="custom-zch">52pj</a></td>
+    </tr>
+  </table>
+  <!--Git-->
+  <table class="table-urls about-git">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github</a></td>
+      <td><a target="_blank" href="https://gitee.com/" class="custom-zch">gitee</a></td>
+      <td><a target="_blank" href="https://codeup.aliyun.com/" class="custom-zch">codeup</a></td>
+      <td><a target="_blank" href="https://gitlab.com/" class="custom-zch">gitlab</a></td>
+      <td><a target="_blank" href="https://gitcode.com/" class="custom-zch">csdn-git</a></td>
+      <td><a target="_blank" href="https://github.com/trending?since=monthly" class="custom-zch">github-m</a></td>
+    </tr>
+  </table>
+  <!-- AI custom coze -->
+  <table class="table-urls about-ai" style="display: none;">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://www.coze.com/store/bot/7327573529078235142" class="custom-zch">general</a>
+      </td>
+      <td><a target="_blank" href="https://www.coze.com/store/bot/7343826037555527688" class="custom-zch">java</a></td>
+      <td><a target="_blank" href="https://www.coze.com/store/bot/7350809361293524999" class="custom-zch">python</a>
+      </td>
+      <td><a target="_blank" href="https://www.coze.com/store/bot/7367304585830187024" class="custom-zch">front</a></td>
+      <td><a target="_blank" href="https://www.coze.com/store/bot/7373965682830147592" class="custom-zch">mysql</a></td>
+    </tr>
+  </table>
+  <!--AI -->
+  <table class="table-urls about-ai">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">coze.en</a>
+      </td>
+      <td><a target="_blank" href="https://www.ciciai.com/" class="custom-zch">cocici</a></td>
+      <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">openai</a></td>
+      <td><a target="_blank" href="https://claude.ai/new" class="custom-zch">claude</a></td>
+      <td><a target="_blank" href="https://groq.com/" class="custom-zch">groq</a></td>
+      <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">mistral</a></td>
+      <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">perplexity</a></td>
+      <td><a target="_blank" href="https://gemini.google.com/app" class="custom-zch">gemini</a></td>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="https://www.coze.cn/space/7346541960162869283/bot" class="custom-zch">coze.cn</a>
+      </td>
+      <td><a target="_blank" href="https://www.doubao.com/chat/" class="custom-zch">doubao</a></td>
+      <td colspan="2"><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">kimi-moonshot</a></td>
+      <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">tongyi</a></td>
+      <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">chatglm</a></td>
+      <td><a target="_blank" href="https://chat.deepseek.com/coder" class="custom-zch">deepseek</a></td>
+      <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">xunfeiyun</a></td>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="https://yiyan.baidu.com/" class="custom-zch">yiyan</a></td>
+      <td><a target="_blank" href="https://yuanbao.tencent.com/" class="custom-zch">hunyuan</a></td>
+      <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">lingyi</a></td>
+      <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">ai360</a></td>
+      <td><a target="_blank" href="https://chat.lmsys.org/?leaderboard" class="custom-zch">sort-lmsys</a></td>
+      <td><a target="_blank" href="https://aider.chat/docs/leaderboards" class="custom-zch">sort-aider</a></td>
+      <td colspan="2"><a target="_blank" href="https://www.superclueai.com" class="custom-zch">sort-superclueai</a></td>
+    </tr>
+  </table>
+  <!-- Translate -->
+  <table class="table-urls about-search-translate">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
+      <td><a target="_blank" href="https://cn.bing.com/translator" class="custom-zch">fy-bing</a></td>
+      <td><a target="_blank" href="https://www.deepl.com/zh/translator" class="custom-zch">fy-deepl</a></td>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="https://translate.google.com.hk/?hl=zh-CN&sl=auto&tl=en&op=translate"
+          class="custom-zch">fy-google-zh</a></td>
+      <td><a target="_blank" href="https://fanyi.baidu.com/" class="custom-zch">fy-baidu</a></td>
+      <td><a target="_blank" href="https://fanyi.youdao.com/#/" class="custom-zch">fy-youdao</a></td>
+    </tr>
+  </table>
+  <!-- remove duplicate elements -->
+  <table class="table-urls about-tools-remove-duplicate" style="display: none">
+    <caption>
+    </caption>
+    <tr style="height: 50px;">
+      <td>
+        <label>
+          <input type="text" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)"
+            class="duplicate-elements-input">
+        </label>
+      </td>
+    </tr>
+    <tr style="height: 50px;">
+      <td>
+        <p class="duplication-removed-element"></p>
+      </td>
+    </tr>
+  </table>
 </body>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
@@ -424,4 +479,5 @@
     animate();
   }
 </script>
+
 </html>
