@@ -30,7 +30,7 @@
   <h2>每分钱脉冲数计算器</h2>
 
   <label for="price">水的单价:</label><br>
-  <input type="number" id="price" step="0.01" placeholder="输入单价">
+  <input type="number" id="price" step="0.01" value="2" placeholder="输入单价">
   <select id="priceUnit">
     <option value="0.1">毛/升</option>
     <option value="1">元/升</option>
@@ -38,7 +38,7 @@
   </select><br>
 
   <label for="volume">每个脉冲的水量:</label><br>
-  <input type="number" id="volume" step="0.0001" placeholder="输入每脉冲水量">
+  <input type="number" id="volume" step="0.001" value="1.67" placeholder="输入每脉冲水量">
   <select id="volumeUnit">
     <option value="0.001">毫升</option>
     <option value="1">升</option>
@@ -129,6 +129,7 @@
         calcResultInput.value = '';
       }
     }
+    calculatePulses();
   </script>
 </body>
 
