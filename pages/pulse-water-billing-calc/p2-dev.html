@@ -84,6 +84,7 @@
         const pFixVal = p.toFixed(10);
         resultDisplay.textContent = `每分钱对应的脉冲数: ${pFixVal}`;
         num1Input.value = pFixVal;
+        calculate();
       } else {
         resultDisplay.textContent = "每分钱对应的脉冲数: 0";
         num1Input.value = '';
@@ -97,8 +98,10 @@
     const calcResultInput = document.getElementById('calcResult');
 
     num1Input.addEventListener('input', calculate);
+    num1Input.addEventListener('change', calculate);
     operatorSelect.addEventListener('change', calculate);
     num2Input.addEventListener('input', calculate);
+    num2Input.addEventListener('change', calculate);
 
     function calculate() {
       const num1 = parseFloat(num1Input.value);
