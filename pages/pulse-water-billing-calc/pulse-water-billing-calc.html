@@ -45,14 +45,14 @@
   </select><br>
 
   <div class="result" id="result">每分钱对应的脉冲数: 0</div>
-  <br/>
-  <br/>
-  <br/>
+  <br />
+  <br />
+  <br />
   <input type="number" id="num1" placeholder="num1">
   <select id="operator">
+    <option value="*">✖️</option>
     <option value="+">➕</option>
     <option value="-">➖</option>
-    <option value="*">✖️</option>
     <option value="/">➗</option>
   </select>
   <input type="number" id="num2" placeholder="num2">
@@ -81,9 +81,12 @@
 
       if (price > 0 && volume > 0) {
         const p = 0.01 / (price * priceUnit * volume * volumeUnit);
-        resultDisplay.textContent = `每分钱对应的脉冲数: ${p.toFixed(10)}`;
+        const pFixVal = p.toFixed(10);
+        resultDisplay.textContent = `每分钱对应的脉冲数: ${pFixVal}`;
+        num1Input.value = pFixVal;
       } else {
         resultDisplay.textContent = "每分钱对应的脉冲数: 0";
+        num1Input.value = '';
       }
     }
 
