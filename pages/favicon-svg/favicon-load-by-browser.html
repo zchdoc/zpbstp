@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAV-SVG</title>
+  <script>
+    function setFavicon() {
+      const userAgent = navigator.userAgent;
+      console.info("User agent: " , userAgent,typeof userAgent);
+      // 默认的 SVG 图标
+      let faviconUrl = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6I2Y4ZGU0MDt9LmJ7ZmlsbDojZTdjOTMwO30uY3tmaWxsOiMxMDE4MjA7fS5ke2ZpbGw6Izg2NGUyMDt9LmV7ZmlsbDojZjA2ODgwO308L3N0eWxlPjwvZGVmcz48cmVjdCBjbGFzcz0iYSIgeD0iMSIgeT0iMSIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiByeD0iNy42NTYiLz48cGF0aCBjbGFzcz0iYiIgZD0iTTIzLDEzLjkzOGExNC42OSwxNC42OSwwLDAsMS0xMi40MDYsNi41MzFjLTUuNTQyLDAtNi41NjMtMS05LjE0Mi0yLjUyOUE3LjY2LDcuNjYsMCwwLDAsOC42NTYsMjNoNi42ODhBNy42NTYsNy42NTYsMCwwLDAsMjMsMTUuMzQ0WiIvPjxwYXRoIGNsYXNzPSJjIiBkPSJNMjEuNTU0LDUuNjkzYy0uMDYzLS4yODktMi44ODgtLjgyOS00Ljg3MS0uODI5YTUuNTg0LDUuNTg0LDAsMCwwLTMuMy43QTMuMTI1LDMuMTI1LDAsMCwxLDEyLDUuOTE5YTMuMTI1LDMuMTI1LDAsMCwxLTEuMzgxLS4zNTIsNS41ODQsNS41ODQsMCwwLDAtMy4zLS43Yy0xLjk4MywwLTQuODA4LjU0LTQuODcxLjgyOXMtLjExMywxLjIxNy4wODgsMS4zODEuNDM5LjAyNS40NzcuNi40NzcsMi45NzYsMS44MDgsMy43NjcsMy43NDEuMTYzLDQuNi0uMzY1QTQuMyw0LjMsMCwwLDAsMTEuMyw4LjU2OGMuMTM4LS44OTIuMzUxLTEuNTA3LjctMS41MDdzLjU2NS42MTUuNywxLjUwN2E0LjMsNC4zLDAsMCwwLDEuODgzLDIuNTFjLjg1NC41MjgsMy4yNjQsMS4xNTUsNC42LjM2NXMxLjc3LTMuMTg5LDEuODA4LTMuNzY3LjI3Ni0uNDM5LjQ3Ny0uNlMyMS42MTcsNS45ODEsMjEuNTU0LDUuNjkzWiIvPjxwYXRoIGNsYXNzPSJkIiBkPSJNMTYuNjY2LDEyLjU4M0g3LjMzNGEuNDkzLjQ5MywwLDAsMC0uNDkyLjU0NGMuMTIzLDEuMTc1Ljg3NSwzLjg0Miw1LjE1OCwzLjg0MnM1LjAzNS0yLjY2Nyw1LjE1OC0zLjg0MkEuNDkzLjQ5MywwLDAsMCwxNi42NjYsMTIuNTgzWiIvPjxwYXRoIGNsYXNzPSJlIiBkPSJNMTIsMTYuOTY5YTYuNTM4LDYuNTM4LDAsMCwwLDIuOTU5LS42LDEuOTc5LDEuOTc5LDAsMCwwLTEuMjA5LS44NTNjLTEuMzQ0LS4zLTEuNzUuMTA5LTEuNzUuMTA5cy0uNDA2LS40MDYtMS43NS0uMTA5YTEuOTc5LDEuOTc5LDAsMCwwLTEuMjA5Ljg1M0E2LjUzOCw2LjUzOCwwLDAsMCwxMiwxNi45NjlaIi8+PC9zdmc+";
+
+      // 根据不同的浏览器类型设置不同的图标
+      if (userAgent.includes("Firefox")) {
+        faviconUrl = "./512.gif";
+      } else if (userAgent.includes("Chrome")) {
+        faviconUrl = faviconUrl;
+      } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+        faviconUrl = faviconUrl;
+      }
+
+      // 动态创建 favicon 链接元素
+      const linkElement = document.createElement("link");
+      linkElement.rel = "shortcut icon";
+      linkElement.href = faviconUrl;
+      document.head.appendChild(linkElement);
+    }
+
+    document.addEventListener("DOMContentLoaded", setFavicon);
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
