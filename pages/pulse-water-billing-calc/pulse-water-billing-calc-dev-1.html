@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每分钱脉冲数计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        input {
+            margin: 10px 0;
+            padding: 5px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>每分钱脉冲数计算器</h2>
+    <label for="price">每升水的单价 (元):</label><br>
+    <input type="number" id="price" step="0.01" placeholder="输入单价"><br>
+    
+    <label for="volume">每个脉冲的水量 (升):</label><br>
+    <input type="number" id="volume" step="0.0001" placeholder="输入每脉冲水量"><br>
+
+    <div class="result" id="result">每分钱对应的脉冲数: 0</div>
+
+    <script>
+        // 获取输入框和显示结果的元素
+        const priceInput = document.getElementById('price');
+        const volumeInput = document.getElementById('volume');
+        const resultDisplay = document.getElementById('result');
+
+        // 监听输入变化并自动计算
+        priceInput.addEventListener('input', calculatePulses);
+        volumeInput.addEventListener('input', calculatePulses);
+
+        function calculatePulses() {
+            const x = parseFloat(priceInput.value);
+            const y = parseFloat(volumeInput.value);
+
+            if (x > 0 && y > 0) {
+                // 计算公式 p = 0.01 / (x * y)
+                const p = 0.01 / (x * y);
+                resultDisplay.textContent = `每分钱对应的脉冲数: ${p.toFixed(2)}`;
+            } else {
+                resultDisplay.textContent = "每分钱对应的脉冲数: 0";
+            }
+        }
+    </script>
+</body>
+</html>

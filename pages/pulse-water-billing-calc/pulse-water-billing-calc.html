@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每分钱脉冲数计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+
+    input,
+    select {
+      margin: 10px 0;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>每分钱脉冲数计算器</h2>
+
+  <label for="price">水的单价:</label><br>
+  <input type="number" id="price" step="0.01" placeholder="输入单价">
+  <select id="priceUnit">
+    <option value="1">元/升</option>
+    <option value="0.1">角/升</option>
+    <option value="0.01">分/升</option>
+  </select><br>
+
+  <label for="volume">每个脉冲的水量:</label><br>
+  <input type="number" id="volume" step="0.0001" placeholder="输入每脉冲水量">
+  <select id="volumeUnit">
+    <option value="1">升</option>
+    <option value="0.001">毫升</option>
+  </select><br>
+
+  <div class="result" id="result">每分钱对应的脉冲数: 0</div>
+
+  <script>
+    // 获取输入框和选择框元素
+    const priceInput = document.getElementById('price');
+    const priceUnitSelect = document.getElementById('priceUnit');
+    const volumeInput = document.getElementById('volume');
+    const volumeUnitSelect = document.getElementById('volumeUnit');
+    const resultDisplay = document.getElementById('result');
+
+    // 监听输入和选择框变化并自动计算
+    priceInput.addEventListener('input', calculatePulses);
+    priceUnitSelect.addEventListener('change', calculatePulses);
+    volumeInput.addEventListener('input', calculatePulses);
+    volumeUnitSelect.addEventListener('change', calculatePulses);
+
+    function calculatePulses() {
+      const price = parseFloat(priceInput.value);
+      const priceUnit = parseFloat(priceUnitSelect.value);
+      const volume = parseFloat(volumeInput.value);
+      const volumeUnit = parseFloat(volumeUnitSelect.value);
+
+      if (price > 0 && volume > 0) {
+        // 计算公式 p = 0.01 / (price * priceUnit * volume * volumeUnit)
+        const p = 0.01 / (price * priceUnit * volume * volumeUnit);
+        resultDisplay.textContent = `每分钱对应的脉冲数: ${p.toFixed(2)}`;
+      } else {
+        resultDisplay.textContent = "每分钱对应的脉冲数: 0";
+      }
+    }
+  </script>
+</body>
+
+</html>
