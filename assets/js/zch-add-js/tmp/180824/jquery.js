@@ -1,8 +1,8 @@
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'hammerjs'], factory);
+        define(['assets/js/zch-add-js/tmp/180824/jquery', 'hammerjs'], factory);
     } else if (typeof exports === 'object') {
-        factory(require('jquery'), require('hammerjs'));
+        factory(require('assets/js/zch-add-js/tmp/180824/jquery'), require('hammerjs'));
     } else {
         factory(jQuery, Hammer);
     }
