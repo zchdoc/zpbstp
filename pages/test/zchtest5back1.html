@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="https://avatars0.githubusercontent.com/u/17268394?s=400&u=5187f48f142aecaa279593ac514211bcca3ec319&v=4">
+	<title>enjs</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="../../dist/css/bootstrap-grid.css">
+	<link type="text/css" rel="stylesheet" href="../../dist/css/bootstrap-reboot.css">
+	<link href="../../dist/zaddcss/zaddindex.css" rel="stylesheet">
+	<style type="text/css">
+		#serverAddr {
+			width: 60%;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid saddlebrown;
+		}
+
+		input[name='okey'] {
+			width: 10%;
+			border: solid saddlebrown;
+		}
+
+		input[name='otext'] {
+			width: 80%;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid saddlebrown;
+		}
+
+		input[name='result'] {
+			width: 80%;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid saddlebrown;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">Never expand</a>
+	<!--<div class="collapse navbar-collapse">-->
+	<!--<ul class="navbar-nav mr-auto">-->
+	<!--<li class="nav-item active">-->
+	<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	<!--</li>-->
+	<!--<li class="nav-item">-->
+	<a class="nav-link" href="#">Link</a>
+	<!--</li>-->
+	<!--<li class="nav-item">-->
+	<a class="nav-link disabled" href="#">Disabled</a>
+	<!--</li>-->
+	<!--<li class="nav-item dropdown">-->
+	<a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	<div class="dropdown-menu" aria-labelledby="dropdown06">
+		<a class="dropdown-item" href="#">Action</a>
+		<a class="dropdown-item" href="#">Another action</a>
+		<a class="dropdown-item" href="#">Something else here</a>
+	</div>
+	<!--</li>-->
+	<!--</ul>-->
+	<form class="form-inline my-2 my-md-0">
+		<input class="form-control" type="text" placeholder="Search">
+	</form>
+	<!--</div>-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+		QA<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarsExample01">
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+		<p>1234567489123456798</p>
+	</div>
+</nav>
+<main role="main">
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">js加密解密</h1>
+			<p class="lead text-muted">测试</p>
+			<p>
+				<a href="#" class="btn btn-primary my-2">主</a>
+				<a href="#" class="btn btn-secondary my-2">次</a>
+			</p>
+		</div>
+	</section>
+	<div class="album py-5 bg-light">
+		<div class="container">
+			<!--<div class="container-fluid" style="padding-bottom: 1rem">-->
+			<div class="container-fluid" style="padding-bottom: auto">
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
+					<p>
+						密钥：<input name="okey" type="password" value="abc" placeholder="abc" aria-placeholder="abc"><br>
+						文字：<input name="otext" type="text" value="" placeholder="12" aria-placeholder="12"><br>
+						结果：<input name="result" type="text" value="" placeholder="结果" aria-placeholder="结果" title="结果">
+					</p>
+					<p>
+						<input name="gen" type="button" class="btn btn-sm btn-primary" value="加密信息">
+						<input name="dec" type="button" class="btn btn-sm btn-primary" value="解密信息">
+					</p>
+				</div>
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
+					<p>
+						服务器地址：<input name="serverAddr" id="serverAddr" class type="text" value="http://1.singbon.com:81" title="服务器地址">
+					</p>
+					<p>
+						<input name="getpwd" type="button" class="btn btn-sm btn-primary" value="获取密码">
+						<input name="loadpwd" type="button" class="btn btn-sm btn-primary" value="获取密码" title="打开新的页面">
+					</p>
+					<p>
+						设备号：<input name="deviceNum" type="number" value="1" placeholder="1" aria-placeholder="1">
+					</p>
+					<p><input name="loadDeviceInfo" type="button" class="btn btn-sm btn-primary" value="查询设备"></p>
+				</div>
+				<div style="border: solid 2px;border-radius: 5px;padding: 20px">
+					<!--<p id="slsServer">39.106.223.169 <input name="copy39106223169" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="点击复制" value="copy"></p>-->
+					<!--<p id="cdzServer">120.79.219.55 <input name="copy1207921955" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="点击复制" value="copy"></p>-->
+					<a id="aslsServer" href="javascript:void(0)" title="点击复制" data-toggle="tooltip" data-placement="top">39.106.223.169</a><br>
+					<a id="acdzServer" href="javascript:void(0)" title="点击复制" data-toggle="tooltip" data-placement="top">120.79.219.55</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					nothing
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<footer class="text-muted">
+	<div class="container">
+		<p class="float-right">
+			<a href="#">返回最上</a>
+		</p>
+		<p>示例页面 &copy; Bootstrap!</p>
+		<p>
+			<a href="https://github.com/zghnzch">访问我们的主页</a>
+		</p>
+	</div>
+</footer>
+<script src="../../dist/zaddjs/jquery/jquery-3.3.1.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<script src="../../dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../dist/zaddjs/encrypt/src/core.js"></script>
+<script src="../../dist/zaddjs/encrypt/src/cipher-core.js"></script>
+<script src="../../dist/zaddjs/encrypt/src/tripledes.js"></script>
+<script src="../../dist/zaddjs/encrypt/src/mode-ecb.js"></script>
+<script src="../../dist/zaddjs/copyContent/copyContent.js"></script>
+<script type="text/javascript">
+	//加密的私钥 let 和 Var 有什么区别？
+	// DES  加密
+	function encryptByDES(key, message) {
+		key = $('input[name=okey]').val();
+		//把私钥转换成16进制的字符串
+		let keyHex = CryptoJS.enc.Utf8.parse(key);
+		//模式为ECB padding为Pkcs7
+		let encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		//加密出来是一个16进制的字符串
+		return encrypted.ciphertext.toString();
+	}
+	//DES  ECB模式   解密
+	function decryptByDESModeEBC(key, ciphertext) {
+		//把私钥转换成16进制的字符串
+		let keyHex = CryptoJS.enc.Utf8.parse(key);
+		//把需要解密的数据从16进制字符串转换成字符byte数组
+		let decrypted = CryptoJS.DES.decrypt({
+			ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+		}, keyHex, {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		//以utf-8的形式输出解密过后内容
+		return decrypted.toString(CryptoJS.enc.Utf8);
+	}
+	// 复制标签内容
+	// function copyThisContext() {
+	// 	let thisEle = document.getElementById("aslsServer");
+	// 	let targetId = thisEle.id;
+	// 	console.log("targetId:" + targetId);
+	// 	console.log("targetId2:" +  thisEle['id']);
+	// 	console.log("targetText:" +  thisEle['text']);
+	// 	// for (obj in thisEle) {
+	// 	// 	console.log("obj:" + obj);
+	// 	// 	console.log("val1:" + thisEle[obj]);
+	// 	// }
+	// 	let copyContext = thisEle['text'];
+	// 	let isCopySuccess = copy(targetId, 'innerText');
+	// 	let tooltipText = copyContext;
+	// 	if (isCopySuccess === 1) {
+	// 		tooltipText += "复制成功"
+	// 	} else if (isCopySuccess === 0) {
+	// 		tooltipText += "复制失败"
+	// 	} else {
+	// 		tooltipText += "复制方法异常"
+	// 	}
+	// 	thisEle.getAttribute('data-original-title', tooltipText).tooltip('update').tooltip('show');
+	// }
+</script>
+<script type="text/javascript">
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+		// region 元素定义
+		// region 输入框
+		/*输入框---------------------------------*/
+		//密钥
+		let eleInputNameOkey = $('input[name=okey]');
+		//需要处理的文字
+		let eleInputNameOtext = $('input[name=otext]');
+		//处理结果
+		let eleInputNameResult = $('input[name=result]');
+		//设备号码
+		let eleInputNameDeviceNum = $("input[name='deviceNum']");
+		// endregion输入框
+		// region 按钮
+		/*按钮---------------------------------*/
+		//复制文字
+		let eleBtnCopy39106223169 = $("input[name='copy39106223169']");
+		//复制文字
+		let eleBtnCopy1207921955 = $("input[name='copy1207921955']");
+		//查询设备所属信息
+		let eleBtnLoadDeviceInfo = $("input[name='loadDeviceInfo']");
+		//加密
+		let eleBtnGen = $("input[name='gen']");
+		//解密
+		let eleBtndec = $("input[name='dec']");
+		//直接获取密码
+		let eleBtnGetpwd = $("input[name='getpwd']");
+		//新页面获取密码
+		let eleBtnLoadpwd = $("input[name='loadpwd']");
+		// endregion 按钮
+		// region 段落文字
+		/*段落文字---------------------------------*/
+		let elePIdSlsServer = $('#slsServer');
+		let elePIdCdzServer = $('#cdzServer');
+		// endregion 段落文字
+		// region a 标签
+		/*a 标签---------------------------------*/
+		let eleAIdSlsServer = $('#aslsServer');
+		let eleAIdCdzServer = $('#acdzServer');
+		// endregion a 标签
+		/*---------------------------------*/
+		/*---------------------------------*/
+		/*---------------------------------*/
+		// endregion 元素定义
+		// region 元素click
+		// btn 加密
+		eleBtnGen.click(function () {
+			//需要加密的内容
+			let key = eleInputNameOkey.val();
+			let otext = eleInputNameOtext.val();
+			let enResult = encryptByDES(key, otext);
+			eleInputNameResult.val(enResult);
+		});
+		//解密
+		eleBtndec.click(function () {
+			let key = $('input[name=okey]').val();
+			let otext = $("input[name='otext']").val();
+			let deResult = decryptByDESModeEBC(key, otext);
+			eleInputNameResult.val(deResult);
+		});
+		// btn 获取密码
+		eleBtnGetpwd.click(function () {
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			let url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			url = url + "/s/suf.do";
+			let data = eleInputEn.val();
+			console.log(url);
+			$.ajax({
+				type: "get",    //请求方式
+				async: true,    //是否异步
+				url: url,
+				dataType: "JSONP",    //跨域json请求一定是jsonp
+				// jsonp: "s",    //跨域请求的参数名，默认是callback
+				//jsonpCallback:"",    //自定义跨域参数值，回调函数名也是一样，默认为jQuery自动生成的字符串
+				crossDomain: true,
+				data: {"s": data},    //请求参数
+				beforeSend: function () {
+					//请求前的处理
+				},
+				success: function (success) {
+					//请求成功处理，和本地回调完全一样
+					alert("1 " + success);
+					console.log("1 " + success);
+				},
+				complete: function () {
+					//请求完成的处理
+				},
+				error: function (err) {
+					//请求出错处理
+					for (let s in err) {
+						console.log(err[s]);
+					}
+				}
+			});
+		});
+		// btn 新页面获取密码
+		eleBtnLoadpwd.click(function () {
+			//需要加密的内容
+			let otext = $("input[name='otext']").val();
+			let str3 = encryptByDES(otext);
+			let str4 = decryptByDESModeEBC(str3);
+			eleInputEn.val(str3);
+			eleInputDe.val(str4);
+			let url = $("input[name='serverAddr']").val();
+			// http://1.singbon.com:81/s/suf.do?s=0ffdb1764642b372
+			let data = eleInputEn.val();
+			url = url + "/s/suf.do?s=" + data;
+			//window.location.href = url;
+			window.open(url);
+		});
+		// btn 新页面获取设备信息
+		eleBtnLoadDeviceInfo.click(function () {
+			let valDeviceNum = eleInputNameDeviceNum.val();
+			let url = $("input[name='serverAddr']").val();
+			url = url + "/s/s.do?s=" + valDeviceNum;
+			window.open(url);
+		});
+		// input Btn  复制 sls ip
+		eleBtnCopy39106223169.click(function () {
+			let targetId = elePIdSlsServer.attr('id');
+			let copyContext = elePIdSlsServer.text();
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleBtnCopy39106223169.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
+		// input Btn 复制 cdz ip
+		eleBtnCopy1207921955.click(function () {
+			let targetId = elePIdCdzServer.attr('id');
+			let copyContext = elePIdCdzServer.text();
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleBtnCopy1207921955.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
+		// a sls 标签点击复制
+		eleAIdSlsServer.click(function () {
+			let targetId = eleAIdSlsServer.attr('id');
+			console.log("targetId:" + targetId);
+			let copyContext = eleAIdSlsServer.text();
+			console.log("copyContext:" + copyContext);
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleAIdSlsServer.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
+		// a sls 标签点击复制
+		eleAIdCdzServer.click(function () {
+			let targetId = eleAIdCdzServer.attr('id');
+			let copyContext = eleAIdCdzServer.text();
+			let isCopySuccess = copy(targetId, 'innerText');
+			let tooltipText = copyContext;
+			if (isCopySuccess === 1) {
+				tooltipText += "复制成功"
+			} else if (isCopySuccess === 0) {
+				tooltipText += "复制失败"
+			} else {
+				tooltipText += "复制方法异常"
+			}
+			eleAIdCdzServer.attr('data-original-title', tooltipText).tooltip('update').tooltip('show');
+		});
+		// endregion 元素click
+	});
+</script>
+</body>
+</html>
