@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="/favicon.svg">
@@ -12,7 +11,6 @@
     --color: #1E1F22;
     --bg-color: #F7F8FA;
   }
-
   @media (prefers-color-scheme: dark) {
     :root {
       --color: #F7F8FA;
@@ -20,12 +18,10 @@
       --a-href-color: #F7F8FA;
     }
   }
-
   body {
     color: var(--color);
     background-color: var(--bg-color);
   }
-
   body,
   html {
     /*font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;*/
@@ -39,166 +35,158 @@
     min-width: unset;
     padding: 0;
   }
-
   a:link {
     color: var(--a-href-color);
     text-decoration-line: none;
   }
-
   a:visited {
     /*color: rgb(79, 79, 224);*/
     color: var(--a-href-color);
     text-decoration: none;
-    text-decoration-line: overline;
+    /*text-decoration-line: overline;*/
   }
-
   .theme-switch {
     width: 18px;
     height: 18px;
     border-radius: 100px;
   }
-
   /*鼠标悬停 指针变成手型*/
   .theme-switch:hover {
     cursor: pointer;
   }
-
   #btnChangeToLightTheme {
     background-color: #F7F8FA;
   }
-
   #btnChangeToDarkTheme {
     background-color: #1E1F22;
   }
 </style>
-
 <body>
-  <div class="nav" id="nav-div">
-    <a class="link_nav" id="go-root" href="#">返回根级</a>
-    <a class="link_nav" id="go-back" href="#">返回上级</a>
-    <a class="link_nav" href="#">添加书签</a>
-    <a class="link_nav" href="#">删除书签</a>
-    <a class="link_nav" target="_blank" href="./data/json/Bookmarks.json">编辑书签</a>
-    <a class="link_nav" target="_blank" href="./some-text.html">SomeTextHtml</a>
-    <a class="link_nav" target="_blank" href="./SomeText.md">SomeTextMd</a>
-    <div class="theme-switch" id="btnChangeToLightTheme"></div>
-    <!--    </td>-->
-    <!--    <td>-->
-    <div class="theme-switch" id="btnChangeToDarkTheme"></div>
-  </div>
-  <div id="container"></div>
-  <div id="paramDisplay"></div>
-  <div class="nav-tips">
-    <p id="nav-tips-content-fixed"></p>
-    <p id="nav-tips-content"></p>
-  </div>
-  <script src="./js/script.js"></script>
-  <script src="../../js/zch/getUrlParam.js"></script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      monitorSystemThemeChange();
-      addEventListenerToThemeChangeBtn();
-      addEventListenerToBookmarkNavBtn();
-      getCurrentUrlParam();
-      //
-    })
-    function monitorSystemThemeChange() {
-      const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
-      console.info('mediaQueryListDark:', mediaQueryListDark);
-      mediaQueryListDark.addEventListener('change', handleChange);
-      // 检查localStorage 中的偏好设置
-      const savedTheme = localStorage.getItem('theme');
-      console.info('savedTheme:', savedTheme, typeof savedTheme);
-      if (savedTheme) {
-        changeTheme(savedTheme, false);
-      }
-      else {
-        // 第一次没有用户自定义主题时，根据系统主题变化
-        console.info('根据系统主题变化')
-        handleChange(mediaQueryListDark);
-      }
+<div class="nav" id="nav-div">
+  <a class="link_nav" id="go-root" href="#">返回根级</a>
+  <a class="link_nav" id="go-back" href="#">返回上级</a>
+  <a class="link_nav" href="#">添加书签</a>
+  <a class="link_nav" href="#">删除书签</a>
+  <a class="link_nav" target="_blank" href="./data/json/Bookmarks.json">编辑书签</a>
+  <a class="link_nav" target="_blank" href="./some-text.html">SomeTextHtml</a>
+  <a class="link_nav" target="_blank" href="./SomeText.md">SomeTextMd</a>
+  <div class="theme-switch" id="btnChangeToLightTheme"></div>
+  <!--    </td>-->
+  <!--    <td>-->
+  <div class="theme-switch" id="btnChangeToDarkTheme"></div>
+</div>
+<div id="container"></div>
+<div id="paramDisplay"></div>
+<div class="nav-tips">
+  <p id="nav-tips-content-fixed"></p>
+  <p id="nav-tips-content"></p>
+</div>
+<script src="./js/script.js"></script>
+<script src="../../assets/js/zch-add-js/getUrlParam.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    monitorSystemThemeChange();
+    addEventListenerToThemeChangeBtn();
+    addEventListenerToBookmarkNavBtn();
+    getCurrentUrlParam();
+    //
+  })
+  function monitorSystemThemeChange() {
+    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
+    console.info('mediaQueryListDark:', mediaQueryListDark);
+    mediaQueryListDark.addEventListener('change', handleChange);
+    // 检查localStorage 中的偏好设置
+    const savedTheme = localStorage.getItem('theme');
+    console.info('savedTheme:', savedTheme, typeof savedTheme);
+    if (savedTheme) {
+      changeTheme(savedTheme, false);
     }
-    function addEventListenerToThemeChangeBtn() {
-      // 获取按钮
-      const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
-      const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
-      // 为按钮添加事件监听器
-      darkThemeBtn.addEventListener('click', function () {
-        changeTheme('dark', true);
-      });
-      lightThemeBtn.addEventListener('click', function () {
-        changeTheme('light', true);
-      });
+    else {
+      // 第一次没有用户自定义主题时，根据系统主题变化
+      console.info('根据系统主题变化')
+      handleChange(mediaQueryListDark);
     }
-    function handleChange(mediaQueryListEvent) {
-      if (mediaQueryListEvent.matches) {
-        changeTheme('dark', false);
-      }
-      else {
-        changeTheme('light', false);
-      }
+  }
+  function addEventListenerToThemeChangeBtn() {
+    // 获取按钮
+    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
+    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
+    // 为按钮添加事件监听器
+    darkThemeBtn.addEventListener('click', function () {
+      changeTheme('dark', true);
+    });
+    lightThemeBtn.addEventListener('click', function () {
+      changeTheme('light', true);
+    });
+  }
+  function handleChange(mediaQueryListEvent) {
+    if (mediaQueryListEvent.matches) {
+      changeTheme('dark', false);
     }
-    function changeTheme(theme, isUserInitiated) {
-      if (theme === 'dark') {
-        document.documentElement.style.setProperty('--color', '#F7F8FA');
-        document.documentElement.style.setProperty('--bg-color', '#1E1F22');
-        changeALinkColor('#F7F8FA');
-        document.getElementById('btnChangeToDarkTheme').style.display = 'none';
-        document.getElementById('btnChangeToLightTheme').style.display = 'block';
-      }
-      else {
-        document.documentElement.style.setProperty('--color', '#1E1F22');
-        document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
-        changeALinkColor('#1E1F22');
-        document.getElementById('btnChangeToDarkTheme').style.display = 'block';
-        document.getElementById('btnChangeToLightTheme').style.display = 'none';
-      }
-      if (isUserInitiated) {
-        // 如果是用户切换主题, 则保存到localstorage
-        localStorage.setItem('theme', theme);
-      }
+    else {
+      changeTheme('light', false);
     }
-    function changeALinkColor(color) {
-      document.documentElement.style.setProperty('--a-href-color', color);
+  }
+  function changeTheme(theme, isUserInitiated) {
+    if (theme === 'dark') {
+      document.documentElement.style.setProperty('--color', '#F7F8FA');
+      document.documentElement.style.setProperty('--bg-color', '#1E1F22');
+      changeALinkColor('#F7F8FA');
+      document.getElementById('btnChangeToDarkTheme').style.display = 'none';
+      document.getElementById('btnChangeToLightTheme').style.display = 'block';
     }
-    function getCurrentUrlParam() {
-      // 调用函数获取参数
-      const urlJsonParams = getUrlParamsToJson();
-      if (urlJsonParams && urlJsonParams.name) {
-        const urlParamsName = urlJsonParams.name;
-        console.info('urlParamsName:', urlParamsName);
-        if (urlParamsName === "bscus") {
-          document.getElementById("nav-div").style.display = "none";
-          // id container 距离顶部 200px margin-top: 100px;
-          document.getElementById("container").style.marginTop = "100px";
-        }
-        loadBookmarkData(urlParamsName);
-        return;
+    else {
+      document.documentElement.style.setProperty('--color', '#1E1F22');
+      document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
+      changeALinkColor('#1E1F22');
+      document.getElementById('btnChangeToDarkTheme').style.display = 'block';
+      document.getElementById('btnChangeToLightTheme').style.display = 'none';
+    }
+    if (isUserInitiated) {
+      // 如果是用户切换主题, 则保存到localstorage
+      localStorage.setItem('theme', theme);
+    }
+  }
+  function changeALinkColor(color) {
+    document.documentElement.style.setProperty('--a-href-color', color);
+  }
+  function getCurrentUrlParam() {
+    // 调用函数获取参数
+    const urlJsonParams = getUrlParamsToJson();
+    if (urlJsonParams && urlJsonParams.name) {
+      const urlParamsName = urlJsonParams.name;
+      console.info('urlParamsName:', urlParamsName);
+      if (urlParamsName === "bscus") {
+        document.getElementById("nav-div").style.display = "none";
+        // id container 距离顶部 200px margin-top: 100px;
+        document.getElementById("container").style.marginTop = "100px";
       }
-      console.log('urlParams:', urlJsonParams, typeof urlJsonParams);
-      console.log('urlParamsData:', urlJsonParams.name);
-      // 显示参数
-      for (const [key, value] of Object.entries(urlJsonParams)) {
-        // p.textContent = `${key}: ${JSON.stringify(value)}`;
-        // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
-        // console.log('urlParams3:', `${key}`, `${value}`);
-        console.log('urlParams1:', key, value);
-      }
-      loadBookmarkData("all");
-      // alert('urlJsonParams.data is null' + urlJsonParams)
-      console.error('urlJsonParams.data is null:', urlJsonParams);
+      loadBookmarkData(urlParamsName);
+      return;
     }
-    function addEventListenerToBookmarkNavBtn() {
-      document.getElementById("go-back").addEventListener("click", (event) => {
-        event.preventDefault();
-        goBack("container");
-      });
-      document.getElementById("go-root").addEventListener("click", (event) => {
-        event.preventDefault();
-        loadBookmarkData();
-      });
+    console.log('urlParams:', urlJsonParams, typeof urlJsonParams);
+    console.log('urlParamsData:', urlJsonParams.name);
+    // 显示参数
+    for (const [key, value] of Object.entries(urlJsonParams)) {
+      // p.textContent = `${key}: ${JSON.stringify(value)}`;
+      // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
+      // console.log('urlParams3:', `${key}`, `${value}`);
+      console.log('urlParams1:', key, value);
     }
-  </script>
+    loadBookmarkData("all");
+    // alert('urlJsonParams.data is null' + urlJsonParams)
+    console.error('urlJsonParams.data is null:', urlJsonParams);
+  }
+  function addEventListenerToBookmarkNavBtn() {
+    document.getElementById("go-back").addEventListener("click", (event) => {
+      event.preventDefault();
+      goBack("container");
+    });
+    document.getElementById("go-root").addEventListener("click", (event) => {
+      event.preventDefault();
+      loadBookmarkData();
+    });
+  }
+</script>
 </body>
-
 </html>
