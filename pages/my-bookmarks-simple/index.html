@@ -39,17 +39,13 @@
     padding: 2px 8px;
     align-items: center;
     text-align: center;
-    /*border: 1px solid #ccc;*/
     border-radius: 50px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
-    animation: moveLight 5s linear infinite;
     background-size: 200% 200%;
-    /*background: radial-gradient(circle at 100% 0%, white 0%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);*/
     filter: blur(0px);
-    /*background: radial-gradient(circle at 100% 0%, #701b1b 0%, rgb(39, 161, 73) 0%, rgba(255, 255, 255, 0) 100%);*/
     will-change: auto;
   }
   td a {
@@ -63,29 +59,14 @@
     background-size: 100% 2px;
     border-radius: 2px;
   }
-  @keyframes moveLight {
-    0% {
-      background-position: 100% 0;
-    }
-    25% {
-      background-position: 100% 100%;
-    }
-    50% {
-      background-position: 0 100%;
-    }
-    75% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
-  }
   .duplicate-elements-input {
     border: none;
     border-radius: 50px;
     background-color: transparent;
-    width: 100%;
-    height: 50px;
+    width: 95%;
+    height: 30px;
+    text-align: center;
+    color: var(--color);
   }
   a:link {
     color: var(--a-href-color);
@@ -127,6 +108,9 @@
   #btnChangeToDarkTheme {
     background-color: #1E1F22;
   }
+  .hide-on-open {
+    display: none;
+  }
 </style>
 <body>
 <!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
@@ -135,28 +119,8 @@
   <tr>
     <td>
       <div class="theme-switch" id="btnChangeToLightTheme"></div>
-      <!--    </td>-->
-      <!--    <td>-->
       <div class="theme-switch" id="btnChangeToDarkTheme"></div>
     </td>
-  </tr>
-</table>
-<!--Chrome 😶-->
-<table class="table-urls about-chrome" style="display: none;">
-  <caption>
-    😶
-  </caption>
-  <tr>
-    <td>chrome://chrome-urls</td>
-    <td>chrome://settings</td>
-  </tr>
-  <tr>
-    <td>chrome://bookmarks</td>
-    <td>chrome://extensions</td>
-  </tr>
-  <tr>
-    <td>chrome://history</td>
-    <td>chrome://downloads</td>
   </tr>
 </table>
 <!--XB😐-->
@@ -180,7 +144,7 @@
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')" class="custom-zch">cdzcb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/background/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
   </tr>
   <!--info-query-->
   <tr>
@@ -189,14 +153,16 @@
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3ci</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4ci</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">cdzci</a></td>
-    <td><a target="_blank" href="../xb-tools/xb-encrypt-js.html" class="custom-zch">en-js</a></td>
+    <td><a target="_blank" href="../xb-tools/xb-encrypt-js.html" class="custom-zch">enc-js</a></td>
   </tr>
   <tr>
-    <td colspan="6"><a target="_blank" href="../pulse-water-billing-calc/pulse-water-billing-calc.html" class="custom-zch">pulse-water-billing-calc</a></td>
+    <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr-gen</a></td>
+    <td colspan="4"><a target="_blank" href="../pulse-water-billing-calc/pulse-water-billing-calc.html" class="custom-zch">pulse-water-billing-calc</a></td>
+    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a>
   </tr>
 </table>
 <!-- Zch-Dev-Html -->
-<table class="table-urls about-socialize">
+<table class="table-urls about-socialize hide-on-open">
   <tr>
     <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a>
@@ -209,7 +175,7 @@
   </tr>
 </table>
 <!--Searches -->
-<table class="table-urls about-search-engines">
+<table class="table-urls about-search-engines hide-on-open">
   <caption>
   </caption>
   <tr>
@@ -227,7 +193,7 @@
   </tr>
 </table>
 <!--social media 😃-->
-<table class="table-urls about-socialize">
+<table class="table-urls about-socialize hide-on-open">
   <caption></caption>
   <tr>
     <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
@@ -239,7 +205,7 @@
   </tr>
 </table>
 <!-- Git -->
-<table class="table-urls about-git">
+<table class="table-urls about-git hide-on-open">
   <caption>
   </caption>
   <tr>
@@ -252,7 +218,7 @@
   </tr>
 </table>
 <!-- AI custom coze -->
-<table class="table-urls about-ai" style="display: none;">
+<table class="table-urls about-ai hide-on-open">
   <caption>
   </caption>
   <tr>
@@ -266,7 +232,7 @@
   </tr>
 </table>
 <!--AI -->
-<table class="table-urls about-ai">
+<table class="table-urls about-ai hide-on-open">
   <caption>
   </caption>
   <tr>
@@ -299,7 +265,7 @@
   </tr>
 </table>
 <!-- Translate -->
-<table class="table-urls about-search-translate">
+<table class="table-urls about-search-translate hide-on-open">
   <caption>
   </caption>
   <tr>
@@ -314,7 +280,7 @@
   </tr>
 </table>
 <!-- remove duplicate elements -->
-<table class="table-urls about-tools-remove-duplicate" style="display: none">
+<table class="table-urls about-tools-remove-duplicate hide-on-open">
   <caption>
   </caption>
   <tr style="height: 50px;">
@@ -331,8 +297,10 @@
   </tr>
 </table>
 </body>
+<script src="../../assets/js/zch-add-js/getUrlParam.js"></script>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
+    getCurrentUrlParam();
     removeDuplicateElements();
     monitorSystemThemeChange();
     // 获取按钮
@@ -418,6 +386,32 @@
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
       output.textContent = uniqueElements.join(",");
     })
+  }
+  function getCurrentUrlParam() {
+    // 调用函数获取参数
+    const urlJsonParams = getUrlParamsToJson();
+    if (urlJsonParams && urlJsonParams.key) {
+      const urlParamsValKey = urlJsonParams.key;
+      console.info('urlParamsValKey:', urlParamsValKey);
+      if(urlParamsValKey === 'zch'){
+        // $('.hide-on-open').show();
+        const elements = document.querySelectorAll('.hide-on-open');
+        console.info('elements:', elements.length);
+        console.info('elements:', elements);
+        for (let i = 0; i < elements.length; i++) {
+          let element = elements[i];
+          console.info('element:', element);
+          element.classList.remove('hide-on-open');
+        }
+      }
+    }
+    // 显示参数
+    for (const [key, value] of Object.entries(urlJsonParams)) {
+      // p.textContent = `${key}: ${JSON.stringify(value)}`;
+      // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
+      // console.log('urlParams3:', `${key}`, `${value}`);
+      console.log('urlParams1:', key, value);
+    }
   }
 </script>
 </html>
