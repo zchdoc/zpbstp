@@ -21,14 +21,13 @@
     color: var(--color);
     background-color: var(--bg-color);
   }
-  body, html {
-    /*font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;*/
-    /*font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
-    /*font-size: 16px;*/
-    /*margin: 0;*/
-    /*min-height: unset;*/
-    /*min-width: unset;*/
-    /*padding: 0;*/
+  body,
+  html {
+    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 200;
+    letter-spacing: 0.025em;
+    line-height: 1.092;
   }
   /*color: #0069d9;*/
   .custom-zch {
@@ -70,17 +69,6 @@
       background-position: 100% 0;
     }
   }
-  .duplicate-elements-input {
-    border: none;
-    border-radius: 50px;
-    background-color: transparent;
-    width: 100%;
-    height: 50px;
-  }
-  .custom-zch-favicon {
-    width: 18px;
-    height: 18px;
-  }
   a:link {
     color: var(--a-href-color);
     text-decoration: none;
@@ -102,9 +90,6 @@
     border: 0 solid #ccc;
     border-radius: 10px;
     margin: 20px auto;
-  }
-  .about-tools-remove-duplicate {
-    width: 28%;
   }
   .theme-switch {
     width: 30px;
@@ -169,12 +154,12 @@
   </tr>
   <!--xb-login-->
   <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">j1cb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/xb/login.do')" class="custom-zch">j1cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')" class="custom-zch">a2cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')" class="custom-zch">cdzcb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/background/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
   </tr>
   <!--info-query-->
   <tr>
@@ -269,19 +254,6 @@
   }
   function changeALinkColor(color) {
     document.documentElement.style.setProperty('--a-href-color', color);
-  }
-  //
-  function updateGradient(element) {
-    let angle = 0;
-    function animate() {
-      angle = (angle + 1) % 360;
-      const x = 50 + 50 * Math.cos(angle * Math.PI / 180);
-      const y = 50 + 50 * Math.sin(angle * Math.PI / 180);
-      // element.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, white 0%, rgba(255,255,255,0) 50%)`;
-      element.style.backgroundImage = `radial-gradient(${x}% ${y}% at ${120 - x}% ${100 - y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
-      requestAnimationFrame(animate);
-    }
-    animate();
   }
 </script>
 </html>

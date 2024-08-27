@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="text/javascript" src="../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
+  <script type="text/javascript" src="/assets/js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
   <title>QR</title>
+  <style>
+    body{
+      background-color: #dddddd;
+    }
+    #canvas{
+      margin-top: 50px;
+      margin-left: 40%;
+    }
+  </style>
 </head>
 <body>
 <div id="canvas"></div>
@@ -13,6 +22,7 @@
     type: "svg",
     data: "hello",
     image: "./t1.png",
+    margin: 10,
     dotsOptions: {
       color: "#4267b2",
       type: "rounded"

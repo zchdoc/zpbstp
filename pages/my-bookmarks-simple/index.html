@@ -52,8 +52,16 @@
     /*background: radial-gradient(circle at 100% 0%, #701b1b 0%, rgb(39, 161, 73) 0%, rgba(255, 255, 255, 0) 100%);*/
     will-change: auto;
   }
-  td a{
-    
+  td a {
+    background: linear-gradient(to right, #ec6b5f, #f7b731) no-repeat right bottom;
+    background-size: 0 2px;
+    transition: background-size 0.4s;
+    border-radius: 2px;
+  }
+  td:hover a {
+    background-position: left bottom;
+    background-size: 100% 2px;
+    border-radius: 2px;
   }
   @keyframes moveLight {
     0% {
@@ -78,10 +86,6 @@
     background-color: transparent;
     width: 100%;
     height: 50px;
-  }
-  .custom-zch-favicon {
-    width: 18px;
-    height: 18px;
   }
   a:link {
     color: var(--a-href-color);
@@ -172,14 +176,12 @@
   </tr>
   <!--xb-login-->
   <tr>
-    <td>
-      <a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">j1cb</a>
-    </td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/xb/login.do')" class="custom-zch">j1cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')" class="custom-zch">a2cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
     <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')" class="custom-zch">cdzcb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
+    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/background/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
   </tr>
   <!--info-query-->
   <tr>
@@ -344,11 +346,6 @@
     lightThemeBtn.addEventListener('click', function () {
       changeTheme('light', true);
     });
-    // 使用方法
-    // let elements = document.querySelectorAll('.table-urls td');
-    // for (const element of elements) {
-    //   updateGradient(element);
-    // }
   })
   // 打开链接
   function openHttpLinkInNewTab(url) {
@@ -422,19 +419,6 @@
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
       output.textContent = uniqueElements.join(",");
     })
-  }
-  //
-  function updateGradient(element) {
-    let angle = 0;
-    function animate() {
-      angle = (angle + 1) % 360;
-      const x = 50 + 50 * Math.cos(angle * Math.PI / 180);
-      const y = 50 + 50 * Math.sin(angle * Math.PI / 180);
-      // element.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, white 0%, rgba(255,255,255,0) 50%)`;
-      element.style.backgroundImage = `radial-gradient(${x}% ${y}% at ${120 - x}% ${100 - y}%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)`;
-      requestAnimationFrame(animate);
-    }
-    animate();
   }
 </script>
 </html>

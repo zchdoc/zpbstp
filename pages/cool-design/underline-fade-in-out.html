@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .title {
+      color: #333;
+      line-height: 1.5;
+    }
+    /*.title span {*/
+    /*  background: linear-gradient(to right, #ec6b5f, #f7b731) no-repeat;*/
+    /*  background-size: 0 2px;*/
+    /*  background-position: right bottom;*/
+    /*  transition: background-size 2s;*/
+    /*}*/
+    .title span {
+      background: linear-gradient(to right, #ec6b5f, #f7b731) no-repeat right bottom;
+      background-size: 0 2px;
+      transition: background-size 2s;
+    }
+    .title:hover span {
+      background-position: left bottom;
+      background-size: 100% 2px;
+    }
+  </style>
+</head>
+<body>
+<h2 class='title'>
+  <span>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </span>
+</h2>
+</body>
+</html>
