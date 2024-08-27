@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR-Styling-4-3-4</title>
   <!--<script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>-->
-  <script type="text/javascript" src="../../js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
-  <link rel="shortcut icon" type="image/x-icon" href="../qr-styling-official/b9eac011a0558695563d6081a8395ccb.png"/>
+  <script type="text/javascript" src="/assets/js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
+  <link rel="icon" href="/favicon.svg">
   <style>
     .header {
       text-align: center;
@@ -73,12 +73,16 @@
     input[type="text"], input[type="number"] {
       width: 190px;
     }
+    #form-image-file {
+      width: 195px;
+      margin-top: 4px;
+    }
     input[type="color"], select {
       width: 197px;
     }
     select, input {
       background-color: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      color: #070707;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 5px;
     }
@@ -88,7 +92,7 @@
     }
     select option {
       background-color: #0f030f;
-      color: #ffffff;
+      color: #d8d2d2;
     }
     h5 {
       margin-top: 10px;
@@ -132,10 +136,11 @@
       overflow-wrap: break-word;
       white-space: pre-wrap;
     }
-    #qrcode canvas,svg {
+    #qrcode canvas, svg {
       border-radius: 20px;
     }
   </style>
+  <!-- sky gradient -->
   <style>
     html, body {
       font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -159,7 +164,7 @@
       opacity: 1;
       transition: opacity 0s 10s;
       animation: fadeIn 2s ease-out;
-      color: #fff;
+      color: #121111;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -221,7 +226,13 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="image">image:</label>
-        <input type="text" id="image" value="./t1.png">
+        <!--https://www.reshot.com/preview-assets/icons/LJKETW7DCM/glasses-smile-LJKETW7DCM.svg-->
+        <!-- https://www.reshot.com/preview-assets/icons/PGYMZJF38V/glasses-tongue-PGYMZJF38V.svg -->
+        <input type="text" id="image" value="https://www.reshot.com/preview-assets/icons/LJKETW7DCM/glasses-smile-LJKETW7DCM.svg" placeholder="./t1.png">
+      </div>
+      <div class="form-group">
+        <label class='qr-optional' for="image">choose image:</label>
+        <input type="file" id="form-image-file">
       </div>
       <!--qrOptions-->
       <h5>qrOptions</h5>

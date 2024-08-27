@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="../img/bike.ico">
+  <link rel="icon" href="/favicon.svg">
   <title>encrypt-js</title>
   <!-- Bootstrap core CSS -->
-  <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../dist/css/bootstrap-grid.css" rel="stylesheet">
-  <link href="../dist/css/bootstrap-reboot.css" rel="stylesheet">
-  <link href="../dist/zaddcss/zaddindex.css" rel="stylesheet">
+  <link href="/assets/dist/bootstrap/v4.6.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/dist/bootstrap/v4.6.1/css/bootstrap-grid.css" rel="stylesheet">
+  <link href="/assets/dist/bootstrap/v4.6.1/css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="/assets/css/zch-add-css/zch-add-index.css" rel="stylesheet">
   <style>
     #serverAddr {
       width: 27%;
@@ -20,13 +20,11 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     input[name='okey'] {
       width: 10%;
       border-radius: 5px;
       border: solid rgb(227, 227, 227);
     }
-
     input[name='otext'] {
       width: 80%;
       border-top: none;
@@ -34,7 +32,6 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     input[name='result'] {
       width: 80%;
       border-top: none;
@@ -42,7 +39,6 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     input[name='deviceNum'] {
       width: 30%;
       border-top: none;
@@ -50,7 +46,6 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     input[name='deviceSN'] {
       width: 30%;
       border-top: none;
@@ -58,7 +53,6 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     input[name='deviceOriNum'] {
       width: 30%;
       border-top: none;
@@ -66,14 +60,12 @@
       border-right: none;
       border-bottom: solid rgb(227, 227, 227);
     }
-
     .myRealContext {
       border: solid;
       border-radius: 5px;
       padding: 10px;
       margin: 5px;
     }
-
     label {
       width: 100%;
     }
@@ -228,14 +220,14 @@
     </p>
   </div>
 </footer>
-<script src="../dist/zaddjs/jquery/jquery-3.3.1.min.js"></script>
-<script src="../dist/js/bootstrap.min.js"></script>
-<script src="../dist/js/bootstrap.bundle.min.js"></script>
-<script src="../dist/zaddjs/encrypt/src/core.js"></script>
-<script src="../dist/zaddjs/encrypt/src/cipher-core.js"></script>
-<script src="../dist/zaddjs/encrypt/src/tripledes.js"></script>
-<script src="../dist/zaddjs/encrypt/src/mode-ecb.js"></script>
-<script src="../dist/zaddjs/copyContent/copyContent.js"></script>
+<script src="/assets/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="/assets/dist/bootstrap/v4.6.1/js/bootstrap.min.js"></script>
+<script src="/assets/dist/bootstrap/v4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/encrypt/use-simple/core.js"></script>
+<script src="/assets/js/encrypt/use-simple/cipher-core.js"></script>
+<script src="/assets/js/encrypt/use-simple/tripledes.js"></script>
+<script src="/assets/js/encrypt/use-simple/mode-ecb.js"></script>
+<script src="/assets/js/copy-content/copyContent.js"></script>
 <!--方法区-->
 <script type="text/javascript">
   //加密的私钥 let 和 Var 有什么区别？
@@ -252,7 +244,6 @@
     //加密出来是一个16进制的字符串
     return encrypted.ciphertext.toString();
   }
-
   //DES  ECB模式   解密
   function decryptByDESModeEBC(key, ciphertext) {
     //把私钥转换成16进制的字符串
@@ -310,11 +301,11 @@
     // endregion 段落文字
     // region a 标签
     /*a 标签---------------------------------*/
-    let eleAIdSlsServer = $('#aslsServer');
-    let eleAIdCdzServer = $('#acdzServer');
+    // let eleAIdSlsServer = $('#aslsServer');
+    // let eleAIdCdzServer = $('#acdzServer');
     // endregion a 标签
     // region input标签
-    let eleSelectIdserverAddrList = $('#serverAddrList');
+    // let eleSelectIdserverAddrList = $('#serverAddrList');
     // endregion input标签
     // endregion 元素定义
     // 元素click
@@ -337,7 +328,8 @@
     // btn 获取密码
     eleBtnGetpwd.click(function () {
       let eleSelected = $('#serverAddrList option:selected');
-      let selectedval = eleSelected.val();
+      let selectedVal = eleSelected.val();
+      console.info('selectedVal:', selectedVal, typeof selectedVal);
     });
     // btn 新页面获取密码
     eleBtnLoadpwd.click(function () {
@@ -362,7 +354,7 @@
       let targetId = $(this).attr('id');
       console.info('targetId:', targetId, typeof targetId);
       let copyContext = $(this).text();
-      console.info('copyContext:', copyContext.replace('\n','').trim(), typeof copyContext);
+      console.info('copyContext:', copyContext.replace('\n', '').trim(), typeof copyContext);
       let isCopySuccess = copy(targetId, 'innerText');
       console.info('isCopySuccess:', isCopySuccess, typeof isCopySuccess);
       let tooltipText = copyContext;
