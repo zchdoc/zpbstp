@@ -218,7 +218,7 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="data">data:</label>
-        <input type="text" id="data" value="http://a2.4000063966.com/q.do?v=2&s=4299999999">
+        <input type="text" id="data" value="🤗" placeholder="🤗">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="margin">margin:</label>
@@ -232,7 +232,7 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="image">choose image:</label>
-        <input type="file" id="form-image-file">
+        <input type="file" id="form-image-file" accept="image/*">
       </div>
       <!--qrOptions-->
       <h5>qrOptions</h5>
@@ -506,7 +506,7 @@
   }
   // Initial QR code generation
   window.onload = updateQRCode;
-  function updateQRCode() {
+  async function updateQRCode() {
     let qrWithVal = document.getElementById('width').value;
     let qrWith = parseInt(qrWithVal);
     let qrHeight = parseInt(document.getElementById('height').value);
@@ -518,6 +518,17 @@
     }
     let qrMargin = parseInt(document.getElementById('margin').value);
     let qrImage = document.getElementById('image').value;
+    try {
+      const base64Data = await getChooseImageBase64();
+      if (base64Data) {
+        qrImage = base64Data;
+      }
+    }
+    catch (error) {
+      if (error !== '') {
+        console.error(error);
+      }
+    }
     //
     let qrOptionsTypeVal = document.getElementById('qrOptions-typeNumber').value;
     let qrOptionsTypeNumber = parseInt(qrOptionsTypeVal);
@@ -765,7 +776,28 @@
     }
     link.click();
   }
+  // qr center img base64
+  function getChooseImageBase64() {
+    return new Promise((resolve, reject) => {
+      const fileInput = document.getElementById('form-image-file');
+      const file = fileInput.files[0]; // 获取选择的文件
+      if (!file) {
+        reject('');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        resolve(e.target.result);
+      };
+      reader.onerror = function (e) {
+        console.error('e:', e);
+        reject('Failed to read file');
+      };
+      reader.readAsDataURL(file); // 以 Data URL 形式读取文件
+    });
+  }
 </script>
+<!--引导渐变-->
 <script>
   function updateSkyGradient(currentHour) {
     const skyDiv = document.getElementById('sky');
