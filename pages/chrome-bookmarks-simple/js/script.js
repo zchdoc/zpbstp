@@ -167,7 +167,7 @@ function goBack(parentId) {
   }
 }
 
-function loadBookmarkData(loadJsonData) {
+function loadBookmarkData(loadJsonData, level) {
   console.log("loadJsonData:", loadJsonData);
   const dataFile = "./data/json/Bookmarks.json";
   fetch(dataFile)
@@ -183,10 +183,35 @@ function loadBookmarkData(loadJsonData) {
         //   console.info("key:", key, "value:", value);
         // }
         // const data2Element of data2
-        for (const data2Element of data2) {
-          if (data2Element.name === loadJsonData) {
-            console.info("data2Element:", data2Element);
-            data2 = data2Element.children;
+        let getJsonData = false;
+        if (level === 1) {
+          for (const data2Element of data2) {
+            if (data2Element.name === loadJsonData) {
+              console.info("data2Element:", data2Element);
+              data2 = data2Element.children;
+              getJsonData = true;
+            }
+            if (getJsonData) {
+              break;
+            }
+          }
+        }
+        if (level === 2) {
+          for (const data2Element of data2) {
+            let data3 = data2Element.children;
+            for (const data3Element of data3) {
+              if (data3Element.name === loadJsonData) {
+                console.info("data3Element:", data3Element);
+                data2 = data3Element.children;
+                getJsonData = true;
+              }
+              if (getJsonData) {
+                break;
+              }
+            }
+            if (getJsonData) {
+              break;
+            }
           }
         }
       }
