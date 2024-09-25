@@ -131,7 +131,7 @@
     line-height: 1.6;
     position: relative;
     font-family: sans-serif;
-    overflow: hidden;
+    overflow: auto;
   }
   .lines {
     position: absolute;
@@ -183,6 +183,7 @@
     padding: 10px;
     font-size: 12px;
     z-index: 1000;
+    display: none;
   }
   #speedControl {
     position: fixed;
@@ -194,6 +195,7 @@
 <body>
 <div class="lines" id="linesContainer"></div>
 <div id="debug"></div>
+<label for="speedControl"></label>
 <input type="range" min="1" max="10" value="2" id="speedControl">
 <!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
 <table class="table-urls about-chrome">
