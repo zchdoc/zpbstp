@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Number Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 5px;
+    }
+    #result, #jsCode {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+    }
+    #jsCode {
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+<h1>Random Number Generator</h1>
+<div>
+  <label for="maxVal">Maximum Value:</label>
+  <input type="number" id="maxVal" min="1" value="100">
+</div>
+<div>
+  <label for="genCount">Number of Random Numbers:</label>
+  <input type="number" id="genCount" min="1" value="5">
+</div>
+<button onclick="generateRandom()">Generate</button>
+<div id="result"></div>
+<h3>JavaScript Code Used:</h3>
+<pre id="jsCode"></pre>
+<script>
+  function generateRandom() {
+    let maxVal = parseInt(document.getElementById("maxVal").value)
+    let genCount = parseInt(document.getElementById("genCount").value)
+    // Ensure maxVal is at least 1
+    maxVal = Math.max(1, maxVal);
+    // Ensure genCount doesn't exceed maxVal
+    genCount = Math.min(genCount, maxVal);
+    // Update input fields with corrected values
+    document.getElementById("maxVal").value = maxVal;
+    document.getElementById("genCount").value = genCount;
+    const randomArr = []
+    for (let i = 0; i < genCount; i++) {
+      const randomNum = Math.floor(Math.random() * maxVal) + 1
+      randomArr.push(randomNum);
+    }
+    const randomStr = randomArr.join(" ")
+    document.getElementById("result").innerHTML = "随机数：" + randomStr;
+    // Display the JavaScript code
+    const jsCode = generateRandom.toString()
+    if (!jsCode) {
+      console.error("Failed to generate JavaScript code");
+    }
+    document.getElementById("jsCode").textContent = jsCode;
+  }
+</script>
+</body>
+</html>

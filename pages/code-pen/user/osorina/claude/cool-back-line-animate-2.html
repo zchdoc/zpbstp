@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Lines Background (Only Falling Light Effect)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box !important;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      display: table;
+      width: 100%;
+      height: 100%;
+      background-color: #171717;
+      color: #000;
+      line-height: 1.6;
+      position: relative;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    .lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      margin: auto;
+      width: 90vw;
+    }
+    .line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      top: 0;
+      overflow: hidden;
+    }
+    .light-effect {
+      position: absolute;
+      height: 15vh;
+      width: 100%;
+      top: -50%;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+    }
+  </style>
+</head>
+<body>
+<div class="lines" id="linesContainer"></div>
+
+<script>
+  function createLine() {
+    const line = document.createElement('div');
+    line.classList.add('line');
+
+    // Random horizontal position
+    const left = Math.random() * 100;
+    line.style.left = `${left}%`;
+
+    const lightEffect = document.createElement('div');
+    lightEffect.classList.add('light-effect');
+    line.appendChild(lightEffect);
+
+    animateLine(lightEffect);
+
+    return line;
+  }
+
+  function animateLine(element) {
+    const duration = 5 + Math.random() * 5; // Random duration between 5 and 10 seconds
+    const delay = Math.random() * 5; // Random delay up to 5 seconds
+
+    element.animate([
+      { top: '-50%' },
+      { top: '110%' }
+    ], {
+      duration: duration * 1000, // Convert to milliseconds
+      delay: delay * 1000,
+      easing: 'cubic-bezier(0.4, 0.26, 0, 0.97)',
+      iterations: Infinity
+    });
+  }
+
+  function initLines() {
+    const container = document.getElementById('linesContainer');
+    const lineCount = 10; // You can adjust this number
+
+    for (let i = 0; i < lineCount; i++) {
+      container.appendChild(createLine());
+    }
+  }
+
+  // Initialize the lines when the page loads
+  window.onload = initLines;
+</script>
+</body>
+</html>

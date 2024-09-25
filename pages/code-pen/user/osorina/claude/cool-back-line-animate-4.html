@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Lines Background (Only Falling Light Effect)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box !important;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      display: table;
+      width: 100%;
+      height: 100%;
+      background-color: #171717;
+      color: #000;
+      line-height: 1.6;
+      position: relative;
+      font-family: sans-serif;
+      overflow: visible;
+    }
+    .lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      margin: auto;
+      width: 90vw;
+    }
+    .line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      top: 0;
+      overflow: hidden;
+    }
+    .light-effect {
+      position: absolute;
+      height: 15vh;
+      width: 100%;
+      top: -50%;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+    }
+    .ripple {
+      position: absolute;
+      bottom: 0;
+      left: 50%; /* Center the ripple horizontally */
+      transform: translateX(-50%); /* Offset to actually center */
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+      transition: width 0.5s, height 0.5s; /* Smooth transition */
+      opacity: 0; /* Make it invisible initially */
+    }
+  </style>
+</head>
+<body>
+<div class="lines" id="linesContainer"></div>
+<div class="ripple"></div>  <!-- Added ripple element -->
+<script>
+  function createLine() {
+    const line = document.createElement('div');
+    line.classList.add('line');
+
+    // Random horizontal position
+    const left = Math.random() * 100;
+    line.style.left = `${left}%`;
+
+    const lightEffect = document.createElement('div');
+    lightEffect.classList.add('light-effect');
+    line.appendChild(lightEffect);
+
+    animateLine(lightEffect);
+
+    return line;
+  }
+
+  function animateLine(element) {
+    const duration = 5 + Math.random() * 5; // Random duration between 5 and 10 seconds
+    const delay = Math.random() * 5; // Random delay up to 5 seconds
+
+    element.animate([
+      { top: '-50%' },
+      { top: '110%' }
+    ], {
+      duration: duration * 1000, // Convert to milliseconds
+      delay: delay * 1000,
+      easing: 'cubic-bezier(0.4, 0.26, 0, 0.97)',
+      iterations: Infinity,
+      // Add an event for when the animation finishes
+      onfinish: () => {
+        // Call a function to create the ripple effect
+        createRipple(element);
+      }
+    });
+  }
+
+  // Function to create the ripple effect
+  function createRipple(lightEffect) {
+    const ripple = document.querySelector('.ripple'); // Get the ripple element
+    const lightEffectBottom = lightEffect.offsetTop + lightEffect.offsetHeight;
+    const linesContainer = document.getElementById('linesContainer');
+
+    // Calculate the position of the ripple
+    const rippleX = lightEffect.offsetLeft + lightEffect.offsetWidth / 2;
+    const rippleY = lightEffectBottom;
+
+    // Make the ripple visible and expand
+    ripple.style.left = rippleX + 'px';
+    ripple.style.top = rippleY + 'px';
+    ripple.style.width = '0px';
+    ripple.style.height = '0px';
+    ripple.style.opacity = 1;
+
+    // Animate the ripple's expansion
+    ripple.animate([
+      { width: '0px', height: '0px' },
+      { width: '200%', height: '200%' }
+    ], {
+      duration: 1000, // 1 second
+      easing: 'ease-out',
+      fill: 'forwards', // Keep the final state after the animation
+    });
+
+    // After animation, shrink the ripple and fade it out
+    setTimeout(() => {
+      ripple.animate([
+        { opacity: 1 },
+        { opacity: 0 }
+      ], {
+        duration: 500, // Half a second
+        fill: 'forwards',
+      });
+      ripple.style.width = '0px';
+      ripple.style.height = '0px';
+    }, 1030); // Delay the shrinking animation
+  }
+
+  function initLines() {
+    const container = document.getElementById('linesContainer');
+    const lineCount = 10; // You can adjust this number
+
+    for (let i = 0; i < lineCount; i++) {
+      container.appendChild(createLine());
+    }
+  }
+
+  // Initialize the lines when the page loads
+  window.onload = initLines;
+</script>
+</body>
+</html>
