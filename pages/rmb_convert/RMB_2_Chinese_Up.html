@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人民币数字转大写转换器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>人民币数字转大写</h2>
+  <label for="amount"></label>
+  <input type="text" id="amount" placeholder="请输入金额（如：123.45）">
+  <button onclick="convert()">转换</button>
+  <div id="result"></div>
+</div>
+<script>
+  function convert() {
+    const amount = document.getElementById('amount').value;
+    const result = document.getElementById('result');
+    result.textContent = numberToChineseCurrency(amount);
+  }
+  function numberToChineseCurrency(number) {
+    const units = ['', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟'];
+    const numChars = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+    let integer = Math.floor(number);
+    let decimal = Math.round((number - integer) * 100);
+    let chineseStr = '';
+    let unitPos = 0;
+    let zero = true;
+    while (integer > 0) {
+      let digit = integer % 10;
+      if (digit === 0) {
+        if (!zero) {
+          zero = true;
+          chineseStr = numChars[0] + chineseStr;
+        }
+      }
+      else {
+        zero = false;
+        chineseStr = numChars[digit] + units[unitPos] + chineseStr;
+      }
+      unitPos++;
+      integer = Math.floor(integer / 10);
+    }
+    chineseStr += '元';
+    if (decimal === 0) {
+      chineseStr += '整';
+    }
+    else {
+      let jiao = Math.floor(decimal / 10);
+      let fen = decimal % 10;
+      if (jiao > 0) {
+        chineseStr += numChars[jiao] + '角';
+      }
+      if (fen > 0) {
+        chineseStr += numChars[fen] + '分';
+      }
+    }
+    return chineseStr;
+  }
+</script>
+</body>
+</html>
