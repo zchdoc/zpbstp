@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6-1 Updated</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box !important;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      background-color: #171717;
+      color: #000;
+      line-height: 1.6;
+      font-family: sans-serif;
+    }
+    .animation-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      margin: auto;
+      width: 90vw;
+    }
+    .line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      top: 0;
+      overflow: visible;
+    }
+    .light-effect {
+      position: absolute;
+      height: 2vh;
+      width: 100%;
+      top: -50%;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+    }
+    .ripple {
+      position: absolute;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      opacity: 1;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      transform: translate(-50%, 50%);
+    }
+    @keyframes ripple {
+      to {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+      }
+    }
+    #debug {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      font-size: 12px;
+      z-index: 1000;
+    }
+    #speedControl {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<div class="animation-container">
+  <div class="lines" id="linesContainer"></div>
+</div>
+<div id="debug"></div>
+<label for="speedControl"></label>
+<input type="range" min="1" max="10" value="2" id="speedControl">
+<div class="content">
+  <h1>Flowing Light Effect</h1>
+  <p>This is an example of content that can be scrolled.</p>
+  <!-- Add more content here to make the page scrollable -->
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec magna vel ante sollicitudin lacinia. Ut in gravida ante. Sed consequat felis non ex condimentum, ut ullamcorper odio egestas. Aliquam erat volutpat. Curabitur tempus nibh ac nisi semper, sed efficitur eros tincidunt. Sed eget est ac ligula ultrices bibendum. Donec ac velit nec nisi vulputate fringilla. Cras vel felis vel urna sollicitudin auctor vitae nec augue. Vivamus felis velit, volutpat at laoreet ac, volutpat eu ligula. Curabitur pulvinar ornare vulputate.</p>
+  <!-- Repeat the above paragraph multiple times to create a long, scrollable page -->
+</div>
+<script>
+  let rippleCount = 0;
+  const debugElement = document.getElementById('debug');
+  const speedControl = document.getElementById('speedControl');
+  let currentSpeed = parseFloat(speedControl.value);
+  speedControl.addEventListener('input', () => {
+    currentSpeed = parseFloat(speedControl.value);
+    updateLineSpeeds();
+  });
+  function createLine() {
+    const line = document.createElement('div');
+    line.classList.add('line');
+    const left = Math.random() * 100;
+    line.style.left = `${left}%`;
+    const lightEffect = document.createElement('div');
+    lightEffect.classList.add('light-effect');
+    line.appendChild(lightEffect);
+    animateLine(lightEffect, line);
+    return line;
+  }
+  function animateLine(element, lineElement) {
+    const duration = 2 + Math.random() * 2; // Initial speed: 2-4 seconds
+    function animate() {
+      const left = Math.random() * 100; // Randomize the position each time
+      lineElement.style.left = `${left}%`;
+      const animation = element.animate([
+        {top: '-50%'},
+        {top: '110%'}
+      ], {
+        duration: duration * 1000 / currentSpeed,
+        easing: 'linear'
+      });
+      animation.onfinish = () => {
+        createRipples(lineElement);
+        animate(); // Restart the animation
+      };
+    }
+    animate();
+  }
+  function updateLineSpeeds() {
+    const lines = document.querySelectorAll('.light-effect');
+    lines.forEach(line => {
+      const animation = line.getAnimations()[0];
+      if (animation) {
+        animation.updatePlaybackRate(currentSpeed);
+      }
+    });
+  }
+  function createRipples(lineElement) {
+    const rect = lineElement.getBoundingClientRect();
+    const rippleCount = 3 + Math.floor(Math.random() * 3); // 3-5 ripples
+    for (let i = 0; i < rippleCount; i++) {
+      setTimeout(() => {
+        createRipple(rect.left + rect.width / 2, i * 100); // Center ripples
+      }, i * 100);
+    }
+  }
+  function createRipple(left, delay) {
+    const ripple = document.createElement('div');
+    ripple.classList.add('ripple');
+    ripple.style.left = `${left}px`;
+    ripple.style.bottom = '0px';
+    const duration = 1 + Math.random(); // 1-2 seconds duration
+    ripple.style.animation = `ripple ${duration}s ease-out ${delay}ms`;
+    document.querySelector('.animation-container').appendChild(ripple);
+    rippleCount++;
+    updateDebug();
+    setTimeout(() => {
+      ripple.remove();
+      rippleCount--;
+      updateDebug();
+    }, (duration * 1000) + delay);
+  }
+  function updateDebug() {
+    debugElement.textContent = `Ripples active: ${rippleCount}`;
+  }
+  function initLines() {
+    const container = document.getElementById('linesContainer');
+    const lineCount = Math.random() * 100; // Increased number of lines
+    for (let i = 0; i < lineCount; i++) {
+      container.appendChild(createLine());
+    }
+  }
+  window.onload = initLines;
+</script>
+</body>
+</html>

@@ -123,18 +123,15 @@
     height: 100%;
   }
   body {
+    display: table;
+    width: 100%;
+    height: 100%;
     /*background-color: #171717;*/
     /*color: #000;*/
     line-height: 1.6;
+    position: relative;
     font-family: sans-serif;
-  }
-  .animation-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    overflow: hidden;
+    overflow: auto;
   }
   .lines {
     position: absolute;
@@ -168,6 +165,7 @@
     width: 0;
     height: 0;
     pointer-events: none;
+    /*从中间向外扩散*/
     transform: translate(-50%, 50%);
   }
   @keyframes ripple {
@@ -178,67 +176,27 @@
     }
   }
   #debug {
-    top: 220px;
-  }
-  .controls {
-    top: 10px;
-  }
-  .controls, #debug {
     position: fixed;
-    right: 10px;
-    background: var(--color);
-    color: var(--bg-color);
-    padding: 8px;
-    font-size: 8px;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    font-size: 12px;
     z-index: 1000;
-    border-radius: 5px;
-    width: 180px;
+    display: none;
   }
-  .control-group {
-    margin-bottom: 10px;
-  }
-  .control-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  .content {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
-    color: white;
+  #speedControl {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
   }
 </style>
 <body>
-<div class="animation-container">
-  <div class="lines" id="linesContainer"></div>
-</div>
-<div id="debug">
-  <!--  <p>Ripples active:</p>-->
-  <!--  <p>Lines:</p>-->
-  <!--  <p>Ripple Timing:</p>-->
-  <!--  <p>Ripples Timing:</p>-->
-</div>
-<div class="controls">
-  <!-- Speed -->
-  <div class="control-group">
-    <label for="speedControl">Speed Control:</label>
-    <input type="range" min="1" max="100" value="2" id="speedControl">
-  </div>
-  <!--  Line Count  -->
-  <div class="control-group">
-    <label for="lineCountControl">Line Count Control:</label>
-    <input type="range" min="1" max="5000" value="50" id="lineCountControl">
-  </div>
-  <!--  Ripple Timing -->
-  <div class="control-group">
-    <label for="rippleTimingControl">Ripple Timing Control:</label>
-    <input type="range" min="1" max="5000" value="10" id="rippleTimingControl">
-  </div>
-  <div class="control-group">
-    <label for="ripplesTimingControl">Ripples Timing Control:</label>
-    <input type="range" min="1" max="5000" value="10" id="ripplesTimingControl">
-  </div>
-</div>
+<div class="lines" id="linesContainer"></div>
+<div id="debug"></div>
+<label for="speedControl"></label>
+<input type="range" min="1" max="10" value="2" id="speedControl">
 <!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
 <table class="table-urls about-chrome">
   <caption></caption>
@@ -556,29 +514,12 @@
 <!--光效动画js-->
 <script>
   let rippleCount = 0;
-  let lines = [];
   const debugElement = document.getElementById('debug');
   const speedControl = document.getElementById('speedControl');
-  const lineCountControl = document.getElementById('lineCountControl');
-  const rippleTimingControl = document.getElementById('rippleTimingControl');
-  const ripplesTimingControl = document.getElementById('ripplesTimingControl');
   let currentSpeed = parseFloat(speedControl.value);
-  let currentLineCount = parseInt(lineCountControl.value);
-  let currentRippleTiming = parseInt(rippleTimingControl.value);
-  let currentRipplesTiming = parseInt(ripplesTimingControl.value);
   speedControl.addEventListener('input', () => {
     currentSpeed = parseFloat(speedControl.value);
     updateLineSpeeds();
-  });
-  lineCountControl.addEventListener('input', () => {
-    currentLineCount = parseInt(lineCountControl.value);
-    updateLineCount();
-  });
-  rippleTimingControl.addEventListener('input', () => {
-    currentRippleTiming = parseInt(rippleTimingControl.value);
-  });
-  ripplesTimingControl.addEventListener('input', () => {
-    currentRipplesTiming = parseInt(ripplesTimingControl.value);
   });
   function createLine() {
     const line = document.createElement('div');
@@ -588,12 +529,11 @@
     const lightEffect = document.createElement('div');
     lightEffect.classList.add('light-effect');
     line.appendChild(lightEffect);
-    const {animation, animationFrameId} = animateLine(lightEffect, line);
-    return {element: line, animation: animation, animationFrameId: animationFrameId};
+    animateLine(lightEffect, line);
+    return line;
   }
   function animateLine(element, lineElement) {
     const duration = 2 + Math.random() * 2; // Initial speed: 2-4 seconds
-    let animationFrameId;
     function animate() {
       const left = Math.random() * 100; // Randomize the position each time
       lineElement.style.left = `${left}%`;
@@ -606,48 +546,27 @@
       });
       animation.onfinish = () => {
         createRipples(lineElement);
-        animationFrameId = requestAnimationFrame(animate); // Restart the animation
+        animate(); // Restart the animation
       };
-      return animation;
     }
-    const animation = animate();
-    return {animation, animationFrameId};
+    animate();
   }
   function updateLineSpeeds() {
+    const lines = document.querySelectorAll('.light-effect');
     lines.forEach(line => {
-      if (line.animation) {
-        line.animation.playbackRate = currentSpeed;
+      const animation = line.getAnimations()[0];
+      if (animation) {
+        animation.updatePlaybackRate(currentSpeed);
       }
     });
-  }
-  function updateLineCount() {
-    const container = document.getElementById('linesContainer');
-    // Remove excess lines
-    while (lines.length > currentLineCount) {
-      const line = lines.pop();
-      if (line.animation) {
-        line.animation.cancel(); // Stop the animation
-      }
-      if (line.animationFrameId) {
-        cancelAnimationFrame(line.animationFrameId); // Cancel the animation frame
-      }
-      container.removeChild(line.element);
-    }
-    // Add new lines
-    while (lines.length < currentLineCount) {
-      const newLine = createLine();
-      lines.push(newLine);
-      container.appendChild(newLine.element);
-    }
-    updateDebug();
   }
   function createRipples(lineElement) {
     const rect = lineElement.getBoundingClientRect();
     const rippleCount = 3 + Math.floor(Math.random() * 3); // 3-5 ripples
     for (let i = 0; i < rippleCount; i++) {
       setTimeout(() => {
-        createRipple(rect.left + rect.width / 2, i * currentRipplesTiming); // Use currentRipplesTiming
-      }, i * currentRipplesTiming);
+        createRipple(rect.left + rect.width / 2, i * 100); // Center ripples
+      }, i * 100);
     }
   }
   function createRipple(left, delay) {
@@ -657,41 +576,24 @@
     ripple.style.bottom = '0px';
     const duration = 1 + Math.random(); // 1-2 seconds duration
     ripple.style.animation = `ripple ${duration}s ease-out ${delay}ms`;
-    document.querySelector('.animation-container').appendChild(ripple);
+    document.body.appendChild(ripple);
     rippleCount++;
     updateDebug();
     setTimeout(() => {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
+      ripple.remove();
       rippleCount--;
       updateDebug();
-    }, (duration * currentRippleTiming) + delay); // Use currentRippleTiming
+    }, (duration * 1000) + delay);
   }
   function updateDebug() {
-    debugElement.innerHTML = '';
-    // debugElement.textContent =
-    // `Ripples active: ${rippleCount},
-    // Lines: ${lines.length},
-    // Ripple Timing: ${currentRippleTiming},
-    // Ripples Timing: ${currentRipplesTiming}`;
-    let ra = '<p class="debug-item-text">Ripples active:' + rippleCount + '</p>'
-    let li = '<p class="debug-item-text">Lines:' + lines.length + '</p>'
-    let rt1 = '<p class="debug-item-text">Ripple Timing:' + currentRippleTiming + '</p>'
-    let rt2 = '<p class="debug-item-text">Ripples Timing:' + currentRipplesTiming + '</p>'
-    debugElement.innerHTML += ra;
-    debugElement.innerHTML += li;
-    debugElement.innerHTML += rt1;
-    debugElement.innerHTML += rt2;
+    debugElement.textContent = `Ripples active: ${rippleCount}`;
   }
   function initLines() {
     const container = document.getElementById('linesContainer');
-    for (let i = 0; i < currentLineCount; i++) {
-      const newLine = createLine();
-      lines.push(newLine);
-      container.appendChild(newLine.element);
+    const lineCount = Math.random() * 100; // Increased number of lines
+    for (let i = 0; i < lineCount; i++) {
+      container.appendChild(createLine());
     }
-    updateDebug();
   }
   window.onload = initLines;
 </script>
