@@ -64,7 +64,7 @@
     }
     .light-effect {
       position: absolute;
-      height: 2vh;
+      height: 1.2vh;
       width: 100%;
       top: -50%;
       left: 0;
@@ -133,7 +133,7 @@
   <!-- Speed -->
   <div class="control-group">
     <label for="speedControl">Speed Control:</label>
-    <input type="range" min="1" max="100" value="2" id="speedControl">
+    <input type="range" min="1" max="20000" value="3000" id="speedControl">
   </div>
   <!--  Line Count  -->
   <div class="control-group">
@@ -171,6 +171,7 @@
   speedControl.addEventListener('input', () => {
     currentSpeed = parseFloat(speedControl.value);
     updateLineSpeeds();
+    updateDebug();
   });
   lineCountControl.addEventListener('input', () => {
     currentLineCount = parseInt(lineCountControl.value);
@@ -203,7 +204,7 @@
         {top: '-50%'},
         {top: '110%'}
       ], {
-        duration: duration * 1000 / currentSpeed,
+        duration: duration * currentSpeed,
         easing: 'linear'
       });
       animation.onfinish = () => {
@@ -277,10 +278,12 @@
     // Lines: ${lines.length},
     // Ripple Timing: ${currentRippleTiming},
     // Ripples Timing: ${currentRipplesTiming}`;
+    let cp = '<p class="debug-item-text">Current Speed:' + currentSpeed + '</p>'
     let ra = '<p class="debug-item-text">Ripples active:' + rippleCount + '</p>'
     let li = '<p class="debug-item-text">Lines:' + lines.length + '</p>'
     let rt1 = '<p class="debug-item-text">Ripple Timing:' + currentRippleTiming + '</p>'
     let rt2 = '<p class="debug-item-text">Ripples Timing:' + currentRipplesTiming + '</p>'
+    debugElement.innerHTML += cp;
     debugElement.innerHTML += ra;
     debugElement.innerHTML += li;
     debugElement.innerHTML += rt1;
