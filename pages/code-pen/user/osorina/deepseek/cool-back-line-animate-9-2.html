@@ -250,8 +250,10 @@
     }
   }
   function createRipple(left, delay) {
+    left = 10;
     const ripple = document.createElement('div');
     ripple.classList.add('ripple');
+    // ripple.style.left = `${left}px`;
     ripple.style.left = `${left}px`;
     ripple.style.bottom = '0px';
     const duration = 1 + Math.random(); // 1-2 seconds duration
