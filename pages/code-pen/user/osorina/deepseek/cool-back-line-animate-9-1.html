@@ -64,7 +64,7 @@
     }
     .light-effect {
       position: absolute;
-      height: 1.2vh;
+      height: 2vh;
       width: 100%;
       top: -50%;
       left: 0;
@@ -88,7 +88,7 @@
       }
     }
     #debug {
-      top: 260px;
+      top: 220px;
     }
     .controls {
       top: 10px;
@@ -124,12 +124,16 @@
   <div class="lines" id="linesContainer"></div>
 </div>
 <div id="debug">
+  <!--  <p>Ripples active:</p>-->
+  <!--  <p>Lines:</p>-->
+  <!--  <p>Ripple Timing:</p>-->
+  <!--  <p>Ripples Timing:</p>-->
 </div>
 <div class="controls">
   <!-- Speed -->
   <div class="control-group">
     <label for="speedControl">Speed Control:</label>
-    <input type="range" min="1" max="20000" value="5000" id="speedControl">
+    <input type="range" min="1" max="100" value="2" id="speedControl">
   </div>
   <!--  Line Count  -->
   <div class="control-group">
@@ -141,7 +145,6 @@
     <label for="rippleTimingControl">Ripple Timing Control:</label>
     <input type="range" min="1" max="5000" value="10" id="rippleTimingControl">
   </div>
-  <!--  Ripples Timing -->
   <div class="control-group">
     <label for="ripplesTimingControl">Ripples Timing Control:</label>
     <input type="range" min="1" max="5000" value="10" id="ripplesTimingControl">
@@ -152,6 +155,7 @@
   <p>This is an example of content that can be scrolled.</p>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec magna vel ante sollicitudin lacinia. Ut in gravida ante. Sed consequat felis non ex condimentum, ut ullamcorper odio egestas. Aliquam erat volutpat. Curabitur tempus nibh ac nisi semper, sed efficitur eros tincidunt. Sed eget est ac ligula ultrices bibendum. Donec ac velit nec nisi vulputate fringilla. Cras vel felis vel urna sollicitudin auctor vitae nec augue. Vivamus felis velit, volutpat at laoreet ac, volutpat eu ligula. Curabitur pulvinar ornare vulputate.</p>
 </div>
+<!--光效动画js-->
 <script>
   let rippleCount = 0;
   let lines = [];
@@ -167,7 +171,6 @@
   speedControl.addEventListener('input', () => {
     currentSpeed = parseFloat(speedControl.value);
     updateLineSpeeds();
-    updateDebug();
   });
   lineCountControl.addEventListener('input', () => {
     currentLineCount = parseInt(lineCountControl.value);
@@ -200,7 +203,7 @@
         {top: '-50%'},
         {top: '110%'}
       ], {
-        duration: duration * currentSpeed,
+        duration: duration * 1000 / currentSpeed,
         easing: 'linear'
       });
       animation.onfinish = () => {
@@ -274,12 +277,10 @@
     // Lines: ${lines.length},
     // Ripple Timing: ${currentRippleTiming},
     // Ripples Timing: ${currentRipplesTiming}`;
-    let cp = '<p class="debug-item-text">Current Speed:' + currentSpeed + '</p>'
     let ra = '<p class="debug-item-text">Ripples active:' + rippleCount + '</p>'
     let li = '<p class="debug-item-text">Lines:' + lines.length + '</p>'
     let rt1 = '<p class="debug-item-text">Ripple Timing:' + currentRippleTiming + '</p>'
     let rt2 = '<p class="debug-item-text">Ripples Timing:' + currentRipplesTiming + '</p>'
-    debugElement.innerHTML += cp;
     debugElement.innerHTML += ra;
     debugElement.innerHTML += li;
     debugElement.innerHTML += rt1;

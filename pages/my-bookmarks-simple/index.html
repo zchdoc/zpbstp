@@ -178,7 +178,7 @@
     }
   }
   #debug {
-    top: 220px;
+    top: 260px;
   }
   .controls {
     top: 10px;
@@ -192,7 +192,7 @@
     font-size: 8px;
     z-index: 1000;
     border-radius: 5px;
-    width: 180px;
+    width: 200px;
   }
   .control-group {
     margin-bottom: 10px;
@@ -207,9 +207,64 @@
     padding: 20px;
     color: white;
   }
+  /* 开关样式 */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  /* 调整控制组样式 */
+  .control-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .control-group label {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
 </style>
 <body>
-<div class="animation-container">
+<div class="animation-container" id="animationContainer">
   <div class="lines" id="linesContainer"></div>
 </div>
 <div id="debug">
@@ -234,9 +289,18 @@
     <label for="rippleTimingControl">Ripple Timing Control:</label>
     <input type="range" min="1" max="5000" value="10" id="rippleTimingControl">
   </div>
+  <!--  Ripples Timing -->
   <div class="control-group">
     <label for="ripplesTimingControl">Ripples Timing Control:</label>
     <input type="range" min="1" max="5000" value="10" id="ripplesTimingControl">
+  </div>
+  <!-- 新增的动画开关 -->
+  <div class="control-group">
+    <label for="animationToggle" class="switch">
+      <input type="checkbox" id="animationToggle" checked>
+      <span class="slider round"></span>
+    </label>
+    <span>Rain Light:ON/OFF</span>
   </div>
 </div>
 <!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
@@ -580,6 +644,26 @@
   ripplesTimingControl.addEventListener('input', () => {
     currentRipplesTiming = parseInt(ripplesTimingControl.value);
   });
+  document.getElementById('animationToggle').addEventListener('change', function (e) {
+    if (e.target.checked) {
+      // 开启动画
+      startAnimation();
+    }
+    else {
+      // 关闭动画
+      stopAnimation();
+    }
+  });
+  function startAnimation() {
+    // 在这里添加开启动画的代码
+    document.getElementById('animationContainer').style.display = 'block';
+    document.getElementById('debug').style.display = 'block';
+  }
+  function stopAnimation() {
+    // 在这里添加停止动画的代码
+    document.getElementById('animationContainer').style.display = 'none';
+    document.getElementById('debug').style.display = 'none';
+  }
   function createLine() {
     const line = document.createElement('div');
     line.classList.add('line');
