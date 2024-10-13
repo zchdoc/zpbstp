@@ -4,15 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>获取地理位置</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #demo {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<h1>获取用户地理位置</h1>
-<button onclick="getLocation()">获取位置</button>
-<p id="demo"></p>
+<div class="container">
+  <h1>获取用户地理位置</h1>
+  <button onclick="getLocation()">获取位置</button>
+  <p id="demo"></p>
+</div>
 
 <script>
   function getLocation() {
     if (navigator.geolocation) {
+      document.getElementById("demo").innerHTML = "正在获取位置...";
       navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
       document.getElementById("demo").innerHTML = "Geolocation 不被您的浏览器支持。";
@@ -20,8 +66,9 @@
   }
 
   function showPosition(position) {
-    document.getElementById("demo").innerHTML = "纬度: " + position.coords.latitude +
-      "<br>经度: " + position.coords.longitude;
+    document.getElementById("demo").innerHTML =
+      "纬度: " + position.coords.latitude.toFixed(6) +
+      "<br>经度: " + position.coords.longitude.toFixed(6);
   }
 
   function showError(error) {
