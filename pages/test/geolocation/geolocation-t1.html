@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>获取用户位置示例</title>
+</head>
+<body>
+<button onclick="getLocation()">获取我的位置</button>
+<p id="status"></p>
+<script>
+  function getLocation() {
+    const status = document.getElementById('status');
+
+    if ("geolocation" in navigator) {
+      status.textContent = "正在获取您的位置信息...";
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          status.textContent = `您的位置：纬度 ${latitude}，经度 ${longitude}`;
+
+          // 可以在这里使用经纬度进行其他操作，例如显示在地图上
+          // 示例：使用 Google Maps 或其他地图服务
+        },
+        (error) => {
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              status.textContent = "用户拒绝了地理定位请求。";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              status.textContent = "位置信息不可用。";
+              break;
+            case error.TIMEOUT:
+              status.textContent = "请求地理定位超时。";
+              break;
+            default:
+              status.textContent = "发生未知错误。";
+              break;
+          }
+        }
+      );
+    } else {
+      status.textContent = "抱歉，您的浏览器不支持地理定位功能。";
+    }
+  }
+</script>
+</body>
+</html>
