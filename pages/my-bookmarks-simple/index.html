@@ -91,9 +91,6 @@
     border-radius: 10px;
     margin: 20px auto;
   }
-  .about-tools-remove-duplicate {
-    width: 28%;
-  }
   .theme-switch {
     width: 18px;
     aspect-ratio: 1;
@@ -360,11 +357,13 @@
 <table class="table-urls about-socialize hide-on-open">
   <tr>
     <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr</a></td>
+    <td><a target="_blank" href="../duplicate-str-remove/duplicate-remove.html" class="custom-zch">dup-remove</a></td>
     <td><a target="_blank" href="../random/random-gen.html" class="custom-zch">random-num</a></td>
-    <td colspan="2"><a target="_blank" href="../rmb_convert/RMB_2_Chinese_Up.html" class="custom-zch">rmb-2-chinese</a></td>
+    <td><a target="_blank" href="../rmb_convert/RMB_2_Chinese_Up.html" class="custom-zch">rmb-2-chinese</a></td>
+    <td><a target="_blank" href="../num-bin-convert/index.html" class="custom-zch">num-bin-convert</a></td>
   </tr>
   <tr>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a></td>
+    <td colspan="2"><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a></td>
     <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">bookmark-ai</a></td>
     <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">pin-tree-dev</a></td>
@@ -463,28 +462,10 @@
     <td><a target="_blank" href="https://fanyi.youdao.com/#/" class="custom-zch">fy-youdao</a></td>
   </tr>
 </table>
-<!-- remove duplicate elements -->
-<table class="table-urls about-tools-remove-duplicate hide-on-open">
-  <caption>
-  </caption>
-  <tr style="height: 50px;">
-    <td>
-      <label>
-        <input type="text" placeholder="用英文逗号隔开需要去重的内容(input elements, separated by commas)" class="duplicate-elements-input">
-      </label>
-    </td>
-  </tr>
-  <tr style="height: 50px;">
-    <td>
-      <p class="duplication-removed-element"></p>
-    </td>
-  </tr>
-</table>
 <script src="../../assets/js/zch-add-js/getUrlParam.js"></script>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     getCurrentUrlParam();
-    removeDuplicateElements();
     monitorSystemThemeChange();
     // 获取按钮
     const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
@@ -550,25 +531,6 @@
   }
   function changeALinkColor(color) {
     document.documentElement.style.setProperty('--a-href-color', color);
-  }
-  // remove duplicate elements
-  function removeDuplicateElements() {
-    // remove duplicate elements
-    const input = document.querySelector(".duplicate-elements-input")
-    const output = document.querySelector(".duplication-removed-element")
-    // 去重
-    input.addEventListener("input", function () {
-      let inputValue = input.value;
-      // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
-      // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
-      //   inputValue = inputValue.replace(/，/g, ",");
-      // }
-      // 用于检测是否包含中文标点符号 ，。、等
-      inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
-      const elements = inputValue.split(",");
-      const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
-      output.textContent = uniqueElements.join(",");
-    })
   }
   function getCurrentUrlParam() {
     // 调用函数获取参数

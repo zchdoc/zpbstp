@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>进制转换工具-V1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    h1 {
+      text-align: center;
+      color: #333333;
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    #message {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>进制转换工具</h1>
+  <label for="hex">16进制：</label>
+  <input type="text" id="hex" class="in" onfocus="copyText('hex')">
+  <label for="decimal">10进制：</label>
+  <input type="text" id="decimal" class="in" onfocus="copyText('decimal')">
+  <label for="octal">8进制：</label>
+  <input type="text" id="octal" class="in" onfocus="copyText('octal')">
+  <label for="binary">2进制：</label>
+  <input type="text" id="binary" class="in" onfocus="copyText('binary')">
+  <label for="character">字符：</label>
+  <input type="text" id="character" class="in" onfocus="copyText('character')">
+</div>
+<div id="message">
+  <p>复制成功</p>
+</div>
+<script>
+  function copyText(inputId) {
+    const input = document.getElementById(inputId)
+    let currentValue = input.value
+    if (currentValue === "" || currentValue === "0") {
+      return
+    }
+    input.select();
+    document.execCommand("copy");
+    copySuccessAlert();
+  }
+  function convert(from) {
+    const hex = document.getElementById("hex")
+    const decimal = document.getElementById("decimal")
+    const octal = document.getElementById("octal")
+    const binary = document.getElementById("binary")
+    const char = document.getElementById("character")
+    let dec = 0
+    switch (from) {
+      case "hex":
+        dec = parseInt(hex.value ? hex.value : 0, 16);
+        break;
+      case "decimal":
+        dec = parseInt(decimal.value ? decimal.value : 0, 10);
+        break;
+      case "octal":
+        dec = parseInt(octal.value ? octal.value : 0, 8);
+        break;
+      case "binary":
+        dec = parseInt(binary.value ? binary.value : 0, 2);
+        break;
+      case "character":
+        dec = stringToNumber(char.value);
+        break;
+    }
+    let hexValTmp = dec.toString(16).toUpperCase();
+    while (hexValTmp.length % 2 !== 0) {
+      hexValTmp = '0' + hexValTmp;
+    }
+    // hexValTmp = hexValTmp.slice(hexValTmp.length - 8)
+    console.info('hexValTmp', hexValTmp)
+    hex.value = hexValTmp;
+    decimal.value = dec;
+    octal.value = dec.toString(8);
+    binary.value = dec.toString(2);
+    char.value = numberToString(dec);
+  }
+  function stringToNumber(str) {
+    let number = 0
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i)
+      number = number * 256 + charCode;
+    }
+    return number;
+  }
+  function numberToString(number) {
+    let str = ''
+    while (number > 0) {
+      const charCode = number & 0xff
+      str = String.fromCharCode(charCode) + str;
+      number = number >> 8;
+    }
+    return str;
+  }
+  function copySuccessAlert() {
+    const message = document.getElementById("message")
+    message.style.display = "block";
+    setTimeout(function () {
+      message.style.display = "none";
+    }, 1000);
+  }
+  const inputs = document.querySelectorAll(".in")
+  inputs.forEach(e => {
+    e.oninput = convert.bind(null, e.id);
+  });
+</script>
+</body>
+</html>

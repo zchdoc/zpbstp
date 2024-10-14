@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>进制转换工具-V1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    h1 {
+      text-align: center;
+      color: #333333;
+      margin-top: 0;
+    }
+    h5, h6 {
+      text-align: center;
+      color: #aba8a8;
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    #message {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .about-tools-remove-duplicate {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>元素去重</h1>
+  <h5>用英文逗号隔开需要去重的内容</h5>
+  <h6>input elements, separated by commas</h6>
+  <!-- remove duplicate elements -->
+  <table class="table-urls about-tools-remove-duplicate hide-on-open">
+    <caption>
+    </caption>
+    <tr style="height: 50px;">
+      <td>
+        <label>
+          <input type="text" placeholder="用英文逗号隔开需要去重的内容" class="duplicate-elements-input">
+        </label>
+      </td>
+    </tr>
+    <tr style="height: 50px;">
+      <td>
+        <p class="duplication-removed-element"></p>
+      </td>
+    </tr>
+  </table>
+</div>
+<script>
+  removeDuplicateElements();
+  // remove duplicate elements
+  function removeDuplicateElements() {
+    // remove duplicate elements
+    const input = document.querySelector(".duplicate-elements-input")
+    const output = document.querySelector(".duplication-removed-element")
+    // 去重
+    input.addEventListener("input", function () {
+      let inputValue = input.value;
+      // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
+      // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
+      //   inputValue = inputValue.replace(/，/g, ",");
+      // }
+      // 用于检测是否包含中文标点符号 ，。、等
+      inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
+      const elements = inputValue.split(",");
+      const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
+      output.textContent = uniqueElements.join(",");
+    })
+  }
+</script>
+</body>
+</html>
