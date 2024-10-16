@@ -75,11 +75,20 @@
   function copyText(inputId) {
     const input = document.getElementById(inputId)
     let currentValue = input.value
-    if (currentValue === "" || currentValue === "0") {
+    if (currentValue === "" || currentValue === "0" || currentValue === "00") {
       return
     }
     input.select();
-    document.execCommand("copy");
+    let inputContent = input.value;
+    // document.execCommand("copy");
+    try {
+      navigator.clipboard.writeText(inputContent);
+      console.log('无法复制:', inputContent);
+    }
+    catch (err) {
+      console.error('无法复制-err: ', err);
+      console.error('无法复制-err-content: ', inputContent);
+    }
     copySuccessAlert();
   }
   function convert(from) {
@@ -94,7 +103,8 @@
         dec = parseInt(hex.value ? hex.value : 0, 16);
         break;
       case "decimal":
-        dec = parseInt(decimal.value ? decimal.value : 0, 10);
+        let tmp = decimal.value ? decimal.value : 0;
+        dec = parseInt(tmp.toString(), 10);
         break;
       case "octal":
         dec = parseInt(octal.value ? octal.value : 0, 8);
