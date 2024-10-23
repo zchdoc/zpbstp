@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>进制转换工具-V1</title>
+  <title>元素去重-V2</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #b4b4b4;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,7 +19,7 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 300px;
+      width: 600px;
     }
     h1 {
       text-align: center;
@@ -64,8 +64,8 @@
 </head>
 <body>
 <div class="container">
-  <h1>元素去重</h1>
-  <h5>用英文逗号隔开需要去重的内容</h5>
+  <h1>元素去重 排序</h1>
+  <h5>用英文逗号隔开需要去重和排序的内容</h5>
   <h6>input elements, separated by commas</h6>
   <!-- remove duplicate elements -->
   <table class="table-urls about-tools-remove-duplicate hide-on-open">
@@ -74,13 +74,37 @@
     <tr style="height: 50px;">
       <td>
         <label>
-          <input type="text" placeholder="用英文逗号隔开需要去重的内容" class="duplicate-elements-input">
+          <input type="text" placeholder="用英文逗号隔开需要去重和排序的内容" class="duplicate-elements-input">
+        </label>
+        <label>
+          <input type="checkbox" id="sortCheckbox" checked> 排序
         </label>
       </td>
     </tr>
     <tr style="height: 50px;">
       <td>
         <p class="duplication-removed-element"></p>
+      </td>
+    </tr>
+  </table>
+  <h5>只允许输入数字，并按照数字大小排序</h5>
+  <h6>input numbers only, sorted by numeric value</h6>
+  <table class="table-urls about-tools-remove-duplicate hide-on-open">
+    <caption>
+    </caption>
+    <tr style="height: 50px;">
+      <td>
+        <label>
+          <input type="text" placeholder="用英文逗号隔开需要排序的内容" class="numeric-elements-input">
+        </label>
+        <label>
+          <input type="checkbox" id="numericSortCheckbox" checked>排序
+        </label>
+      </td>
+    </tr>
+    <tr style="height: 50px;">
+      <td>
+        <p class="numeric-sorted-element"></p>
       </td>
     </tr>
   </table>
@@ -92,19 +116,49 @@
     // remove duplicate elements
     const input = document.querySelector(".duplicate-elements-input")
     const output = document.querySelector(".duplication-removed-element")
-    // 去重
-    input.addEventListener("input", function () {
+    const sortCheckbox = document.getElementById("sortCheckbox");
+
+    // 去重并根据复选框状态决定是否排序
+    function processInput() {
       let inputValue = input.value;
-      // 检测是否包含中文逗号 ， 如果包含中文逗号则替换为英文逗号 ,
-      // if (/[\u4e00-\u9fa5]/.test(inputValue)) {
-      //   inputValue = inputValue.replace(/，/g, ",");
-      // }
-      // 用于检测是否包含中文标点符号 ，。、等
+      // 检测是否包含中文标点符号 ，。、等
       inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
       const elements = inputValue.split(",");
       const uniqueElements = [...new Set(elements.map((element) => element.trim()))];
+
+      if (sortCheckbox.checked) {
+        // 对去重后的元素进行排序
+        uniqueElements.sort();
+      }
+
       output.textContent = uniqueElements.join(",");
-    })
+    }
+
+    input.addEventListener("input", processInput);
+    sortCheckbox.addEventListener("change", processInput);
+
+    // 处理数字排序
+    const numericInput = document.querySelector(".numeric-elements-input");
+    const numericOutput = document.querySelector(".numeric-sorted-element");
+    const numericSortCheckbox = document.getElementById("numericSortCheckbox");
+
+    function processNumericInput() {
+      let inputValue = numericInput.value;
+      // 检测是否包含中文标点符号 ，。、等
+      inputValue = inputValue.replace(/[，。、；！]/g, ",").trim();
+      const elements = inputValue.split(",");
+      const numericElements = elements.filter(element => /^\d+$/.test(element)).map(element => element.trim());
+      const uniqueNumericElements = [...new Set(numericElements)];
+
+      if (numericSortCheckbox.checked) {
+        uniqueNumericElements.sort((a, b) => a - b);
+      }
+
+      numericOutput.textContent = uniqueNumericElements.join(",");
+    }
+
+    numericInput.addEventListener("input", processNumericInput);
+    numericSortCheckbox.addEventListener("change", processNumericInput);
   }
 </script>
 </body>
