@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.svg">
   <title>FastUrl</title>
 </head>
@@ -10,6 +11,7 @@
     --color: #1E1F22;
     --bg-color: #F7F8FA;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --color: #F7F8FA;
@@ -17,10 +19,12 @@
       --a-href-color: #F7F8FA;
     }
   }
+
   body {
     color: var(--color);
     background-color: var(--bg-color);
   }
+
   body,
   html {
     font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -29,12 +33,14 @@
     letter-spacing: 0.025em;
     line-height: 1.092;
   }
+
   /*color: #0069d9;*/
   .custom-zch {
     height: 21px;
     position: relative;
     cursor: pointer;
   }
+
   td {
     padding: 2px 8px;
     align-items: center;
@@ -48,17 +54,20 @@
     filter: blur(0px);
     will-change: auto;
   }
+
   td a {
     background: linear-gradient(to right, #ec6b5f, #f7b731) no-repeat right bottom;
     background-size: 0 2px;
     transition: background-size 0.2s;
     border-radius: 2px;
   }
+
   td:hover a {
     background-position: left bottom;
     background-size: 100% 2px;
     border-radius: 2px;
   }
+
   .duplicate-elements-input {
     border: none;
     border-radius: 50px;
@@ -68,43 +77,54 @@
     text-align: center;
     color: var(--color);
   }
+
   a:link {
     color: var(--a-href-color);
     text-decoration: none;
   }
+
   a:visited {
     color: var(--a-href-color);
   }
+
   a:hover {
     color: #1890ff;
   }
+
   a:active {
     color: rgb(236, 222, 96);
   }
+
   a:focus {
     outline: none;
     /* 去掉默认的轮廓 */
     color: rgb(103, 109, 24);
   }
+
   .table-urls {
     border: 0 solid #ccc;
     border-radius: 10px;
     margin: 20px auto;
   }
+
   .theme-switch {
     width: 18px;
     aspect-ratio: 1;
     border-radius: 100%;
   }
+
   .theme-switch:hover {
     cursor: pointer;
   }
+
   #btnChangeToLightTheme {
     background-color: #F7F8FA;
   }
+
   #btnChangeToDarkTheme {
     background-color: #1E1F22;
   }
+
   .hide-on-open {
     display: none;
   }
@@ -116,6 +136,7 @@
     padding: 0;
     box-sizing: border-box !important;
   }
+
   /*html, body {*/
   /*  height: 98%;*/
   /*}*/
@@ -125,6 +146,7 @@
     line-height: 1.6;
     font-family: sans-serif;
   }
+
   .animation-container {
     position: fixed;
     top: 0;
@@ -134,6 +156,7 @@
     overflow: hidden;
     display: none;
   }
+
   .lines {
     position: absolute;
     top: 0;
@@ -143,6 +166,7 @@
     margin: auto;
     width: 90vw;
   }
+
   .line {
     position: absolute;
     width: 1px;
@@ -150,6 +174,7 @@
     top: 0;
     overflow: visible;
   }
+
   .light-effect {
     position: absolute;
     height: 2vh;
@@ -158,6 +183,7 @@
     left: 0;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--color) 75%, var(--color) 100%);
   }
+
   .ripple {
     position: absolute;
     border: 2px solid var(--color);
@@ -168,6 +194,7 @@
     pointer-events: none;
     transform: translate(-50%, 50%);
   }
+
   @keyframes ripple {
     to {
       width: 100px;
@@ -175,13 +202,17 @@
       opacity: 0;
     }
   }
+
   #debug {
     top: 260px;
   }
+
   .controls {
     top: 10px;
   }
-  .controls, #debug {
+
+  .controls,
+  #debug {
     position: fixed;
     right: 10px;
     background: var(--color);
@@ -192,19 +223,23 @@
     border-radius: 5px;
     width: 200px;
   }
+
   .control-group {
     margin-bottom: 10px;
   }
+
   .control-group label {
     display: block;
     margin-bottom: 5px;
   }
+
   .content {
     position: relative;
     z-index: 10;
     padding: 20px;
     color: white;
   }
+
   /* 开关样式 */
   .switch {
     position: relative;
@@ -213,11 +248,13 @@
     height: 20px;
     margin-right: 10px;
   }
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -228,6 +265,7 @@
     background-color: #ccc;
     transition: .4s;
   }
+
   .slider:before {
     position: absolute;
     content: "";
@@ -238,507 +276,549 @@
     background-color: white;
     transition: .4s;
   }
-  input:checked + .slider {
+
+  input:checked+.slider {
     background-color: #2196F3;
   }
-  input:checked + .slider:before {
+
+  input:checked+.slider:before {
     transform: translateX(20px);
   }
+
   .slider.round {
     border-radius: 34px;
   }
+
   .slider.round:before {
     border-radius: 50%;
   }
+
   /* 调整控制组样式 */
   .control-group {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
+
   .control-group label {
     margin-bottom: 0;
     margin-right: 10px;
   }
 </style>
+
 <body>
-<!-- http://localhost:63343/zpbstp/pages/my-bookmarks-simple/index.html?key=mine -->
-<div class="animation-container" id="animationContainer">
-  <div class="lines" id="linesContainer"></div>
-</div>
-<div id="debug">
-  <!--  <p>Ripples active:</p>-->
-  <!--  <p>Lines:</p>-->
-  <!--  <p>Ripple Timing:</p>-->
-  <!--  <p>Ripples Timing:</p>-->
-</div>
-<div class="controls">
-  <!-- Speed -->
-  <div class="control-group">
-    <label for="speedControl">Speed Control:</label>
-    <input type="range" min="1" max="100" value="2" id="speedControl">
+  <!-- http://localhost:63343/zpbstp/pages/my-bookmarks-simple/index.html?key=mine -->
+  <div class="animation-container" id="animationContainer">
+    <div class="lines" id="linesContainer"></div>
   </div>
-  <!--  Line Count  -->
-  <div class="control-group">
-    <label for="lineCountControl">Line Count Control:</label>
-    <input type="range" min="1" max="5000" value="50" id="lineCountControl">
+  <div id="debug">
+    <!--  <p>Ripples active:</p>-->
+    <!--  <p>Lines:</p>-->
+    <!--  <p>Ripple Timing:</p>-->
+    <!--  <p>Ripples Timing:</p>-->
   </div>
-  <!--  Ripple Timing -->
-  <div class="control-group">
-    <label for="rippleTimingControl">Ripple Timing Control:</label>
-    <input type="range" min="1" max="5000" value="10" id="rippleTimingControl">
+  <div class="controls">
+    <!-- Speed -->
+    <div class="control-group">
+      <label for="speedControl">Speed Control:</label>
+      <input type="range" min="1" max="100" value="2" id="speedControl">
+    </div>
+    <!--  Line Count  -->
+    <div class="control-group">
+      <label for="lineCountControl">Line Count Control:</label>
+      <input type="range" min="1" max="5000" value="50" id="lineCountControl">
+    </div>
+    <!--  Ripple Timing -->
+    <div class="control-group">
+      <label for="rippleTimingControl">Ripple Timing Control:</label>
+      <input type="range" min="1" max="5000" value="10" id="rippleTimingControl">
+    </div>
+    <!--  Ripples Timing -->
+    <div class="control-group">
+      <label for="ripplesTimingControl">Ripples Timing Control:</label>
+      <input type="range" min="1" max="5000" value="10" id="ripplesTimingControl">
+    </div>
+    <!-- 新增的动画开关 -->
+    <div class="control-group">
+      <label for="animationToggle" class="switch">
+        <input type="checkbox" id="animationToggle">
+        <span class="slider round"></span>
+      </label>
+      <span>Rain Light:ON/OFF</span>
+    </div>
   </div>
-  <!--  Ripples Timing -->
-  <div class="control-group">
-    <label for="ripplesTimingControl">Ripples Timing Control:</label>
-    <input type="range" min="1" max="5000" value="10" id="ripplesTimingControl">
-  </div>
-  <!-- 新增的动画开关 -->
-  <div class="control-group">
-    <label for="animationToggle" class="switch">
-      <input type="checkbox" id="animationToggle">
-      <span class="slider round"></span>
-    </label>
-    <span>Rain Light:ON/OFF</span>
-  </div>
-</div>
-<!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
-<table class="table-urls about-chrome">
-  <caption></caption>
-  <tr>
-    <td>
-      <div class="theme-switch" id="btnChangeToLightTheme"></div>
-      <div class="theme-switch" id="btnChangeToDarkTheme"></div>
-    </td>
-  </tr>
-</table>
-<!--XB😐-->
-<table class="table-urls about-xb">
-  <caption>
-  </caption>
-  <!--xb-client-login-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81')" class="custom-zch">j1c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81')" class="custom-zch">a2c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081')" class="custom-zch">a3c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081')" class="custom-zch">a4c</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081')" class="custom-zch">cdzc</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81')" class="custom-zch">gxcdzc</a>
-    </td>
-  </tr>
-  <!--xb-login-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/xb/login.do')" class="custom-zch">j1cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')" class="custom-zch">a2cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')" class="custom-zch">a3cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')" class="custom-zch">a4cb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')" class="custom-zch">cdzcb</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')" class="custom-zch">gxcdzcb</a></td>
-  </tr>
-  <!--info-query-->
-  <tr>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">j1ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')" class="custom-zch">a2ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a3ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">a4ci</a></td>
-    <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')" class="custom-zch">cdzci</a></td>
-    <td><a target="_blank" href="../xb-tools/xb-encrypt-js.html" class="custom-zch">enc-js</a></td>
-  </tr>
-</table>
-<!--zch-dev-public-->
-<table class="table-urls about-xb">
-  <caption>
-  </caption>
-  <!-- little tools -->
-  <tr>
-    <td colspan="3"><a target="_blank" href="../pulse-water-billing-calc/pulse-water-billing-calc.html" class="custom-zch">pulse-water-billing-calc</a></td>
-    <td colspan="2"><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=嘉荣华" class="custom-zch">localize-jrh</a>
-    <td colspan="1"><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">localize</a>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr-gen</a></td>
-    <td><a target="_blank" href="../duplicate-str-remove/duplicate-remove.html" class="custom-zch">dup-remove</a></td>
-    <td><a target="_blank" href="../random/random-gen.html" class="custom-zch">random-num</a></td>
-    <td colspan="2"><a target="_blank" href="../num-bin-convert/index.html" class="custom-zch">hex-dec-convert</a></td>
-    <td colspan="1"><a target="_blank" href="../rmb_convert/RMB_2_Chinese_Up.html" class="custom-zch">rmb-chinese</a></td>
-  </tr>
-</table>
-<!--zch-dev-self-->
-<table class="table-urls about-search-engines hide-on-open">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">bookmark-all</a></td>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">bs-custom</a></td>
-    <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">bookmark-ai</a></td>
-    <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">pin-tree-dev</a></td>
-  </tr>
-</table>
-<!--Searches -->
-<table class="table-urls about-search-engines hide-on-open">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
-    <td><a target="_blank" href="https://www.duckduckgo.com" class="custom-zch">duckduckgo</a></td>
-    <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
-    <td>
-      <a target="_blank" href="https://www.baidu.com" class="custom-zch">
-        <!-- <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" style="display: none;" class="custom-zch-favicon"/>-->
-        <!-- <span class="custom-zch-text">baidu</span>-->
-        baidu
-      </a>
-    </td>
-    <td><a target="_blank" href="https://www.sogou.com" class="custom-zch">sogou</a></td>
-    <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
-  </tr>
-</table>
-<!--social media 😃-->
-<table class="table-urls about-socialize hide-on-open">
-  <caption></caption>
-  <tr>
-    <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
-    <td><a target="_blank" href="https://www.reddit.com" class="custom-zch">reddit</a></td>
-    <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
-    <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
-    <td><a target="_blank" href="https://www.instagram.com/" class="custom-zch">itm</a></td>
-    <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
-    <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
-    <td><a target="_blank" href="https://www.52pojie.cn/" class="custom-zch">52pj</a></td>
-  </tr>
-</table>
-<!-- Git -->
-<table class="table-urls about-git hide-on-open">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github</a></td>
-    <td><a target="_blank" href="https://gitee.com/" class="custom-zch">gitee</a></td>
-    <td><a target="_blank" href="https://codeup.aliyun.com/" class="custom-zch">codeup</a></td>
-    <td><a target="_blank" href="https://gitlab.com/" class="custom-zch">gitlab</a></td>
-    <td><a target="_blank" href="https://gitcode.com/" class="custom-zch">csdn-git</a></td>
-    <td><a target="_blank" href="https://github.com/trending?since=monthly" class="custom-zch">github-m</a></td>
-  </tr>
-</table>
-<!--AI -->
-<table class="table-urls about-ai hide-on-open">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">CoZeEn</a></td>
-    <td><a target="_blank" href="https://www.ciciai.com/" class="custom-zch">CiCi</a></td>
-    <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">OpenAI</a></td>
-    <td><a target="_blank" href="https://claude.ai/new" class="custom-zch">Claude</a></td>
-    <td><a target="_blank" href="https://groq.com/" class="custom-zch">Groq</a></td>
-    <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">Mistral</a></td>
-    <td><a target="_blank" href="https://gemini.google.com/app" class="custom-zch">Gemini</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://www.coze.cn/space/7346541960162869283/bot" class="custom-zch">CoZeCn</a></td>
-    <td><a target="_blank" href="https://www.doubao.com/chat/" class="custom-zch">DouBao</a></td>
-    <td><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">MoonShot</a></td>
-    <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">TongYi</a></td>
-    <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">ChatGlm</a></td>
-    <td><a target="_blank" href="https://www.deepseek.com" class="custom-zch">DeepSeek</a></td>
-    <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">Perplexity</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://yiyan.baidu.com/" class="custom-zch">BaiduYiYan</a></td>
-    <td><a target="_blank" href="https://yuanbao.tencent.com/" class="custom-zch">HunYuan</a></td>
-    <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">LingYi</a></td>
-    <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">Ai360</a></td>
-    <td><a target="_blank" href="https://shared.oaifree.com/dashboard" class="custom-zch">OaiFree</a></td>
-    <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">XunFeiYun</a></td>
-    <td><a target="_blank" href="https://ollama.ai/" class="custom-zch">OLlaMa</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://openrouter.ai/rankings" class="custom-zch">R-OpenRouter</a></td>
-    <td><a target="_blank" href="https://chat.lmsys.org/?leaderboard" class="custom-zch">R-LMsys</a></td>
-    <td><a target="_blank" href="https://aider.chat/docs/leaderboards" class="custom-zch">R-Aider</a></td>
-    <td><a target="_blank" href="https://www.superclueai.com" class="custom-zch">R-SuperClue</a></td>
-    <td><a target="_blank" href="https://huggingface.co/" class="custom-zch">HuggingFace</a></td>
-    <td><a target="_blank" href="https://huggingface.co/chat/" class="custom-zch">HuggingChat</a></td>
-    <td><a target="_blank" href="https://openrouter.ai/chat" class="custom-zch">OpenRChat</a></td>
-  </tr>
-  <tr>
-    <td colspan="2"><a target="_blank" href="https://console.x.ai/" class="custom-zch">XAiGrok</a></td>
-    <td colspan="3"><a target="_blank" href="https://nextnav.wwzh.xyz/" class="custom-zch">NextNav</a></td>
-    <td colspan="2"><a target="_blank" href="https://att.wwzh.xyz/" class="custom-zch">AttSB</a></td>
-  </tr>
-</table>
-<!-- Translate -->
-<table class="table-urls about-search-translate hide-on-open">
-  <caption>
-  </caption>
-  <tr>
-    <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
-    <td><a target="_blank" href="https://cn.bing.com/translator" class="custom-zch">fy-bing</a></td>
-    <td><a target="_blank" href="https://www.deepl.com/zh/translator" class="custom-zch">fy-deepl</a></td>
-  </tr>
-  <tr>
-    <td><a target="_blank" href="https://translate.google.com.hk/?hl=zh-CN&sl=auto&tl=en&op=translate" class="custom-zch">fy-google-zh</a></td>
-    <td><a target="_blank" href="https://fanyi.baidu.com/" class="custom-zch">fy-BaiDu</a></td>
-    <td><a target="_blank" href="https://fanyi.youdao.com/#/TextTranslate" class="custom-zch">fy-YouDao</a></td>
-  </tr>
-</table>
-<script src="../../assets/js/zch-add-js/getUrlParam.js"></script>
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    getCurrentUrlParam();
-    monitorSystemThemeChange();
-    // 获取按钮
-    const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
-    const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
-    // 为按钮添加事件监听器
-    darkThemeBtn.addEventListener('click', function () {
-      changeTheme('dark', true);
-    });
-    lightThemeBtn.addEventListener('click', function () {
-      changeTheme('light', true);
-    });
-  })
-  // 打开链接
-  function openHttpLinkInNewTab(url) {
-    console.info(this);
-    url = 'http' + '://' + url;
-    // 在新标签页中打开链接
-    console.info('url:', url);
-    window.open(url, '_blank');
-  }
-  function monitorSystemThemeChange() {
-    const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
-    mediaQueryListDark.addEventListener('change', handleChange);
-    // 检查localStorage 中的偏好设置
-    const savedTheme = localStorage.getItem('theme');
-    console.info('savedTheme:', savedTheme, typeof savedTheme);
-    if (savedTheme) {
-      changeTheme(savedTheme, false);
+  <!--theme-switch dark-light 🌞☀️😎🌦️｜🌚🌙🌝🌛🌓🌔🌑🌖🌗🌜🌕🌘🌒-->
+  <table class="table-urls about-chrome">
+    <caption></caption>
+    <tr>
+      <td>
+        <div class="theme-switch" id="btnChangeToLightTheme"></div>
+        <div class="theme-switch" id="btnChangeToDarkTheme"></div>
+      </td>
+    </tr>
+  </table>
+  <!--XB😐-->
+  <table class="table-urls about-xb">
+    <caption>
+    </caption>
+    <!--xb-client-login-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81')" class="custom-zch">j1c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81')" class="custom-zch">a2c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081')" class="custom-zch">a3c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081')" class="custom-zch">a4c</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081')" class="custom-zch">cdzc</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81')" class="custom-zch">gxcdzc</a>
+      </td>
+    </tr>
+    <!--xb-login-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/xb/login.do')" class="custom-zch">j1cb</a>
+      </td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/xb/login.do')"
+          class="custom-zch">a2cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/xb/login.do')"
+          class="custom-zch">a3cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/xb/login.do')"
+          class="custom-zch">a4cb</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('cdz.4000063966.com:8084/login')"
+          class="custom-zch">cdzcb</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('chongdian.4000063966.com:81/singbon/backgroud/system/admin/login.do')"
+          class="custom-zch">gxcdzcb</a></td>
+    </tr>
+    <!--info-query-->
+    <tr>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('1.singbon.com:81/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">j1ci</a></td>
+      <td><a target="_blank" onclick="openHttpLinkInNewTab('a2.4000063966.com:81/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a2ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('a3c.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a3ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('a4c.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">a4ci</a></td>
+      <td><a target="_blank"
+          onclick="openHttpLinkInNewTab('cdz.4000063966.com:8081/netInterface/singbon/companyIndex.do')"
+          class="custom-zch">cdzci</a></td>
+      <td><a target="_blank" href="../xb-tools/xb-encrypt-js.html" class="custom-zch">enc-js</a></td>
+    </tr>
+  </table>
+  <!--zch-dev-public-->
+  <table class="table-urls about-xb">
+    <caption>
+    </caption>
+    <!-- little tools -->
+    <tr>
+      <td colspan="3"><a target="_blank" href="../pulse-water-billing-calc/pulse-water-billing-calc.html"
+          class="custom-zch">pulse-water-billing-calc</a></td>
+      <td colspan="2"><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=嘉荣华"
+          class="custom-zch">localize-jrh</a>
+      <td colspan="1"><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus"
+          class="custom-zch">localize</a>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="../qr-styling/index.html" class="custom-zch">qr-gen</a></td>
+      <td><a target="_blank" href="../duplicate-str-remove/duplicate-remove.html" class="custom-zch">dup-remove</a></td>
+      <td><a target="_blank" href="../random/random-gen.html" class="custom-zch">random-num</a></td>
+      <td colspan="2"><a target="_blank" href="../num-bin-convert/index.html" class="custom-zch">hex-dec-convert</a>
+      </td>
+      <td colspan="1"><a target="_blank" href="../rmb_convert/RMB_2_Chinese_Up.html" class="custom-zch">rmb-chinese</a>
+      </td>
+    </tr>
+  </table>
+  <!--zch-dev-self-->
+  <table class="table-urls about-search-engines hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://nextnav.wwzh.xyz/" class="custom-zch">NextNav</a></td>
+      <td><a target="_blank" href="https://att.wwzh.xyz/" class="custom-zch">AttSB</a></td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=all" class="custom-zch">Bookmark-All</a>
+      </td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=bscus" class="custom-zch">Bs-Custom</a>
+      </td>
+      <td><a target="_blank" href="../chrome-bookmarks-simple/index.html?name=Zai" class="custom-zch">Bookmark-Ai</a>
+      </td>
+      <td><a target="_blank" href="https://zchdoc.github.io/pintree-dev-z" class="custom-zch">Pin-Tree-Dev</a></td>
+    </tr>
+  </table>
+  <!--Searches -->
+  <table class="table-urls about-search-engines hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://www.google.com" class="custom-zch">google</a></td>
+      <td><a target="_blank" href="https://www.duckduckgo.com" class="custom-zch">duckduckgo</a></td>
+      <td><a target="_blank" href="https://www.bing.com" class="custom-zch">bing</a></td>
+      <td>
+        <a target="_blank" href="https://www.baidu.com" class="custom-zch">
+          <!-- <img src="https://baidu.com/favicon.ico" alt="favicon-baidu" style="display: none;" class="custom-zch-favicon"/>-->
+          <!-- <span class="custom-zch-text">baidu</span>-->
+          baidu
+        </a>
+      </td>
+      <td><a target="_blank" href="https://www.sogou.com" class="custom-zch">sogou</a></td>
+      <td><a target="_blank" href="https://www.so.com/" class="custom-zch">so360</a></td>
+    </tr>
+  </table>
+  <!--social media 😃-->
+  <table class="table-urls about-socialize hide-on-open">
+    <caption></caption>
+    <tr>
+      <td><a target="_blank" href="https://x.com/" class="custom-zch">x.com</a></td>
+      <td><a target="_blank" href="https://www.reddit.com" class="custom-zch">reddit</a></td>
+      <td><a target="_blank" href="https://web.telegram.org/a/" class="custom-zch">telegram</a></td>
+      <td><a target="_blank" href="https://discord.com/channels/@me" class="custom-zch">discord</a></td>
+      <td><a target="_blank" href="https://www.instagram.com/" class="custom-zch">itm</a></td>
+      <td><a target="_blank" href="https://linux.do/" class="custom-zch">linux.do</a></td>
+      <td><a target="_blank" href="https://www.zhihu.com" class="custom-zch">zhihu</a></td>
+      <td><a target="_blank" href="https://www.52pojie.cn/" class="custom-zch">52pj</a></td>
+    </tr>
+  </table>
+  <!-- Git -->
+  <table class="table-urls about-git hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://github.com/zchdoc" class="custom-zch">github</a></td>
+      <td><a target="_blank" href="https://gitee.com/" class="custom-zch">gitee</a></td>
+      <td><a target="_blank" href="https://codeup.aliyun.com/" class="custom-zch">codeup</a></td>
+      <td><a target="_blank" href="https://gitlab.com/" class="custom-zch">gitlab</a></td>
+      <td><a target="_blank" href="https://gitcode.com/" class="custom-zch">csdn-git</a></td>
+      <td><a target="_blank" href="https://github.com/trending?since=monthly" class="custom-zch">github-m</a></td>
+    </tr>
+  </table>
+  <!-- AI -->
+  <table class="table-urls about-ai hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+
+      <td><a target="_blank" href="https://chat.openai.com/" class="custom-zch">OpenAI</a></td>
+      <td><a target="_blank" href="https://claude.ai/new" class="custom-zch">Claude</a></td>
+      <td><a target="_blank" href="https://groq.com/" class="custom-zch">Groq</a></td>
+      <td><a target="_blank" href="https://chat.mistral.ai/chat" class="custom-zch">Mistral</a></td>
+      <td><a target="_blank" href="https://gemini.google.com/app" class="custom-zch">Gemini</a></td>
+      <td><a target="_blank" href="https://aistudio.google.com/app/prompts/new_chat" class="custom-zch">AiStudio</a>
+      </td>
+
+      <td><a target="_blank" href="https://www.perplexity.ai/" class="custom-zch">Perplexity</a></td>
+      <td><a target="_blank" href="https://ollama.ai/" class="custom-zch">OLlaMa</a></td>
+      <td><a target="_blank" href="https://www.coze.com/space/7322025004764364806/bot" class="custom-zch">CoZeEn</a>
+      </td>
+      <td><a target="_blank" href="https://www.ciciai.com/" class="custom-zch">CiCi</a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a target="_blank" href="https://www.superclueai.com" class="custom-zch">R-SuperClue</a></td>
+      <td><a target="_blank" href="https://chat.lmsys.org/?leaderboard" class="custom-zch">R-LMsys</a></td>
+      <td><a target="_blank" href="https://aider.chat/docs/leaderboards" class="custom-zch">R-Aider</a></td>
+      <td colspan="2"><a target="_blank" href="https://openrouter.ai/rankings/programming?view=month"
+          class="custom-zch">R-OpenRouter</a></td>
+      <td><a target="_blank" href="https://openrouter.ai/chat" class="custom-zch">OpenRChat</a></td>
+      <td><a target="_blank" href="https://huggingface.co/" class="custom-zch">HuggingFace</a></td>
+      <td><a target="_blank" href="https://huggingface.co/chat/" class="custom-zch">HuggingChat</a></td>
+      <td><a target="_blank" href="https://console.x.ai/" class="custom-zch">XAiGrok</a></td>
+    </tr>
+  </table>
+  <!-- AI-CN -->
+  <table class="table-urls about-ai hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://www.coze.cn/space/7346541960162869283/bot" class="custom-zch">CoZeCn</a></td>
+      <td><a target="_blank" href="https://www.doubao.com/chat/" class="custom-zch">DouBao</a></td>
+      <td colspan="2"><a target="_blank" href="https://kimi.moonshot.cn/" class="custom-zch">MoonShot</a></td>
+      <td><a target="_blank" href="https://tongyi.aliyun.com/" class="custom-zch">TongYi</a></td>
+      <td><a target="_blank" href="https://chatglm.cn/detail" class="custom-zch">ChatGlm</a></td>
+      <td><a target="_blank" href="https://chat.deepseek.com" class="custom-zch">DeepSeek</a></td>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="https://yiyan.baidu.com/" class="custom-zch">BaiduYiYan</a></td>
+      <td><a target="_blank" href="https://yuanbao.tencent.com/" class="custom-zch">HunYuan</a></td>
+      <td><a target="_blank" href="https://platform.lingyiwanwu.com/playground" class="custom-zch">LingYi</a></td>
+      <td><a target="_blank" href="https://chat.360.cn/chat" class="custom-zch">Ai360</a></td>
+      <td><a target="_blank" href="https://shared.oaifree.com/dashboard" class="custom-zch">OaiFree</a></td>
+      <td><a target="_blank" href="https://xinghuo.xfyun.cn/" class="custom-zch">XunFeiYun</a></td>
+      <td><a target="_blank" href="https://cloud.siliconflow.cn/playground/chat" class="custom-zch">SiliconFlow</a></td>
+    </tr>
+  </table>
+  <!-- Translate -->
+  <table class="table-urls about-search-translate hide-on-open">
+    <caption>
+    </caption>
+    <tr>
+      <td><a target="_blank" href="https://translate.google.com" class="custom-zch">fy-google</a></td>
+      <td><a target="_blank" href="https://cn.bing.com/translator" class="custom-zch">fy-bing</a></td>
+      <td><a target="_blank" href="https://www.deepl.com/zh/translator" class="custom-zch">fy-deepl</a></td>
+    </tr>
+    <tr>
+      <td><a target="_blank" href="https://translate.google.com.hk/?hl=zh-CN&sl=auto&tl=en&op=translate"
+          class="custom-zch">fy-google-zh</a></td>
+      <td><a target="_blank" href="https://fanyi.baidu.com/" class="custom-zch">fy-BaiDu</a></td>
+      <td><a target="_blank" href="https://fanyi.youdao.com/#/TextTranslate" class="custom-zch">fy-YouDao</a></td>
+    </tr>
+  </table>
+  <script src="../../assets/js/zch-add-js/getUrlParam.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      getCurrentUrlParam();
+      monitorSystemThemeChange();
+      // 获取按钮
+      const darkThemeBtn = document.getElementById('btnChangeToDarkTheme');
+      const lightThemeBtn = document.getElementById('btnChangeToLightTheme');
+      // 为按钮添加事件监听器
+      darkThemeBtn.addEventListener('click', function () {
+        changeTheme('dark', true);
+      });
+      lightThemeBtn.addEventListener('click', function () {
+        changeTheme('light', true);
+      });
+    })
+    // 打开链接
+    function openHttpLinkInNewTab(url) {
+      console.info(this);
+      url = 'http' + '://' + url;
+      // 在新标签页中打开链接
+      console.info('url:', url);
+      window.open(url, '_blank');
     }
-    else {
-      // 第一次没有用户自定义主题时，根据系统主题变化
-      console.info('根据系统主题变化')
-      handleChange(mediaQueryListDark);
+    function monitorSystemThemeChange() {
+      const mediaQueryListDark = window.matchMedia('(prefers-color-scheme:dark)');
+      mediaQueryListDark.addEventListener('change', handleChange);
+      // 检查localStorage 中的偏好设置
+      const savedTheme = localStorage.getItem('theme');
+      console.info('savedTheme:', savedTheme, typeof savedTheme);
+      if (savedTheme) {
+        changeTheme(savedTheme, false);
+      }
+      else {
+        // 第一次没有用户自定义主题时，根据系统主题变化
+        console.info('根据系统主题变化')
+        handleChange(mediaQueryListDark);
+      }
     }
-  }
-  function handleChange(mediaQueryListEvent) {
-    if (mediaQueryListEvent.matches) {
-      changeTheme('dark', false);
+    function handleChange(mediaQueryListEvent) {
+      if (mediaQueryListEvent.matches) {
+        changeTheme('dark', false);
+      }
+      else {
+        changeTheme('light', false);
+      }
     }
-    else {
-      changeTheme('light', false);
+    function changeTheme(theme, isUserInitiated) {
+      if (theme === 'dark') {
+        document.documentElement.style.setProperty('--color', '#F7F8FA');
+        document.documentElement.style.setProperty('--bg-color', '#1E1F22');
+        changeALinkColor('#F7F8FA');
+        document.getElementById('btnChangeToDarkTheme').style.display = 'none';
+        document.getElementById('btnChangeToLightTheme').style.display = 'block';
+      }
+      else {
+        document.documentElement.style.setProperty('--color', '#1E1F22');
+        document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
+        changeALinkColor('#1E1F22');
+        document.getElementById('btnChangeToDarkTheme').style.display = 'block';
+        document.getElementById('btnChangeToLightTheme').style.display = 'none';
+      }
+      if (isUserInitiated) {
+        // 如果是用户切换主题, 则保存到localstorage
+        localStorage.setItem('theme', theme);
+      }
     }
-  }
-  function changeTheme(theme, isUserInitiated) {
-    if (theme === 'dark') {
-      document.documentElement.style.setProperty('--color', '#F7F8FA');
-      document.documentElement.style.setProperty('--bg-color', '#1E1F22');
-      changeALinkColor('#F7F8FA');
-      document.getElementById('btnChangeToDarkTheme').style.display = 'none';
-      document.getElementById('btnChangeToLightTheme').style.display = 'block';
+    function changeALinkColor(color) {
+      document.documentElement.style.setProperty('--a-href-color', color);
     }
-    else {
-      document.documentElement.style.setProperty('--color', '#1E1F22');
-      document.documentElement.style.setProperty('--bg-color', '#F7F8FA');
-      changeALinkColor('#1E1F22');
-      document.getElementById('btnChangeToDarkTheme').style.display = 'block';
-      document.getElementById('btnChangeToLightTheme').style.display = 'none';
-    }
-    if (isUserInitiated) {
-      // 如果是用户切换主题, 则保存到localstorage
-      localStorage.setItem('theme', theme);
-    }
-  }
-  function changeALinkColor(color) {
-    document.documentElement.style.setProperty('--a-href-color', color);
-  }
-  function getCurrentUrlParam() {
-    // 调用函数获取参数
-    const urlJsonParams = getUrlParamsToJson();
-    if (urlJsonParams && urlJsonParams.key) {
-      const urlParamsValKey = urlJsonParams.key;
-      console.info('urlParamsValKey:', urlParamsValKey);
-      if (urlParamsValKey === 'mine') {
-        // $('.hide-on-open').show();
-        const elements = document.querySelectorAll('table.hide-on-open');
-        console.info('elements:', elements.length);
-        console.info('elements:', elements);
-        for (let i = 0; i < elements.length; i++) {
-          let element = elements[i];
-          console.info('element:', element);
-          element.classList.remove('hide-on-open');
+    function getCurrentUrlParam() {
+      // 调用函数获取参数
+      const urlJsonParams = getUrlParamsToJson();
+      if (urlJsonParams && urlJsonParams.key) {
+        const urlParamsValKey = urlJsonParams.key;
+        console.info('urlParamsValKey:', urlParamsValKey);
+        if (urlParamsValKey === 'mine') {
+          // $('.hide-on-open').show();
+          const elements = document.querySelectorAll('table.hide-on-open');
+          console.info('elements:', elements.length);
+          console.info('elements:', elements);
+          for (let i = 0; i < elements.length; i++) {
+            let element = elements[i];
+            console.info('element:', element);
+            element.classList.remove('hide-on-open');
+          }
         }
       }
+      // 显示参数
+      for (const [key, value] of Object.entries(urlJsonParams)) {
+        // p.textContent = `${key}: ${JSON.stringify(value)}`;
+        // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
+        // console.log('urlParams3:', `${key}`, `${value}`);
+        console.log('urlParams1:', key, value);
+      }
     }
-    // 显示参数
-    for (const [key, value] of Object.entries(urlJsonParams)) {
-      // p.textContent = `${key}: ${JSON.stringify(value)}`;
-      // console.log('urlParams2:', `${key}`, `${JSON.stringify(value)}`);
-      // console.log('urlParams3:', `${key}`, `${value}`);
-      console.log('urlParams1:', key, value);
-    }
-  }
-</script>
-<!--光效动画js-->
-<script>
-  let rippleCount = 0;
-  let lines = [];
-  const debugElement = document.getElementById('debug');
-  const speedControl = document.getElementById('speedControl');
-  const lineCountControl = document.getElementById('lineCountControl');
-  const rippleTimingControl = document.getElementById('rippleTimingControl');
-  const ripplesTimingControl = document.getElementById('ripplesTimingControl');
-  let currentSpeed = parseFloat(speedControl.value);
-  let currentLineCount = parseInt(lineCountControl.value);
-  let currentRippleTiming = parseInt(rippleTimingControl.value);
-  let currentRipplesTiming = parseInt(ripplesTimingControl.value);
-  speedControl.addEventListener('input', () => {
-    currentSpeed = parseFloat(speedControl.value);
-    updateLineSpeeds();
-  });
-  lineCountControl.addEventListener('input', () => {
-    currentLineCount = parseInt(lineCountControl.value);
-    updateLineCount();
-  });
-  rippleTimingControl.addEventListener('input', () => {
-    currentRippleTiming = parseInt(rippleTimingControl.value);
-  });
-  ripplesTimingControl.addEventListener('input', () => {
-    currentRipplesTiming = parseInt(ripplesTimingControl.value);
-  });
-  document.getElementById('animationToggle').addEventListener('change', function (e) {
-    if (e.target.checked) {
-      // 开启动画
-      startAnimation();
-    }
-    else {
-      // 关闭动画
-      stopAnimation();
-    }
-  });
-  function startAnimation() {
-    // 在这里添加开启动画的代码
-    document.getElementById('animationContainer').style.display = 'block';
-    document.getElementById('debug').style.display = 'block';
-  }
-  function stopAnimation() {
-    // 在这里添加停止动画的代码
-    document.getElementById('animationContainer').style.display = 'none';
-    document.getElementById('debug').style.display = 'none';
-  }
-  function createLine() {
-    const line = document.createElement('div');
-    line.classList.add('line');
-    const left = Math.random() * 100;
-    line.style.left = `${left}%`;
-    const lightEffect = document.createElement('div');
-    lightEffect.classList.add('light-effect');
-    line.appendChild(lightEffect);
-    const {animation, animationFrameId} = animateLine(lightEffect, line);
-    return {element: line, animation: animation, animationFrameId: animationFrameId};
-  }
-  function animateLine(element, lineElement) {
-    const duration = 2 + Math.random() * 2; // Initial speed: 2-4 seconds
-    let animationFrameId;
-    function animate() {
-      const left = Math.random() * 100; // Randomize the position each time
-      lineElement.style.left = `${left}%`;
-      const animation = element.animate([
-        {top: '-50%'},
-        {top: '110%'}
-      ], {
-        duration: duration * 1000 / currentSpeed,
-        easing: 'linear'
-      });
-      animation.onfinish = () => {
-        createRipples(lineElement);
-        animationFrameId = requestAnimationFrame(animate); // Restart the animation
-      };
-      return animation;
-    }
-    const animation = animate();
-    return {animation, animationFrameId};
-  }
-  function updateLineSpeeds() {
-    lines.forEach(line => {
-      if (line.animation) {
-        line.animation.playbackRate = currentSpeed;
+  </script>
+  <!--光效动画js-->
+  <script>
+    let rippleCount = 0;
+    let lines = [];
+    const debugElement = document.getElementById('debug');
+    const speedControl = document.getElementById('speedControl');
+    const lineCountControl = document.getElementById('lineCountControl');
+    const rippleTimingControl = document.getElementById('rippleTimingControl');
+    const ripplesTimingControl = document.getElementById('ripplesTimingControl');
+    let currentSpeed = parseFloat(speedControl.value);
+    let currentLineCount = parseInt(lineCountControl.value);
+    let currentRippleTiming = parseInt(rippleTimingControl.value);
+    let currentRipplesTiming = parseInt(ripplesTimingControl.value);
+    speedControl.addEventListener('input', () => {
+      currentSpeed = parseFloat(speedControl.value);
+      updateLineSpeeds();
+    });
+    lineCountControl.addEventListener('input', () => {
+      currentLineCount = parseInt(lineCountControl.value);
+      updateLineCount();
+    });
+    rippleTimingControl.addEventListener('input', () => {
+      currentRippleTiming = parseInt(rippleTimingControl.value);
+    });
+    ripplesTimingControl.addEventListener('input', () => {
+      currentRipplesTiming = parseInt(ripplesTimingControl.value);
+    });
+    document.getElementById('animationToggle').addEventListener('change', function (e) {
+      if (e.target.checked) {
+        // 开启动画
+        startAnimation();
+      }
+      else {
+        // 关闭动画
+        stopAnimation();
       }
     });
-  }
-  function updateLineCount() {
-    const container = document.getElementById('linesContainer');
-    // Remove excess lines
-    while (lines.length > currentLineCount) {
-      const line = lines.pop();
-      if (line.animation) {
-        line.animation.cancel(); // Stop the animation
-      }
-      if (line.animationFrameId) {
-        cancelAnimationFrame(line.animationFrameId); // Cancel the animation frame
-      }
-      container.removeChild(line.element);
+    function startAnimation() {
+      // 在这里添加开启动画的代码
+      document.getElementById('animationContainer').style.display = 'block';
+      document.getElementById('debug').style.display = 'block';
     }
-    // Add new lines
-    while (lines.length < currentLineCount) {
-      const newLine = createLine();
-      lines.push(newLine);
-      container.appendChild(newLine.element);
+    function stopAnimation() {
+      // 在这里添加停止动画的代码
+      document.getElementById('animationContainer').style.display = 'none';
+      document.getElementById('debug').style.display = 'none';
     }
-    updateDebug();
-  }
-  function createRipples(lineElement) {
-    const rect = lineElement.getBoundingClientRect();
-    const rippleCount = 3 + Math.floor(Math.random() * 3); // 3-5 ripples
-    for (let i = 0; i < rippleCount; i++) {
-      setTimeout(() => {
-        createRipple(rect.left + rect.width / 2, i * currentRipplesTiming); // Use currentRipplesTiming
-      }, i * currentRipplesTiming);
+    function createLine() {
+      const line = document.createElement('div');
+      line.classList.add('line');
+      const left = Math.random() * 100;
+      line.style.left = `${left}%`;
+      const lightEffect = document.createElement('div');
+      lightEffect.classList.add('light-effect');
+      line.appendChild(lightEffect);
+      const { animation, animationFrameId } = animateLine(lightEffect, line);
+      return { element: line, animation: animation, animationFrameId: animationFrameId };
     }
-  }
-  function createRipple(left, delay) {
-    const ripple = document.createElement('div');
-    ripple.classList.add('ripple');
-    ripple.style.left = `${left}px`;
-    ripple.style.bottom = '0px';
-    const duration = 1 + Math.random(); // 1-2 seconds duration
-    ripple.style.animation = `ripple ${duration}s ease-out ${delay}ms`;
-    document.querySelector('.animation-container').appendChild(ripple);
-    rippleCount++;
-    updateDebug();
-    setTimeout(() => {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
+    function animateLine(element, lineElement) {
+      const duration = 2 + Math.random() * 2; // Initial speed: 2-4 seconds
+      let animationFrameId;
+      function animate() {
+        const left = Math.random() * 100; // Randomize the position each time
+        lineElement.style.left = `${left}%`;
+        const animation = element.animate([
+          { top: '-50%' },
+          { top: '110%' }
+        ], {
+          duration: duration * 1000 / currentSpeed,
+          easing: 'linear'
+        });
+        animation.onfinish = () => {
+          createRipples(lineElement);
+          animationFrameId = requestAnimationFrame(animate); // Restart the animation
+        };
+        return animation;
       }
-      rippleCount--;
+      const animation = animate();
+      return { animation, animationFrameId };
+    }
+    function updateLineSpeeds() {
+      lines.forEach(line => {
+        if (line.animation) {
+          line.animation.playbackRate = currentSpeed;
+        }
+      });
+    }
+    function updateLineCount() {
+      const container = document.getElementById('linesContainer');
+      // Remove excess lines
+      while (lines.length > currentLineCount) {
+        const line = lines.pop();
+        if (line.animation) {
+          line.animation.cancel(); // Stop the animation
+        }
+        if (line.animationFrameId) {
+          cancelAnimationFrame(line.animationFrameId); // Cancel the animation frame
+        }
+        container.removeChild(line.element);
+      }
+      // Add new lines
+      while (lines.length < currentLineCount) {
+        const newLine = createLine();
+        lines.push(newLine);
+        container.appendChild(newLine.element);
+      }
       updateDebug();
-    }, (duration * currentRippleTiming) + delay); // Use currentRippleTiming
-  }
-  function updateDebug() {
-    debugElement.innerHTML = '';
-    // debugElement.textContent =
-    // `Ripples active: ${rippleCount},
-    // Lines: ${lines.length},
-    // Ripple Timing: ${currentRippleTiming},
-    // Ripples Timing: ${currentRipplesTiming}`;
-    let ra = '<p class="debug-item-text">Ripples active:' + rippleCount + '</p>'
-    let li = '<p class="debug-item-text">Lines:' + lines.length + '</p>'
-    let rt1 = '<p class="debug-item-text">Ripple Timing:' + currentRippleTiming + '</p>'
-    let rt2 = '<p class="debug-item-text">Ripples Timing:' + currentRipplesTiming + '</p>'
-    debugElement.innerHTML += ra;
-    debugElement.innerHTML += li;
-    debugElement.innerHTML += rt1;
-    debugElement.innerHTML += rt2;
-  }
-  function initLines() {
-    const container = document.getElementById('linesContainer');
-    for (let i = 0; i < currentLineCount; i++) {
-      const newLine = createLine();
-      lines.push(newLine);
-      container.appendChild(newLine.element);
     }
-    updateDebug();
-  }
-  window.onload = initLines;
-</script>
+    function createRipples(lineElement) {
+      const rect = lineElement.getBoundingClientRect();
+      const rippleCount = 3 + Math.floor(Math.random() * 3); // 3-5 ripples
+      for (let i = 0; i < rippleCount; i++) {
+        setTimeout(() => {
+          createRipple(rect.left + rect.width / 2, i * currentRipplesTiming); // Use currentRipplesTiming
+        }, i * currentRipplesTiming);
+      }
+    }
+    function createRipple(left, delay) {
+      const ripple = document.createElement('div');
+      ripple.classList.add('ripple');
+      ripple.style.left = `${left}px`;
+      ripple.style.bottom = '0px';
+      const duration = 1 + Math.random(); // 1-2 seconds duration
+      ripple.style.animation = `ripple ${duration}s ease-out ${delay}ms`;
+      document.querySelector('.animation-container').appendChild(ripple);
+      rippleCount++;
+      updateDebug();
+      setTimeout(() => {
+        if (ripple.parentNode) {
+          ripple.parentNode.removeChild(ripple);
+        }
+        rippleCount--;
+        updateDebug();
+      }, (duration * currentRippleTiming) + delay); // Use currentRippleTiming
+    }
+    function updateDebug() {
+      debugElement.innerHTML = '';
+      // debugElement.textContent =
+      // `Ripples active: ${rippleCount},
+      // Lines: ${lines.length},
+      // Ripple Timing: ${currentRippleTiming},
+      // Ripples Timing: ${currentRipplesTiming}`;
+      let ra = '<p class="debug-item-text">Ripples active:' + rippleCount + '</p>'
+      let li = '<p class="debug-item-text">Lines:' + lines.length + '</p>'
+      let rt1 = '<p class="debug-item-text">Ripple Timing:' + currentRippleTiming + '</p>'
+      let rt2 = '<p class="debug-item-text">Ripples Timing:' + currentRipplesTiming + '</p>'
+      debugElement.innerHTML += ra;
+      debugElement.innerHTML += li;
+      debugElement.innerHTML += rt1;
+      debugElement.innerHTML += rt2;
+    }
+    function initLines() {
+      const container = document.getElementById('linesContainer');
+      for (let i = 0; i < currentLineCount; i++) {
+        const newLine = createLine();
+        lines.push(newLine);
+        container.appendChild(newLine.element);
+      }
+      updateDebug();
+    }
+    window.onload = initLines;
+  </script>
 </body>
+
 </html>
