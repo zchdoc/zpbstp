@@ -1,0 +1,13 @@
+{
+  "windsurf.autocompleteSpeed": "fast",
+  "workbench.colorTheme": "Visual Studio Dark",
+  "editor.fontFamily": "Monaco, 'Courier New', monospace",
+  "editor.fontSize": 18,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "windsurf.enableConfig": {
+    "*": true
+  }
+}
