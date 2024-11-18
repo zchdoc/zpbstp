@@ -1,88 +1,171 @@
 <!DOCTYPE html>
 <html lang="zh">
 <meta charset="UTF-8">
+
 <head>
   <title>获取IP地址</title>
 </head>
+
 <body>
-<h1>IP地址查询结果</h1>
-<div id="allIpAddressContainer"></div>
-<hr>
-<h2>去重后的IP地址</h2>
-<div id="uniqueIpAddressContainer"></div>
-<script>
-  function getLocalIp() {
-    console.info("本地IP暂无办法🤔");
-  }
+  <h1>IP地址查询结果</h1>
+  <div id="allIpAddressContainer"></div>
+  <hr>
+  <h2>去重后的IP地址</h2>
+  <div id="uniqueIpAddressContainer"></div>
+  <script>
+    function getLocalIp() {
+      // 使用WebRTC获取本地IP地址
+      const pc = new RTCPeerConnection({
+        iceServers: []
+      });
 
-  // 创建并发送请求
-  function getPublicIp(url) {
-    let result = '';
-    const request = new XMLHttpRequest()
-    request.open('GET', url, true);
-    request.onload = function () {
-      if (request.status >= 200 && request.status < 400) {
-        // 请求成功,获取IP地址并显示
-        const ipAddress = request.responseText.trim()
-        const allIpAddressContainer = document.getElementById('allIpAddressContainer')
-        const uniqueIpAddressContainer = document.getElementById('uniqueIpAddressContainer')
-        // 显示所有结果
-        const allIpAddressElement = document.createElement('p')
-        allIpAddressElement.textContent = ipAddress;
-        allIpAddressContainer.appendChild(allIpAddressElement);
-        result = url+" "+ipAddress;
-        // 检查并显示去重后的结果
-        if (!ipSet.has(ipAddress)) {
-          ipSet.add(ipAddress);
-          const uniqueIpAddressElement = document.createElement('p')
-          uniqueIpAddressElement.textContent = ipAddress;
-          uniqueIpAddressContainer.appendChild(uniqueIpAddressElement);
+      pc.createDataChannel('');
+      pc.createOffer()
+        .then(offer => pc.setLocalDescription(offer))
+        .catch(err => console.error(err));
+
+      pc.onicecandidate = event => {
+        if (!event.candidate) return;
+
+        // 从candidate中提取IP地址
+        const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+        const match = ipRegex.exec(event.candidate.candidate);
+        if (match) {
+          const ipAddress = match[1];
+          // 检查是否是内网IP
+          if (ipAddress.startsWith('192.168.') ||
+            ipAddress.startsWith('10.') ||
+            ipAddress.startsWith('172.')) {
+            console.info("本地IP地址:", ipAddress);
+            // 显示本地IP
+            const allIpAddressContainer = document.getElementById('allIpAddressContainer');
+            const localIpElement = document.createElement('p');
+            localIpElement.textContent = '本地IP: ' + ipAddress;
+            allIpAddressContainer.insertBefore(localIpElement, allIpAddressContainer.firstChild);
+
+            // 关闭连接
+            pc.close();
+          }
+          else {
+            console.info("公网IP地址:", ipAddress);
+          }
         }
-      }
-      else {
-        // 请求失败
-        console.error('Error fetching IP address:', request.statusText);
-        result = url+" "+request.statusText;
-      }
-    };
-    request.onerror = function () {
-      // 请求错误
-      console.error('Request failed');
-    };
-    request.send();
-    console.info(result);
-  }
+        else {
+          console.warn("无法提取IP地址:", event.candidate);
+        }
+      };
+    }
+    function getLocalIp2() {
+      const pc = new RTCPeerConnection({ iceServers: [] });
+      pc.createDataChannel('');
+      pc.createOffer()
+        .then(offer => pc.setLocalDescription(offer))
+        .catch(err => console.error(err));
 
-  getLocalIp();
-  
-  /**
-   * http://1111.ip138.com/ic.asp
-   * http://ip.360.cn/IPShare/info
-   * http://www.ip508.com/ip
-   * http://myip.com.tw/
-   * http://ip.xianhua.com.cn/
-   * http://www.ip.cn/
-   * http://www.123cha.com/ip
-   * http://www.ip38.com/
-   * http://ip.chinaz.com
-   * http://www.cz88.net/ip/index.aspx
-   * http://www.taobao.com/help/getip.php
-   */
-  const urls = [
-    'https://checkip.amazonaws.com',
-    'https://api.ipify.org',
-    'https://ifconfig.me/ip',
-    'https://icanhazip.com',
-    'https://ipinfo.io/ip',
-    'https://ipecho.net/plain',
-    'https://checkipv4.dedyn.io'
-  ]
-  // 存储IP地址的集合
-  const ipSet = new Set()
-  // 遍历网址列表,发送请求获取IP地址
-  urls.forEach(function (url) {
-    getPublicIp(url);
-  });
-</script>
+      const localIPs = new Set(); // 使用 Set 存储唯一的本地 IP 地址
+
+      pc.onicecandidate = event => {
+        if (event.candidate) {
+          const candidate = event.candidate.candidate;
+          // 检查是否包含 "host" 关键字，并且匹配 IP 地址格式
+          if (candidate.includes("host") && /([0-9]{1,3}(\.[0-9]{1,3}){3})/.test(candidate)) {
+            const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+            const match = ipRegex.exec(candidate);
+            const ipAddress = match[1];
+
+            // 检查是否是内网 IP 地址 (可选，可以根据需要调整)
+            if (ipAddress.startsWith('192.168.') ||
+              ipAddress.startsWith('10.') ||
+              ipAddress.startsWith('172.')) {
+
+              if (!localIPs.has(ipAddress)) { // 避免重复添加
+                localIPs.add(ipAddress);
+                console.info("本地IP地址:", ipAddress);
+
+                // 显示本地 IP 地址
+                const allIpAddressContainer = document.getElementById('allIpAddressContainer');
+                const localIpElement = document.createElement('p');
+                localIpElement.textContent = '本地IP: ' + ipAddress;
+                allIpAddressContainer.insertBefore(localIpElement, allIpAddressContainer.firstChild);
+              }
+            }
+          }
+        } else {
+          // 所有候选信息收集完毕，可以关闭连接
+          pc.close();
+        }
+      };
+    }
+    // 创建并发送请求
+    function getPublicIp(url) {
+      let result = '';
+      const request = new XMLHttpRequest()
+      request.open('GET', url, true);
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          // 请求成功,获取IP地址并显示
+          const ipAddress = request.responseText.trim()
+          const allIpAddressContainer = document.getElementById('allIpAddressContainer')
+          const uniqueIpAddressContainer = document.getElementById('uniqueIpAddressContainer')
+          // 显示所有结果
+          const allIpAddressElement = document.createElement('p')
+          allIpAddressElement.textContent = ipAddress;
+          allIpAddressContainer.appendChild(allIpAddressElement);
+          result = url + " " + ipAddress;
+          // 检查并显示去重后的结果
+          if (!ipSet.has(ipAddress)) {
+            ipSet.add(ipAddress);
+            const uniqueIpAddressElement = document.createElement('p')
+            uniqueIpAddressElement.textContent = ipAddress;
+            uniqueIpAddressContainer.appendChild(uniqueIpAddressElement);
+          }
+        }
+        else {
+          // 请求失败
+          console.error('Error fetching IP address:', request.statusText);
+          result = url + " " + request.statusText;
+        }
+      };
+      request.onerror = function () {
+        // 请求错误
+        console.error('Request failed');
+      };
+      request.send();
+      console.info(result);
+    }
+
+    getLocalIp();
+    getLocalIp2();
+
+    /**
+     * http://1111.ip138.com/ic.asp
+     * http://ip.360.cn/IPShare/info
+     * http://www.ip508.com/ip
+     * http://myip.com.tw/
+     * http://ip.xianhua.com.cn/
+     * http://www.ip.cn/
+     * http://www.123cha.com/ip
+     * http://www.ip38.com/
+     * http://ip.chinaz.com
+     * http://www.cz88.net/ip/index.aspx
+     * http://www.taobao.com/help/getip.php
+     */
+    const urls = [
+      'https://checkip.amazonaws.com',
+      'https://api.ipify.org',
+      'https://ifconfig.me/ip',
+      'https://icanhazip.com',
+      'https://ipinfo.io/ip',
+      'https://ipecho.net/plain',
+      'https://checkipv4.dedyn.io'
+    ]
+    // 存储IP地址的集合
+    const ipSet = new Set()
+    // 遍历网址列表,发送请求获取IP地址
+    urls.forEach(function (url) {
+      getPublicIp(url);
+    });
+  </script>
 </body>
+
 </html>
