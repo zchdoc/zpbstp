@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<meta charset="UTF-8">
+<head>
+  <title>获取IP地址</title>
+</head>
+<body>
+<h1>IP地址查询结果</h1>
+<div id="allIpAddressContainer"></div>
+<hr>
+<h2>去重后的IP地址</h2>
+<div id="uniqueIpAddressContainer"></div>
+<script>
+  function getLocalIp() {
+    console.info("本地IP暂无办法🤔");
+  }
+
+  // 创建并发送请求
+  function getPublicIp(url) {
+    let result = '';
+    const request = new XMLHttpRequest()
+    request.open('GET', url, true);
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400) {
+        // 请求成功,获取IP地址并显示
+        const ipAddress = request.responseText.trim()
+        const allIpAddressContainer = document.getElementById('allIpAddressContainer')
+        const uniqueIpAddressContainer = document.getElementById('uniqueIpAddressContainer')
+        // 显示所有结果
+        const allIpAddressElement = document.createElement('p')
+        allIpAddressElement.textContent = ipAddress;
+        allIpAddressContainer.appendChild(allIpAddressElement);
+        result = url+" "+ipAddress;
+        // 检查并显示去重后的结果
+        if (!ipSet.has(ipAddress)) {
+          ipSet.add(ipAddress);
+          const uniqueIpAddressElement = document.createElement('p')
+          uniqueIpAddressElement.textContent = ipAddress;
+          uniqueIpAddressContainer.appendChild(uniqueIpAddressElement);
+        }
+      }
+      else {
+        // 请求失败
+        console.error('Error fetching IP address:', request.statusText);
+        result = url+" "+request.statusText;
+      }
+    };
+    request.onerror = function () {
+      // 请求错误
+      console.error('Request failed');
+    };
+    request.send();
+    console.info(result);
+  }
+
+  getLocalIp();
+  
+  /**
+   * http://1111.ip138.com/ic.asp
+   * http://ip.360.cn/IPShare/info
+   * http://www.ip508.com/ip
+   * http://myip.com.tw/
+   * http://ip.xianhua.com.cn/
+   * http://www.ip.cn/
+   * http://www.123cha.com/ip
+   * http://www.ip38.com/
+   * http://ip.chinaz.com
+   * http://www.cz88.net/ip/index.aspx
+   * http://www.taobao.com/help/getip.php
+   */
+  const urls = [
+    'https://checkip.amazonaws.com',
+    'https://api.ipify.org',
+    'https://ifconfig.me/ip',
+    'https://icanhazip.com',
+    'https://ipinfo.io/ip',
+    'https://ipecho.net/plain',
+    'https://checkipv4.dedyn.io'
+  ]
+  // 存储IP地址的集合
+  const ipSet = new Set()
+  // 遍历网址列表,发送请求获取IP地址
+  urls.forEach(function (url) {
+    getPublicIp(url);
+  });
+</script>
+</body>
+</html>
