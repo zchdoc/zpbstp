@@ -11,5 +11,8 @@
   "terminal.integrated.cursorBlinking": true,
   "windsurf.enableConfig": {
     "*": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   }
 }
