@@ -86,22 +86,22 @@
 </div>
 <script>
   function copyText(inputId) {
-    const input = document.getElementById(inputId)
-    let currentValue = input.value
-    if (currentValue === "" || currentValue === "0" || currentValue === "00") {
-      return
-    }
-    input.select();
-    let inputContent = input.value;
-    try {
-      navigator.clipboard.writeText(inputContent);
-      console.log('复制成功:', inputContent);
-    }
-    catch (err) {
-      console.error('无法复制-err: ', err);
-      console.error('无法复制-err-content: ', inputContent);
-    }
-    copySuccessAlert();
+    // const input = document.getElementById(inputId)
+    // let currentValue = input.value
+    // if (currentValue === "" || currentValue === "0" || currentValue === "00") {
+    //   return
+    // }
+    // input.select();
+    // let inputContent = input.value;
+    // try {
+    //   navigator.clipboard.writeText(inputContent);
+    //   console.log('复制成功:', inputContent);
+    // }
+    // catch (err) {
+    //   console.error('无法复制-err: ', err);
+    //   console.error('无法复制-err-content: ', inputContent);
+    // }
+    // copySuccessAlert();
   }
 
   function convert(from) {
