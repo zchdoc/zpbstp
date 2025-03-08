@@ -7,7 +7,7 @@
   <!--<script type="text/javascript" src="https://unpkg.com/qr-code-styling"></script>-->
   <script type="text/javascript" src="/assets/js/qr-styling/js/qr-code-styling-1.6.0-rc.1.js"></script>
   <link rel="icon" href="/favicon.svg">
-  <link rel="shortcut icon" type="image/x-icon" href="../qr-styling-official/b9eac011a0558695563d6081a8395ccb.png"/>
+  <link rel="shortcut icon" type="image/x-icon" href="../../../qr-styling-official/b9eac011a0558695563d6081a8395ccb.png"/>
   <style>
     .header {
       text-align: center;
@@ -74,16 +74,12 @@
     input[type="text"], input[type="number"] {
       width: 190px;
     }
-    #form-image-file {
-      width: 195px;
-      margin-top: 4px;
-    }
     input[type="color"], select {
       width: 197px;
     }
     select, input {
       background-color: rgba(255, 255, 255, 0.2);
-      color: #070707;
+      color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 5px;
     }
@@ -93,7 +89,7 @@
     }
     select option {
       background-color: #0f030f;
-      color: #d8d2d2;
+      color: #ffffff;
     }
     h5 {
       margin-top: 10px;
@@ -141,7 +137,7 @@
       border-radius: 20px;
     }
   </style>
-  <!-- sky gradient -->
+  <!--sky-gradient css-->
   <style>
     html, body {
       font-family: SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe Ul, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -165,7 +161,7 @@
       opacity: 1;
       transition: opacity 0s 10s;
       animation: fadeIn 2s ease-out;
-      color: #121111;
+      color: #fff;
     }
     @keyframes fadeIn {
       from {
@@ -266,12 +262,12 @@
         <label class='qr-optional' for="type">type:</label>
         <select id="type">
           <option value="canvas">canvas</option>
-          <option value="svg" selected>svg</option>
+          <option value="svg">svg</option>
         </select>
       </div>
       <div class="form-group">
         <label class='qr-optional' for="data">data:</label>
-        <input type="text" id="data" value="🤗🥂🤗" placeholder="🤗🍻🤗">
+        <input type="text" id="data" value="http://a2.4000063966.com/q.do?v=2&s=4299999999">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="margin">margin:</label>
@@ -279,14 +275,7 @@
       </div>
       <div class="form-group">
         <label class='qr-optional' for="image">image:</label>
-        <!--https://www.reshot.com/preview-assets/icons/LJKETW7DCM/glasses-smile-LJKETW7DCM.svg-->
-        <!--https://www.reshot.com/preview-assets/icons/PGYMZJF38V/glasses-tongue-PGYMZJF38V.svg -->
-        <!--https://www.reshot.com/preview-assets/icons/LJKETW7DCM/glasses-smile-LJKETW7DCM.svg-->
-        <input type="text" id="image" value="" placeholder="./t2.svg">
-      </div>
-      <div class="form-group">
-        <label class='qr-optional' for="image">choose image:</label>
-        <input type="file" id="form-image-file" accept="image/*">
+        <input type="text" id="image" value="">
       </div>
       <!--qrOptions-->
       <h5>qrOptions</h5>
@@ -324,17 +313,17 @@
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-hideBackgroundDots">hideBackgroundDots:</label>
         <select id="imageOptions-hideBackgroundDots">
-          <option value="true" selected>true</option>
-          <option value="false">false</option>
+          <option value="true">true</option>
+          <option value="false" selected>false</option>
         </select>
       </div>
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-imageSize">imageSize:</label>
-        <input type="number" id="imageOptions-imageSize" value="0.4" step="0.01">
+        <input type="number" id="imageOptions-imageSize" value="0.5" step="0.01">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-margin">margin:</label>
-        <input type="number" id="imageOptions-margin" value="1">
+        <input type="number" id="imageOptions-margin" value="10">
       </div>
       <div class="form-group">
         <label class='qr-optional' for="imageOptions-crossOrigin">crossOrigin:</label>
@@ -517,50 +506,50 @@
 <script>
   // document on ready function console.info(window);
   let qrCode;
-  document.querySelector("#data").oninput = function () {
-    document.getElementById("qr-data-tip").innerHTML = document.getElementById("data").value;
+  document.querySelector('#data').oninput = function () {
+    document.getElementById('qr-data-tip').innerHTML = document.getElementById('data').value;
     updateQRCode();
   };
   // Add event listeners to all input and select elements
-  document.querySelectorAll("input, select").forEach(element => {
+  document.querySelectorAll('input, select').forEach(element => {
     // 获取当前元素
     let elementId = element.id;
     // console.info('elementId:', elementId)
-    if (elementId === "data" || elementId === "qr-border-radius") {
+    if (elementId === 'data' || elementId === 'qr-border-radius') {
       return;
     }
     // console.info('elementId:', elementId)
-    element.addEventListener("change", updateQRCode);
+    element.addEventListener('change', updateQRCode);
   });
   // Download buttons
-  document.getElementById("download").addEventListener("click", () => {
-    const downloadType = document.getElementById("download-type").value;
-    console.info("downloading as:", downloadType);
-    qrCode.download({name: "qr-code", extension: downloadType});
+  document.getElementById('download').addEventListener('click', () => {
+    const downloadType = document.getElementById('download-type').value;
+    console.info('downloading as:', downloadType)
+    qrCode.download({name: 'qr-code', extension: downloadType});
   });
   // Download Round corner button
-  document.getElementById("download-radius").addEventListener("click", () => {
-    const downloadType = document.getElementById("download-type").value;
-    console.info("download-radius as:", downloadType);
+  document.getElementById('download-radius').addEventListener('click', () => {
+    const downloadType = document.getElementById('download-type').value;
+    console.info('download-radius as:', downloadType)
     downloadRoundedImage(downloadType);
   });
   // Get raw data button
-  document.getElementById("get-raw-data").addEventListener("click", function () {
+  document.getElementById('get-raw-data').addEventListener('click', function () {
     qrCode.getRawData().then(data => {
-      console.log("Raw QR code data-1:", data);
+      console.log('Raw QR code data-1:', data);
       getRawData();
     });
-    alert("Press F12 to check the Console output!");
+    alert("Press F12 to check the Console output!")
   });
   // 改变qr 圆角角度
-  document.getElementById("qr-border-radius").addEventListener("change", () => {
+  document.getElementById('qr-border-radius').addEventListener('change', () => {
     changeQrRadius();
   });
   // Get raw data async function (you can use this function as needed)
   async function getRawData() {
     const rawData = await qrCode.getRawData();
-    console.log("Raw QR code data-2:", rawData);
-    console.log("Raw QR code data-3:", URL.createObjectURL(rawData));
+    console.log('Raw QR code data-2:', rawData);
+    console.log('Raw QR code data-3:', URL.createObjectURL(rawData));
     // 创建一个 FileReader 对象
     let reader = new FileReader();
     // 当 FileReader 完成读取操作后，处理结果
@@ -575,49 +564,38 @@
   }
   // Initial QR code generation
   window.onload = updateQRCode;
-  async function updateQRCode() {
-    let qrWithVal = document.getElementById("width").value;
+  function updateQRCode() {
+    let qrWithVal = document.getElementById('width').value;
     let qrWith = parseInt(qrWithVal);
-    let qrHeight = parseInt(document.getElementById("height").value);
-    let qrType = document.getElementById("type").value;
-    let qrData = document.getElementById("data").value;
+    let qrHeight = parseInt(document.getElementById('height').value);
+    let qrType = document.getElementById('type').value;
+    let qrData = document.getElementById('data').value;
     if (qrData) {
       // qrData = unescape(encodeURIComponent(qrData));
       qrData = unescape(encodeURIComponent(qrData));
     }
-    let qrMargin = parseInt(document.getElementById("margin").value);
-    let qrImage = document.getElementById("image").value;
-    try {
-      const base64Data = await getChooseImageBase64();
-      if (base64Data) {
-        qrImage = base64Data;
-      }
-    }
-    catch (error) {
-      if (error !== "") {
-        console.error(error);
-      }
-    }
+    let qrMargin = parseInt(document.getElementById('margin').value);
+    let qrImage = document.getElementById('image').value;
     //
-    let qrOptionsTypeVal = document.getElementById("qrOptions-typeNumber").value;
+    let qrOptionsTypeVal = document.getElementById('qrOptions-typeNumber').value;
     let qrOptionsTypeNumber = parseInt(qrOptionsTypeVal);
-    let qrOptionsMode = document.getElementById("qrOptions-mode").value;
-    let qrOptionsErrorCorrectionLevel = document.getElementById("qrOptions-errorCorrectionLevel").value;
-    console.info("qrOptionsErrorCorrectionLevel:", qrOptionsErrorCorrectionLevel);
+    let qrOptionsMode = document.getElementById('qrOptions-mode').value;
+    let qrOptionsErrorCorrectionLevel = document.getElementById('qrOptions-errorCorrectionLevel').value;
+    console.info('qrOptionsErrorCorrectionLevel:', qrOptionsErrorCorrectionLevel);
     //
-    let qrImageOptionsHideBackgroundDots = document.getElementById("imageOptions-hideBackgroundDots").value === "true";
-    let qrImageOptionsImageSize = parseFloat(document.getElementById("imageOptions-imageSize").value);
-    let qrImageOptionsMargin = parseInt(document.getElementById("imageOptions-margin").value);
-    let qrImageOptionsCrossOrigin = document.getElementById("imageOptions-crossOrigin").value;
+    let qrImageOptionsHideBackgroundDots = document.getElementById('imageOptions-hideBackgroundDots').value === 'true';
+    let qrImageOptionsImageSize = parseFloat(document.getElementById('imageOptions-imageSize').value);
+    let qrImageOptionsMargin = parseInt(document.getElementById('imageOptions-margin').value);
+    let qrImageOptionsCrossOrigin = document.getElementById('imageOptions-crossOrigin').value;
     //
-    let qrDotsOptionsColor = document.getElementById("dotsOptions-color").value;
-    let qrDotsOptionsType = document.getElementById("dotsOptions-type").value;
-    let qrDotsOptionsGradientType = document.getElementById("dotsOptions-gradient-type").value;
-    let qrDotsOptionsGradientColor1 = document.getElementById("dotsOptions-gradient-color1").value;
-    let qrDotsOptionsGradientColor2 = document.getElementById("dotsOptions-gradient-color2").value;
-    let qrDotsOptionsGradientRotation = parseInt(document.getElementById("dotsOptions-gradient-rotation").value);
+    let qrDotsOptionsColor = document.getElementById('dotsOptions-color').value;
+    let qrDotsOptionsType = document.getElementById('dotsOptions-type').value;
+    let qrDotsOptionsGradientType = document.getElementById('dotsOptions-gradient-type').value;
+    let qrDotsOptionsGradientColor1 = document.getElementById('dotsOptions-gradient-color1').value;
+    let qrDotsOptionsGradientColor2 = document.getElementById('dotsOptions-gradient-color2').value;
+    let qrDotsOptionsGradientRotation = parseInt(document.getElementById('dotsOptions-gradient-rotation').value);
     let qrDotsOptionsGradient;
-    if (qrDotsOptionsGradientType !== "none") {
+    if (qrDotsOptionsGradientType !== 'none') {
       qrDotsOptionsGradient = {
         type: qrDotsOptionsGradientType,
         colorStops: [
@@ -625,20 +603,20 @@
           {offset: 1, color: qrDotsOptionsGradientColor2}
         ],
         rotation: qrDotsOptionsGradientRotation
-      };
+      }
     }
     else {
       qrDotsOptionsGradient = null;
     }
     //
-    let qrCornersSquareOptionsColor = document.getElementById("cornersSquareOptions-color").value;
-    let qrCornersSquareOptionsType = document.getElementById("cornersSquareOptions-type").value;
-    let qrCornersSquareOptionsGradientType = document.getElementById("cornersSquareOptions-gradient-type").value;
-    let qrCornersSquareOptionsGradientColor1 = document.getElementById("cornersSquareOptions-gradient-color1").value;
-    let qrCornersSquareOptionsGradientColor2 = document.getElementById("cornersSquareOptions-gradient-color2").value;
-    let qrCornersSquareOptionsGradientRotation = parseInt(document.getElementById("cornersSquareOptions-gradient-rotation").value);
+    let qrCornersSquareOptionsColor = document.getElementById('cornersSquareOptions-color').value;
+    let qrCornersSquareOptionsType = document.getElementById('cornersSquareOptions-type').value;
+    let qrCornersSquareOptionsGradientType = document.getElementById('cornersSquareOptions-gradient-type').value;
+    let qrCornersSquareOptionsGradientColor1 = document.getElementById('cornersSquareOptions-gradient-color1').value;
+    let qrCornersSquareOptionsGradientColor2 = document.getElementById('cornersSquareOptions-gradient-color2').value;
+    let qrCornersSquareOptionsGradientRotation = parseInt(document.getElementById('cornersSquareOptions-gradient-rotation').value);
     let qrCornersSquareOptionsGradient;
-    if (qrCornersSquareOptionsGradientType !== "none") {
+    if (qrCornersSquareOptionsGradientType !== 'none') {
       qrCornersSquareOptionsGradient = {
         type: qrCornersSquareOptionsGradientType,
         colorStops: [
@@ -646,21 +624,21 @@
           {offset: 1, color: qrCornersSquareOptionsGradientColor2}
         ],
         rotation: qrCornersSquareOptionsGradientRotation
-      };
+      }
     }
     else {
       qrCornersSquareOptionsGradientType = null;
     }
     //
-    let qrCornersDotOptionsColor = document.getElementById("cornersDotOptions-color").value;
-    let qrCornersDotOptionsType = document.getElementById("cornersDotOptions-type").value;
-    let qrCornersDotOptionsGradientType = document.getElementById("cornersDotOptions-gradient-type").value;
-    let qrCornersDotOptionsGradientColor1 = document.getElementById("cornersDotOptions-gradient-color1").value;
-    let qrCornersDotOptionsGradientColor2 = document.getElementById("cornersDotOptions-gradient-color2").value;
-    let qrCornersDotOptionsGradientRotationVal = document.getElementById("cornersDotOptions-gradient-rotation").value;
+    let qrCornersDotOptionsColor = document.getElementById('cornersDotOptions-color').value;
+    let qrCornersDotOptionsType = document.getElementById('cornersDotOptions-type').value;
+    let qrCornersDotOptionsGradientType = document.getElementById('cornersDotOptions-gradient-type').value;
+    let qrCornersDotOptionsGradientColor1 = document.getElementById('cornersDotOptions-gradient-color1').value;
+    let qrCornersDotOptionsGradientColor2 = document.getElementById('cornersDotOptions-gradient-color2').value;
+    let qrCornersDotOptionsGradientRotationVal = document.getElementById('cornersDotOptions-gradient-rotation').value;
     let qrCornersDotOptionsGradientRotation = parseInt(qrCornersDotOptionsGradientRotationVal);
     let qrCornersDotOptionsGradient;
-    if (qrCornersDotOptionsGradientType !== "none") {
+    if (qrCornersDotOptionsGradientType !== 'none') {
       qrCornersDotOptionsGradient = {
         type: qrCornersDotOptionsGradientType,
         colorStops: [
@@ -668,19 +646,19 @@
           {offset: 1, color: qrCornersDotOptionsGradientColor2}
         ],
         rotation: qrCornersDotOptionsGradientRotation
-      };
+      }
     }
     else {
       qrCornersDotOptionsGradient = null;
     }
     //
-    let qrBackgroundOptionsColor = document.getElementById("backgroundOptions-color").value;
-    let qrBackgroundOptionsGradientType = document.getElementById("backgroundOptions-gradient-type").value;
-    let qrBackgroundOptionsGradientColor1 = document.getElementById("backgroundOptions-gradient-color1").value;
-    let qrBackgroundOptionsGradientColor2 = document.getElementById("backgroundOptions-gradient-color2").value;
-    let qrBackgroundOptionsGradientRotation = parseInt(document.getElementById("backgroundOptions-gradient-rotation").value);
+    let qrBackgroundOptionsColor = document.getElementById('backgroundOptions-color').value;
+    let qrBackgroundOptionsGradientType = document.getElementById('backgroundOptions-gradient-type').value;
+    let qrBackgroundOptionsGradientColor1 = document.getElementById('backgroundOptions-gradient-color1').value;
+    let qrBackgroundOptionsGradientColor2 = document.getElementById('backgroundOptions-gradient-color2').value;
+    let qrBackgroundOptionsGradientRotation = parseInt(document.getElementById('backgroundOptions-gradient-rotation').value);
     let qrBackgroundOptionsGradient;
-    if (qrBackgroundOptionsGradientType !== "none") {
+    if (qrBackgroundOptionsGradientType !== 'none') {
       qrBackgroundOptionsGradient = {
         type: qrBackgroundOptionsGradientType,
         colorStops: [
@@ -688,7 +666,7 @@
           {offset: 1, color: qrBackgroundOptionsGradientColor2}
         ],
         rotation: qrBackgroundOptionsGradientRotation
-      };
+      }
     }
     else {
       qrBackgroundOptionsGradient = null;
@@ -733,24 +711,24 @@
       }
     };
     if (qrCode) {
-      console.info("Updating QR Code:", qrCode);
+      console.info('Updating QR Code:', qrCode);
       qrCode.update(options);
     }
     else {
-      console.info("qrCode is " + qrCode + " " + (typeof qrCode) + ", creating new instance");
+      console.info('qrCode is ' + qrCode + ' ' + (typeof qrCode) + ', creating new instance');
       qrCode = new QRCodeStyling(options);
       qrCode.append(document.getElementById("qrcode"));
-      console.info("Creating New QR Code:", qrCode);
+      console.info('Creating New QR Code:', qrCode);
     }
   }
   function downloadRoundedImageDefault() {
     // 获取原始 canvas
-    const originalCanvas = document.querySelector("#qrcode canvas");
+    const originalCanvas = document.querySelector('#qrcode canvas');
     // 创建新的 canvas
-    const newCanvas = document.createElement("canvas");
+    const newCanvas = document.createElement('canvas');
     newCanvas.width = originalCanvas.width;
     newCanvas.height = originalCanvas.height;
-    const ctx = newCanvas.getContext("2d");
+    const ctx = newCanvas.getContext('2d');
     // 设置圆角半径
     const radius = 20;
     // 绘制圆角矩形路径
@@ -770,19 +748,19 @@
     // 绘制原始 canvas 内容到新 canvas
     ctx.drawImage(originalCanvas, 0, 0);
     // 创建下载链接
-    const link = document.createElement("a");
-    link.download = "rounded-qrcode.png";
-    link.href = newCanvas.toDataURL("image/png");
+    const link = document.createElement('a');
+    link.download = 'rounded-qrcode.png';
+    link.href = newCanvas.toDataURL('image/png');
     link.click();
   }
-  function downloadRoundedImage(imageType = "png") {
+  function downloadRoundedImage(imageType = 'png') {
     // 获取原始 canvas
-    let originalCanvas = document.querySelector("#qrcode canvas");
+    let originalCanvas = document.querySelector('#qrcode canvas');
     // 创建新的 canvas
-    const newCanvas = document.createElement("canvas");
+    const newCanvas = document.createElement('canvas');
     newCanvas.width = originalCanvas.width;
     newCanvas.height = originalCanvas.height;
-    const ctx = newCanvas.getContext("2d");
+    const ctx = newCanvas.getContext('2d');
     // 设置圆角半径 const radius = 20
     const radius = getQrRadius();
     // 绘制圆角矩形路径
@@ -804,90 +782,69 @@
     // 根据图片类型设置 MIME 类型和文件扩展名
     let mimeType, fileExtension;
     switch (imageType.toLowerCase()) {
-      case "jpeg":
-      case "jpg":
-        mimeType = "image/jpeg";
-        fileExtension = "jpg";
+      case 'jpeg':
+      case 'jpg':
+        mimeType = 'image/jpeg';
+        fileExtension = 'jpg';
         break;
-      case "webp":
-        mimeType = "image/webp";
-        fileExtension = "webp";
+      case 'webp':
+        mimeType = 'image/webp';
+        fileExtension = 'webp';
         break;
-      case "svg":
+      case 'svg':
         // 注意：Canvas 不能直接导出 SVG，这里需要额外处理
-        console.warn("SVG export is not supported directly from Canvas");
-        mimeType = "image/svg+xml";
-        fileExtension = "svg";
+        console.warn('SVG export is not supported directly from Canvas');
+        mimeType = 'image/svg+xml';
+        fileExtension = 'svg';
         break;
-      case "tif":
-      case "tiff":
+      case 'tif':
+      case 'tiff':
         // 注意：Canvas 不能直接导出 TIFF，这里需要额外处理
-        console.warn("TIFF export is not supported directly from Canvas");
-        mimeType = "image/tiff";
-        fileExtension = "tif";
+        console.warn('TIFF export is not supported directly from Canvas');
+        mimeType = 'image/tiff';
+        fileExtension = 'tif';
         break;
-      case "png":
+      case 'png':
       default:
-        mimeType = "image/png";
-        fileExtension = "png";
+        mimeType = 'image/png';
+        fileExtension = 'png';
         break;
     }
     // 创建下载链接
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.download = `rounded-qrcode.${fileExtension}`;
     // 对于 SVG 和 TIFF，我们需要特殊处理
-    if (imageType.toLowerCase() === "svg" || imageType.toLowerCase() === "tif" || imageType.toLowerCase() === "tiff") {
+    if (imageType.toLowerCase() === 'svg' || imageType.toLowerCase() === 'tif' || imageType.toLowerCase() === 'tiff') {
       alert(`${imageType.toUpperCase()} format is not directly supported. Defaulting to PNG.`);
-      link.href = newCanvas.toDataURL("image/png");
+      link.href = newCanvas.toDataURL('image/png');
     }
     else {
       link.href = newCanvas.toDataURL(mimeType);
     }
     link.click();
   }
-  // qr center img base64
-  function getChooseImageBase64() {
-    return new Promise((resolve, reject) => {
-      const fileInput = document.getElementById("form-image-file");
-      const file = fileInput.files[0]; // 获取选择的文件
-      if (!file) {
-        reject("");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        resolve(e.target.result);
-      };
-      reader.onerror = function (e) {
-        console.error("e:", e);
-        reject("Failed to read file");
-      };
-      reader.readAsDataURL(file); // 以 Data URL 形式读取文件
-    });
-  }
   //
   function changeQrRadius() {
-    let qrcodeElements = document.querySelectorAll("#qrcode canvas, #qrcode svg");
-    console.info("qrcodeElements:", qrcodeElements);
+    let qrcodeElements = document.querySelectorAll('#qrcode canvas, #qrcode svg');
+    console.info('qrcodeElements:', qrcodeElements)
     qrcodeElements.forEach(function (element) {
-      console.info("element:", element);
-      element.style.borderRadius = getQrRadius() + "px";
+      console.info('element:', element)
+      element.style.borderRadius = getQrRadius() + 'px';
     });
   }
   function getQrRadius() {
-    let qrBorderRadiusVal = document.getElementById("qr-border-radius").value;
-    console.info("qrBorderRadiusVal:", qrBorderRadiusVal);
+    let qrBorderRadiusVal = document.getElementById('qr-border-radius').value;
+    console.info('qrBorderRadiusVal:', qrBorderRadiusVal);
     return qrBorderRadiusVal;
   }
   changeQrRadius();
 </script>
-<!--引导渐变-->
 <script>
   function updateSkyGradient(currentHour) {
-    const skyDiv = document.getElementById("sky");
-    skyDiv.className = "sky-gradient";
+    const skyDiv = document.getElementById('sky');
+    skyDiv.className = 'sky-gradient';
     // 0-4 23 太黑了 看情况更换
-    skyDiv.classList.add(`sky-gradient-${String(currentHour).padStart(2, "0")}`);
+    skyDiv.classList.add(`sky-gradient-${String(currentHour).padStart(2, '0')}`);
   }
   // Update immediately on page load
   function updateSkyGradientWithTime() {
