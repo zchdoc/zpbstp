@@ -56,17 +56,17 @@ function getRootFolderName(rootKey) {
 // 初始化书签
 function initBookmarks() {
   console.log('初始化书签内容...');
-  
+
   // 从全局变量获取书签数据
   if (!window.BookmarksDemo) {
     console.error('错误: BookmarksDemo 数据未定义');
     return;
   }
-  
+
   // 将BookmarksDemo数据赋值给bookmarksData
   window.bookmarksData = window.BookmarksDemo;
   console.log('书签数据加载成功，初始化界面');
-  
+
   // 清除欢迎信息
   const welcomeInfo = document.getElementById("welcome-info");
   if (welcomeInfo) {
@@ -90,8 +90,51 @@ function initBookmarks() {
   // 渲染主内容区域（默认显示第一个一级目录的内容）
   console.log('渲染主内容区域...');
   renderMainContent();
-  
+
   console.log('初始化完成');
+}
+
+// 渲染主内容区域
+function renderMainContent() {
+  console.log('渲染主内容区域...');
+  const bookmarkContent = document.getElementById("bookmark-content");
+  bookmarkContent.innerHTML = "";
+
+  // 如果是排序标签页，不需要渲染内容（由排序面板处理）
+  if (window.currentRootFolder === "sort") {
+    console.log('排序标签页，不渲染主内容');
+    return;
+  }
+
+  // 获取当前层级的书签数据
+  let currentItems = window.bookmarksData.roots[window.currentRootFolder].children;
+
+  // 如果有路径，则按照路径导航到当前层级
+  window.currentPath.forEach((index) => {
+    if (currentItems && currentItems[index] && currentItems[index].children) {
+      currentItems = currentItems[index].children;
+    } else {
+      console.error('路径导航错误:', window.currentPath);
+      currentItems = [];
+    }
+  });
+
+  // 应用排序
+  currentItems = sortBookmarkItems(currentItems);
+
+  console.log(`找到 ${currentItems.length} 个项目用于显示`);
+
+  // 创建视图切换控件
+  createViewToggle(bookmarkContent);
+
+  // 根据当前视图模式创建相应的容器
+  if (window.currentViewMode === "waterfall") {
+    renderWaterfallView(currentItems, bookmarkContent);
+  } else if (window.currentViewMode === "scifi") {
+    renderScifiView(currentItems, bookmarkContent);
+  } else if (window.currentViewMode === "space") {
+    renderSpaceView(currentItems, bookmarkContent);
+  }
 }
 
 // DOM元素加载完成后的初始化
@@ -172,7 +215,13 @@ document.addEventListener('DOMContentLoaded', function() {
       button.classList.add("active");
       window.currentRootFolder = button.dataset.target;
       window.currentPath = [];
-      initBookmarks();
+
+      // 如果点击的是排序标签页，则渲染排序面板
+      if (window.currentRootFolder === "sort") {
+        renderSortPanel();
+      } else {
+        initBookmarks();
+      }
     });
   });
 
@@ -186,4 +235,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // 导出为全局函数
 window.countBookmarks = countBookmarks;
 window.getRootFolderName = getRootFolderName;
-window.initBookmarks = initBookmarks; 
+window.initBookmarks = initBookmarks;

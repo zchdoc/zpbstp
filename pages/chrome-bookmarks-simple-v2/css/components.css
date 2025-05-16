@@ -300,4 +300,84 @@
   background-color: var(--accent-primary);
   color: var(--text-light);
   font-weight: 500;
-} 
+}
+
+/* 排序面板样式 */
+.sort-panel {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sort-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sort-section h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+}
+
+.sort-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+}
+
+.sort-option input[type="radio"] {
+  margin: 0;
+}
+
+.sort-option label {
+  cursor: pointer;
+}
+
+.sort-apply-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.sort-apply-btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* 排序结果样式 */
+.sort-result-container {
+  padding: 15px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  margin-bottom: 20px;
+}
+
+.sort-result-title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.sort-method-info {
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  background-color: var(--bg-secondary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
