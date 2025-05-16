@@ -59,7 +59,7 @@ function initBookmarks() {
 
   // 从全局变量获取书签数据
   if (!window.BookmarksDemo) {
-    console.error('错误: BookmarksDemo 数据未定义');
+    // console.error('错误: BookmarksDemo 数据未定义');
     return;
   }
 
