@@ -54,15 +54,25 @@
               <p>
                 Chrome书签文件通常位于:
                 <br/>
-                cmd:
+                win-cmd:
+                <br/>
                 <code>cd %USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default</code>
                 <br/>
                 <code>explorer %USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default</code>
                 <br/>
-                powershell:
+                win-powershell:
+                <br/>
                 <code>cd "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Default"</code>
                 <br/>
                 <code>explorer "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Default"</code>
+                <br/>
+                mac-sh:
+                <br/>
+                <code>cd /Users/$(whoami)/Library/Application\ Support/Google/Chrome/Default/</code>
+                <br/>
+                <code>cd /Users/$(whoami)/Library/Application\ Support/Google/Chrome/Default/ && open .</code>
+                <br/>
+                <code>cp /Users/$(whoami)/Library/Application\ Support/Google/Chrome/Default/Bookmarks /Users/$(whoami)/Downloads</code>
               </p>
               <p>注意:书签文件没有后缀名,但是它是一个标准的JSON文件.</p>
               <p>您也可以直接拖拽书签文件到此页面进行上传.</p>
