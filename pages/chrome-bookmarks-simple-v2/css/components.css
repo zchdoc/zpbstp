@@ -364,6 +364,14 @@
   cursor: pointer;
 }
 
+.sort-button-wrapper {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+  z-index: 100; /* 确保按钮在最上层 */
+}
+
 .sort-apply-btn {
   background-color: var(--primary-color);
   color: white;
@@ -372,12 +380,17 @@
   padding: 8px 15px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.2s;
-  margin-top: 10px;
+  transition: all 0.3s;
+  width: 100%;
+  position: relative;
+  z-index: 101; /* 确保按钮在最上层 */
+  display: block;
 }
 
 .sort-apply-btn:hover {
   background-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 排序结果样式 */

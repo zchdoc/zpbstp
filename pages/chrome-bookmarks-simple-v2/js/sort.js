@@ -104,26 +104,63 @@ function renderSortPanel() {
   const applyButton = document.createElement("button");
   applyButton.className = "sort-apply-btn";
   applyButton.textContent = "应用排序";
-  applyButton.addEventListener("click", applySorting);
+  applyButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation(); // 阻止事件冒泡
+    console.log("应用排序按钮被点击");
+    applySorting();
+  });
 
-  sortPanel.appendChild(applyButton);
+  // 添加鼠标悬停事件处理
+  applyButton.addEventListener("mouseenter", function() {
+    console.log("鼠标进入应用排序按钮");
+    // 确保按钮在鼠标悬停时不会消失
+    this.style.opacity = "1";
+    this.style.visibility = "visible";
+  });
+
+  // 创建一个包装容器，确保按钮不会被其他元素的事件影响
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "sort-button-wrapper";
+  buttonWrapper.appendChild(applyButton);
+
+  sortPanel.appendChild(buttonWrapper);
 
   sidebarContent.appendChild(sortPanel);
 }
 
 // 应用排序
 function applySorting() {
-  console.log(`应用排序: 方法=${window.sortOptions.method}, 顺序=${window.sortOptions.order}`);
+  try {
+    console.log(`应用排序: 方法=${window.sortOptions.method}, 顺序=${window.sortOptions.order}`);
 
-  // 获取所有书签项目
-  const allBookmarks = getAllBookmarks();
-  console.log(`找到 ${allBookmarks.length} 个书签项目用于排序`);
+    // 获取所有书签项目
+    const allBookmarks = getAllBookmarks();
+    console.log(`找到 ${allBookmarks.length} 个书签项目用于排序`);
 
-  // 应用排序
-  const sortedItems = sortBookmarkItems(allBookmarks);
+    // 应用排序
+    const sortedItems = sortBookmarkItems(allBookmarks);
 
-  // 渲染排序结果到主内容区域
-  renderSortedContent(sortedItems);
+    // 渲染排序结果到主内容区域
+    renderSortedContent(sortedItems);
+
+    // 显示成功消息
+    console.log("排序应用成功！");
+
+    // 确保按钮保持可见
+    const applyButton = document.querySelector('.sort-apply-btn');
+    if (applyButton) {
+      applyButton.style.opacity = "1";
+      applyButton.style.visibility = "visible";
+    }
+  } catch (error) {
+    console.error("应用排序时出错:", error);
+    // 显示错误消息
+    const bookmarkContent = document.getElementById("bookmark-content");
+    if (bookmarkContent) {
+      bookmarkContent.innerHTML = `<p class='error'>应用排序时出错: ${error.message}</p>`;
+    }
+  }
 }
 
 // 获取所有书签项目（包括文件夹和URL）
