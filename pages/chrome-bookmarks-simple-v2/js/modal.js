@@ -155,20 +155,7 @@ function openModal(item) {
   // 显示模态窗口
   modalOverlay.classList.add('active');
 
-  // 添加鼠标进入模态窗口事件，清除关闭定时器
-  modalOverlay.addEventListener('mouseenter', function() {
-    if (window.modalTimer) {
-      clearTimeout(window.modalTimer);
-      window.modalTimer = null;
-    }
-  });
-
-  // 添加鼠标离开模态窗口事件，延迟关闭
-  modalOverlay.addEventListener('mouseleave', function() {
-    if (!window.modalTimer) {
-      window.modalTimer = setTimeout(closeModal, 300);
-    }
-  });
+  // 移除鼠标进入/离开事件，改为点击关闭
 }
 
 // 添加详情行
@@ -206,4 +193,4 @@ function closeModal() {
 window.createModal = createModal;
 window.openModal = openModal;
 window.closeModal = closeModal;
-window.addDetailRow = addDetailRow; 
+window.addDetailRow = addDetailRow;

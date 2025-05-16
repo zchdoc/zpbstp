@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     radial-gradient(2px 2px at 20px 30px, #eef, rgba(0,0,0,0)),
     radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
     radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
@@ -39,7 +39,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     linear-gradient(rgba(66, 133, 244, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(66, 133, 244, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -71,13 +71,13 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: 
-    radial-gradient(circle at 30% 30%, 
-      rgba(255, 255, 255, 0.8) 0%, 
-      rgba(66, 133, 244, 0.5) 30%, 
-      rgba(25, 52, 95, 0.6) 60%, 
+  background:
+    radial-gradient(circle at 30% 30%,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(66, 133, 244, 0.5) 30%,
+      rgba(25, 52, 95, 0.6) 60%,
       rgba(10, 20, 40, 0.8) 100%);
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(66, 133, 244, 0.5),
     0 0 30px rgba(66, 133, 244, 0.3),
     inset 0 0 10px rgba(255, 255, 255, 0.5);
@@ -162,8 +162,8 @@
   position: absolute;
   bottom: -5px;
   right: -5px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.9);
   color: #333;
@@ -173,15 +173,39 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  opacity: 0.8;
+  transition: all 0.3s ease;
   z-index: 20;
 }
 
 .space-orb:hover .space-info-btn {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
+/* 添加点击提示 */
+.space-info-btn::after {
+  content: "点击查看详情";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.space-info-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .space-orbit {
@@ -300,17 +324,17 @@
   .space-container {
     min-height: 50vh;
   }
-  
+
   .space-orb {
     width: 60px;
     height: 60px;
   }
-  
+
   .space-name {
     font-size: 10px;
     max-width: 100px;
   }
-  
+
   .space-rotate-btn {
     width: 30px;
     height: 30px;
@@ -459,4 +483,4 @@
   0% { opacity: 0.7; }
   50% { opacity: 0.9; }
   100% { opacity: 0.7; }
-} 
+}

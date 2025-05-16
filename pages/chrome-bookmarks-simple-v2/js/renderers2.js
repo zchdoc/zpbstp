@@ -99,13 +99,13 @@ function renderScifiItems(items, container) {
 function renderSpaceItems(items, container) {
   // 清除之前的位置数据
   window.spaceBookmarksPositions = {};
-  
+
   // 调试信息 - 检查是否有项目传入
   console.log(`星际视图渲染: 接收到 ${items.length} 个项目`);
-  
+
   // 在容器上直接添加一个标记，表示这是一个星际视图
   container.setAttribute('data-view', 'space');
-  
+
   // 创建轨道
   const maxOrbit = Math.min(5, Math.ceil(items.length / 5));
   console.log(`创建 ${maxOrbit} 个轨道`);
@@ -118,7 +118,7 @@ function renderSpaceItems(items, container) {
     orbit.style.width = size + "px";
     orbit.style.height = size + "px";
     orbit.style.animationDuration = (80 + i * 20) + "s"; // 外层轨道旋转慢一些
-    
+
     // 确保轨道显示
     orbit.style.border = "2px dashed rgba(67, 97, 238, 0.5)";
     orbit.style.boxSizing = "border-box";
@@ -155,7 +155,7 @@ function renderSpaceItems(items, container) {
     const orbitIndex = index % maxOrbit;
     const orbit = orbits[orbitIndex];
     const orbitSize = 300 + (orbitIndex * 150);
-    
+
     console.log(`项目 ${index}: ${item.name} - 分配到轨道 ${orbitIndex}`);
 
     // 计算轨道上的位置角度 (均匀分布)
@@ -241,7 +241,7 @@ function renderSpaceItems(items, container) {
     hintElement.className = "space-view-hint";
     hintElement.textContent = item.type === "folder" ? "点击查看文件夹" : "点击打开链接";
     hintElement.style.opacity = "0.7"; // 默认显示提示
-    hintElement.style.background = "rgba(67, 97, 238, 0.5)"; 
+    hintElement.style.background = "rgba(67, 97, 238, 0.5)";
     spaceOrb.appendChild(hintElement);
 
     // 添加光晕
@@ -261,15 +261,9 @@ function renderSpaceItems(items, container) {
     infoBtn.className = "space-info-btn";
     infoBtn.textContent = "i";
     infoBtn.style.opacity = "0.8"; // 默认显示信息按钮
-    infoBtn.addEventListener("mouseenter", (e) => {
+    infoBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       openModal(item);
-    });
-    infoBtn.addEventListener("mouseleave", (e) => {
-      e.stopPropagation();
-      if (!window.modalTimer) {
-        window.modalTimer = setTimeout(closeModal, 300);
-      }
     });
     spaceOrb.appendChild(infoBtn);
 
@@ -318,7 +312,7 @@ function renderSpaceItems(items, container) {
         tooltip.style.bottom = "0";
       }
     });
-    
+
     // 鼠标离开时恢复轨道旋转
     spaceItem.addEventListener('mouseleave', function() {
       // 不做任何特殊处理
@@ -357,10 +351,10 @@ function renderSpaceItems(items, container) {
 
     // 组装并添加到DOM
     spaceItem.appendChild(spaceOrb);
-    
+
     // 直接添加到container，不是orbit
     container.appendChild(spaceItem);
-    
+
     // 在轨道上也添加一个参考点，表示书签位置
     const orbitMarker = document.createElement("div");
     orbitMarker.className = "orbit-marker";
@@ -375,7 +369,7 @@ function renderSpaceItems(items, container) {
     orbitMarker.style.transform = `rotate(${angle}deg) translateX(${radius/2}px) rotate(-${angle}deg)`;
     orbit.appendChild(orbitMarker);
   });
-  
+
   // 添加视觉提示，说明如何使用星际视图
   const helpText = document.createElement("div");
   helpText.className = "space-help-text";
@@ -389,7 +383,7 @@ function renderSpaceItems(items, container) {
   helpText.style.borderRadius = "20px";
   helpText.style.zIndex = "100";
   container.appendChild(helpText);
-  
+
   // 添加轨道旋转控制按钮
   const rotateBtn = document.createElement("div");
   rotateBtn.className = "space-rotate-btn";
@@ -405,29 +399,29 @@ function renderSpaceItems(items, container) {
   rotateBtn.style.zIndex = "100";
   rotateBtn.style.boxShadow = "0 0 10px rgba(67, 97, 238, 0.7)";
   rotateBtn.style.transition = "background-color 0.3s";
-  
+
   rotateBtn.addEventListener("click", function() {
     window.spaceAutoRotate = !window.spaceAutoRotate;
     this.textContent = window.spaceAutoRotate ? "暂停轨道" : "播放轨道";
-    
+
     // 更新所有轨道的旋转状态
     document.querySelectorAll('.space-orbit').forEach(orbit => {
       orbit.style.animationPlayState = window.spaceAutoRotate ? "running" : "paused";
     });
   });
-  
+
   // 鼠标悬停效果
   rotateBtn.addEventListener("mouseenter", function() {
     this.style.backgroundColor = "rgba(67, 97, 238, 0.8)";
   });
-  
+
   rotateBtn.addEventListener("mouseleave", function() {
     this.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
   });
-  
+
   container.appendChild(rotateBtn);
 }
 
 // 改为全局函数
 window.renderScifiItems = renderScifiItems;
-window.renderSpaceItems = renderSpaceItems; 
+window.renderSpaceItems = renderSpaceItems;

@@ -9,18 +9,11 @@ function createInfoButton(item) {
   infoBtn.innerHTML = 'i';
   infoBtn.title = '查看详细信息';
 
-  // 改为鼠标悬停事件（替代点击事件）
-  infoBtn.addEventListener('mouseenter', function(e) {
+  // 改为点击事件
+  infoBtn.addEventListener('click', function(e) {
     e.stopPropagation();
+    e.preventDefault();
     openModal(item);
-  });
-
-  // 添加鼠标离开事件，延迟关闭模态窗口
-  infoBtn.addEventListener('mouseleave', function(e) {
-    e.stopPropagation();
-    if (!window.modalTimer) {
-      window.modalTimer = setTimeout(closeModal, 300);
-    }
   });
 
   // 初始状态隐藏，只在父元素悬停时显示
@@ -32,4 +25,4 @@ function createInfoButton(item) {
 }
 
 // 改为全局函数
-window.createInfoButton = createInfoButton; 
+window.createInfoButton = createInfoButton;
