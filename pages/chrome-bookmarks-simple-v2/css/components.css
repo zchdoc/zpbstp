@@ -388,7 +388,7 @@
 }
 
 .sort-apply-btn:hover {
-  background-color: var(--primary-color-dark);
+  background-color: var(--primary-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

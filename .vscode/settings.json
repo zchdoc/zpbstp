@@ -1,8 +1,8 @@
 {
   "windsurf.autocompleteSpeed": "fast",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "GitHub.copilot",
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "GitHub.copilot"
   },
   "windsurf.enableConfig": {
     "*": true
@@ -44,5 +44,16 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/.vscode": false
-  }
+  },
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.defaultModel":"foldingProviderModel",
+  "editor.stickyScroll.maxLineCount": 2,
+  "editor.stickyTabStops": false,
+  "editor.stickyScroll.scrollWithEditor": true,
+  "notebook.stickyScroll.enabled": true,
+  "notebook.stickyScroll.mode": "flat",
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.tree.stickyScrollMaxItemCount": 10,
+  "terminal.integrated.stickyScroll.enabled": true,
+  "terminal.integrated.stickyScroll.maxLineCount": 2,
 }
