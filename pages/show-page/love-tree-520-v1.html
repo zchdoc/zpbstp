@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>520爱情树</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        #tree-canvas {
+            z-index: 2;
+        }
+        
+        #fireworks-canvas {
+            z-index: 1;
+        }
+        
+        .title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.7);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        
+        .message {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            text-shadow: 0 0 3px rgba(255, 105, 180, 0.7);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="tree-canvas"></canvas>
+        <canvas id="fireworks-canvas"></canvas>
+    </div>
+    <h1 class="title">520 · 爱你的心不变</h1>
+    <div class="message">有你的每一天都是爱情树开花的日子</div>
+
+    <script>
+        // 设置画布大小
+        const treeCanvas = document.getElementById('tree-canvas');
+        const fireworksCanvas = document.getElementById('fireworks-canvas');
+        const title = document.querySelector('.title');
+        const message = document.querySelector('.message');
+        
+        treeCanvas.width = window.innerWidth;
+        treeCanvas.height = window.innerHeight;
+        fireworksCanvas.width = window.innerWidth;
+        fireworksCanvas.height = window.innerHeight;
+        
+        const treeCtx = treeCanvas.getContext('2d');
+        const fireworksCtx = fireworksCanvas.getContext('2d');
+        
+        // 树的初始参数
+        const treeStartX = treeCanvas.width / 2;
+        const treeStartY = treeCanvas.height;
+        let treeHeight = 0;
+        const maxTreeHeight = treeCanvas.height * 0.6;
+        const growthRate = 0.5;
+        let branchesFormed = false;
+        let blossomsFormed = false;
+        
+        // 树枝和花朵
+        let branches = [];
+        let blossoms = [];
+        
+        // 烟花参数
+        let fireworks = [];
+        let particles = [];
+        
+        function drawTree() {
+            treeCtx.clearRect(0, 0, treeCanvas.width, treeCanvas.height);
+            
+            // 画树干
+            treeCtx.beginPath();
+            treeCtx.moveTo(treeStartX, treeStartY);
+            treeCtx.lineTo(treeStartX, treeStartY - treeHeight);
+            treeCtx.lineWidth = 10;
+            treeCtx.strokeStyle = '#4a3429';
+            treeCtx.stroke();
+            
+            // 增加树高度
+            if (treeHeight < maxTreeHeight) {
+                treeHeight += growthRate;
+            } else if (!branchesFormed) {
+                createBranches();
+                branchesFormed = true;
+            }
+            
+            // 画树枝
+            if (branchesFormed) {
+                for (let branch of branches) {
+                    treeCtx.beginPath();
+                    treeCtx.moveTo(branch.startX, branch.startY);
+                    treeCtx.lineTo(branch.endX, branch.endY);
+                    treeCtx.lineWidth = branch.width;
+                    treeCtx.strokeStyle = '#6a4e42';
+                    treeCtx.stroke();
+                    
+                    // 生长树枝
+                    if (branch.currentLength < branch.length) {
+                        const dx = branch.endX - branch.startX;
+                        const dy = branch.endY - branch.startY;
+                        const growthRatio = branch.currentLength / branch.length;
+                        branch.currentX = branch.startX + dx * growthRatio;
+                        branch.currentY = branch.startY + dy * growthRatio;
+                        branch.currentLength += 0.5;
+                    }
+                }
+                
+                // 检查所有树枝是否生长完成
+                const allBranchesGrown = branches.every(branch => branch.currentLength >= branch.length);
+                if (allBranchesGrown && !blossomsFormed) {
+                    createBlossoms();
+                    blossomsFormed = true;
+                    
+                    // 显示标题和消息
+                    setTimeout(() => {
+                        title.style.opacity = 1;
+                        message.style.opacity = 1;
+                    }, 1000);
+                }
+            }
+            
+            // 画心形花瓣
+            if (blossomsFormed) {
+                for (let blossom of blossoms) {
+                    if (blossom.size < blossom.maxSize) {
+                        blossom.size += 0.05;
+                    }
+                    
+                    treeCtx.save();
+                    treeCtx.translate(blossom.x, blossom.y);
+                    treeCtx.scale(blossom.size, blossom.size);
+                    
+                    // 画心形
+                    treeCtx.beginPath();
+                    treeCtx.moveTo(0, 0);
+                    treeCtx.bezierCurveTo(-5, -5, -10, 0, 0, 10);
+                    treeCtx.bezierCurveTo(10, 0, 5, -5, 0, 0);
+                    treeCtx.fillStyle = blossom.color;
+                    treeCtx.fill();
+                    treeCtx.restore();
+                }
+                
+                // 检查所有花瓣是否完全绽放
+                const allBlossomsGrown = blossoms.every(blossom => blossom.size >= blossom.maxSize);
+                if (allBlossomsGrown && fireworks.length === 0 && particles.length === 0) {
+                    // 开始放烟花
+                    launchFireworks();
+                }
+            }
+            
+            requestAnimationFrame(drawTree);
+        }
+        
+        function createBranches() {
+            const numMainBranches = 5;
+            const branchAngleRange = Math.PI * 0.6; // 60度范围
+            const trunkTopX = treeStartX;
+            const trunkTopY = treeStartY - treeHeight;
+            
+            // 主树枝
+            for (let i = 0; i < numMainBranches; i++) {
+                const angle = -Math.PI / 2 + (branchAngleRange / 2) - (i * branchAngleRange / (numMainBranches - 1));
+                const length = maxTreeHeight * (0.3 + Math.random() * 0.2);
+                const endX = trunkTopX + Math.cos(angle) * length;
+                const endY = trunkTopY + Math.sin(angle) * length;
+                
+                branches.push({
+                    startX: trunkTopX,
+                    startY: trunkTopY,
+                    endX: endX,
+                    endY: endY,
+                    currentX: trunkTopX,
+                    currentY: trunkTopY,
+                    length: length,
+                    currentLength: 0,
+                    width: 5 + Math.random() * 3
+                });
+                
+                // 为每个主树枝创建2-3个子树枝
+                const numSubBranches = 2 + Math.floor(Math.random() * 2);
+                for (let j = 0; j < numSubBranches; j++) {
+                    const subStartRatio = 0.3 + Math.random() * 0.5; // 子树枝从主树枝30%-80%的位置开始
+                    const subStartX = trunkTopX + Math.cos(angle) * length * subStartRatio;
+                    const subStartY = trunkTopY + Math.sin(angle) * length * subStartRatio;
+                    
+                    // 子树枝的角度相对于主树枝有偏移
+                    const subAngleOffset = -Math.PI / 6 + Math.random() * Math.PI / 3; // -30到30度
+                    const subAngle = angle + subAngleOffset;
+                    const subLength = length * (0.4 + Math.random() * 0.3);
+                    const subEndX = subStartX + Math.cos(subAngle) * subLength;
+                    const subEndY = subStartY + Math.sin(subAngle) * subLength;
+                    
+                    branches.push({
+                        startX: subStartX,
+                        startY: subStartY,
+                        endX: subEndX,
+                        endY: subEndY,
+                        currentX: subStartX,
+                        currentY: subStartY,
+                        length: subLength,
+                        currentLength: 0,
+                        width: 3 + Math.random() * 2
+                    });
+                }
+            }
+        }
+        
+        function createBlossoms() {
+            const pinkShades = [
+                '#FF69B4', '#FF1493', '#DB7093', '#FF80AB', '#EC407A', 
+                '#F06292', '#FF0066', '#FF69B4', '#FFB6C1', '#FFC0CB'
+            ];
+            
+            // 为每个树枝末端创建花朵
+            for (let branch of branches) {
+                const numBlossoms = 1 + Math.floor(Math.random() * 3);
+                
+                for (let i = 0; i < numBlossoms; i++) {
+                    // 在树枝末端附近随机位置生成花朵
+                    const offsetX = -10 + Math.random() * 20;
+                    const offsetY = -10 + Math.random() * 20;
+                    
+                    blossoms.push({
+                        x: branch.endX + offsetX,
+                        y: branch.endY + offsetY,
+                        size: 0,
+                        maxSize: 0.6 + Math.random() * 0.8,
+                        color: pinkShades[Math.floor(Math.random() * pinkShades.length)]
+                    });
+                }
+            }
+            
+            // 在树干上也添加一些花朵
+            const trunkTopX = treeStartX;
+            const trunkTopY = treeStartY - treeHeight;
+            
+            for (let i = 0; i < 12; i++) {
+                const posY = trunkTopY + (treeHeight * 0.2) + (Math.random() * treeHeight * 0.6);
+                const offsetX = -15 + Math.random() * 30;
+                
+                blossoms.push({
+                    x: trunkTopX + offsetX,
+                    y: posY,
+                    size: 0,
+                    maxSize: 0.6 + Math.random() * 0.8,
+                    color: pinkShades[Math.floor(Math.random() * pinkShades.length)]
+                });
+            }
+        }
+        
+        // 烟花动画
+        function drawFireworks() {
+            fireworksCtx.globalCompositeOperation = 'source-over';
+            fireworksCtx.globalAlpha = 0.18;
+            fireworksCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            fireworksCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            fireworksCtx.globalCompositeOperation = 'lighter';
+            fireworksCtx.globalAlpha = 1;
+            
+            // 更新并绘制烟花
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                fireworks[i].update();
+                fireworks[i].draw(fireworksCtx);
+                
+                if (fireworks[i].isDead()) {
+                    // 烟花爆炸
+                    createParticles(fireworks[i].x, fireworks[i].y, fireworks[i].color);
+                    fireworks.splice(i, 1);
+                }
+            }
+            
+            // 更新并绘制粒子
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw(fireworksCtx);
+                
+                if (particles[i].isDead()) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            // 随机发射新烟花
+            if (Math.random() < 0.05 && fireworks.length < 3) {
+                launchFirework();
+            }
+            
+            requestAnimationFrame(drawFireworks);
+        }
+        
+        function launchFireworks() {
+            // 初始几发烟花
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    launchFirework();
+                }, i * 1000);
+            }
+            
+            // 开始烟花动画循环
+            drawFireworks();
+        }
+        
+        function launchFirework() {
+            const startX = Math.random() * fireworksCanvas.width;
+            const startY = fireworksCanvas.height;
+            const targetX = Math.random() * fireworksCanvas.width;
+            const targetY = 100 + Math.random() * (fireworksCanvas.height * 0.5);
+            
+            const colorChoices = [
+                '#FF5252', '#FF4081', '#E040FB', '#7C4DFF', 
+                '#536DFE', '#448AFF', '#40C4FF', '#18FFFF',
+                '#64FFDA', '#69F0AE', '#B2FF59', '#EEFF41', 
+                '#FFFF00', '#FFD740', '#FFAB40', '#FF6E40'
+            ];
+            const color = colorChoices[Math.floor(Math.random() * colorChoices.length)];
+            
+            fireworks.push(new Firework(startX, startY, targetX, targetY, color));
+        }
+        
+        function createParticles(x, y, color) {
+            const particleCount = 60 + Math.floor(Math.random() * 40);
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+        
+        // 烟花类
+        class Firework {
+            constructor(startX, startY, targetX, targetY, color) {
+                this.x = startX;
+                this.y = startY;
+                this.startX = startX;
+                this.startY = startY;
+                this.targetX = targetX;
+                this.targetY = targetY;
+                this.color = color;
+                this.speed = 2;
+                this.angle = Math.atan2(targetY - startY, targetX - startX);
+                this.velocity = {
+                    x: Math.cos(this.angle) * this.speed,
+                    y: Math.sin(this.angle) * this.speed
+                };
+                this.trail = [];
+                this.trailLength = 5;
+                this.lifeSpan = 140;
+                this.life = 0;
+            }
+            
+            update() {
+                this.life++;
+                
+                this.trail.unshift({ x: this.x, y: this.y });
+                if (this.trail.length > this.trailLength) {
+                    this.trail.pop();
+                }
+                
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+            }
+            
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                for (let i = 1; i < this.trail.length; i++) {
+                    ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                }
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            
+            isDead() {
+                const distTraveled = Math.sqrt(
+                    Math.pow(this.x - this.startX, 2) + 
+                    Math.pow(this.y - this.startY, 2)
+                );
+                const distTarget = Math.sqrt(
+                    Math.pow(this.targetX - this.startX, 2) + 
+                    Math.pow(this.targetY - this.startY, 2)
+                );
+                
+                return distTraveled >= distTarget || this.life >= this.lifeSpan;
+            }
+        }
+        
+        // 粒子类（烟花爆炸后的小颗粒）
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speed = 1 + Math.random() * 3;
+                this.angle = Math.random() * Math.PI * 2;
+                this.velocity = {
+                    x: Math.cos(this.angle) * this.speed,
+                    y: Math.sin(this.angle) * this.speed
+                };
+                this.alpha = 1;
+                this.decay = 0.015 + Math.random() * 0.015;
+                this.size = 1 + Math.random() * 2;
+            }
+            
+            update() {
+                this.velocity.y += 0.04; // 重力
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
+            }
+            
+            draw(ctx) {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+            
+            isDead() {
+                return this.alpha <= 0;
+            }
+        }
+        
+        // 启动动画
+        window.addEventListener('load', () => {
+            // 开始绘制树
+            drawTree();
+        });
+        
+        // 调整窗口大小时重设画布
+        window.addEventListener('resize', () => {
+            treeCanvas.width = window.innerWidth;
+            treeCanvas.height = window.innerHeight;
+            fireworksCanvas.width = window.innerWidth;
+            fireworksCanvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
