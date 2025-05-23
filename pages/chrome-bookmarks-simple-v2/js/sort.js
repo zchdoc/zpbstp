@@ -141,6 +141,10 @@ function applySorting() {
     // 应用排序
     const sortedItems = sortBookmarkItems(allBookmarks);
 
+    // 切换到排序标签页
+    window.currentRootFolder = "sort";
+    window.currentPath = [];
+
     // 渲染排序结果到主内容区域
     renderSortedContent(sortedItems);
 

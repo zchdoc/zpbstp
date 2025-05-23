@@ -119,10 +119,12 @@ function renderMainContent() {
     }
   });
 
-  // 应用排序
-  currentItems = sortBookmarkItems(currentItems);
+  // 只在排序标签页应用排序
+  if (window.currentRootFolder === "sort") {
+    currentItems = sortBookmarkItems(currentItems);
+  }
 
-  console.log(`找到 ${currentItems.length} 个项目用于显示`);
+  console.log(`找到 ${currentItems ? currentItems.length : 0} 个项目用于显示`);
 
   // 创建视图切换控件
   createViewToggle(bookmarkContent);
