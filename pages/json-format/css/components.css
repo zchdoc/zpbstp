@@ -1,0 +1,141 @@
+//**
+ * 组件样式 - Buttons, Inputs, Icons
+ */
+
+/* Buttons */
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn:hover {
+  background: var(--border-color);
+  border-color: var(--text-muted);
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #4393e6;
+  border-color: #4393e6;
+}
+
+.btn-success {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: white;
+}
+
+.btn-success:hover {
+  background: #36a146;
+  border-color: #36a146;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  font-size: 14px;
+}
+
+.icon-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.icon-btn.success:hover {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--accent-green);
+}
+
+.icon-btn.danger:hover {
+  background: rgba(248, 81, 73, 0.15);
+  color: var(--accent-red);
+}
+
+.icon-btn.warning:hover {
+  background: rgba(210, 153, 34, 0.15);
+  color: var(--accent-yellow);
+}
+
+/* Mode Toggle */
+.mode-toggle {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.mode-toggle button {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.mode-toggle button.active {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.mode-toggle button:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* Input Area */
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.input-textarea {
+  flex: 1;
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-primary);
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  tab-size: 2;
+}
+
+.input-textarea::placeholder {
+  color: var(--text-muted);
+}

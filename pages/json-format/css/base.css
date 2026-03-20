@@ -1,0 +1,27 @@
+/**
+ * 基础样式
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .main { flex-direction: column; }
+  .panel:first-child { border-right: none; border-bottom: 1px solid var(--border-color); height: 50%; }
+  .panel:last-child { height: 50%; }
+  .stats { display: none; }
+  .header, .toolbar { padding: 10px 16px; }
+}
