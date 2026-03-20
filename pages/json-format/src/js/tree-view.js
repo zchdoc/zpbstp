@@ -82,6 +82,7 @@ export function renderTree(data) {
   dom.treeOutput.innerHTML = '';
   dom.emptyState.style.display = 'none';
   dom.treeOutput.style.display = 'block';
+  dom.textOutput.style.display = 'none';
 
   if (Array.isArray(data)) {
     data.forEach((item, index) => {

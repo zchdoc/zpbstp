@@ -41,6 +41,16 @@
     <div class="toolbar-divider"></div>
 
     <div class="tool-group">
+      <span class="toolbar-label">视图:</span>
+      <div class="view-toggle">
+        <button id="treeViewMode" class="active" title="树状结构视图">🌳 树状</button>
+        <button id="textViewMode" title="格式化文本视图">📝 文本</button>
+      </div>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="tool-group">
       <span class="toolbar-label">操作:</span>
       <button class="btn" id="expandAllBtn" title="展开全部">⊞ 展开</button>
       <button class="btn" id="collapseAllBtn" title="折叠全部">⊟ 折叠</button>
@@ -96,12 +106,13 @@
           <button class="icon-btn" id="copyRawBtn" title="复制原始JSON">📄</button>
         </div>
       </div>
-      <div class="tree-wrapper" id="treeWrapper">
+      <div class="output-wrapper" id="outputWrapper">
         <div class="empty-state" id="emptyState">
           <div class="icon">{ }</div>
-          <p>格式化后的 JSON 将以树状结构显示<br>支持折叠/展开和同级排序</p>
+          <p>格式化后的 JSON 将显示在这里<br>支持树状视图和文本视图切换</p>
         </div>
         <div class="tree-node" id="treeOutput" style="display:none"></div>
+        <pre class="text-output" id="textOutput" style="display:none"><code></code></pre>
       </div>
     </div>
 

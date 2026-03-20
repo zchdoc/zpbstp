@@ -6,6 +6,7 @@ import { dom } from './dom.js';
 import { performFormat, performSort, clearAll, expandAll, collapseAll, copyOutput, loadSample, pasteFromClipboard } from './actions.js';
 import { initFileHandler } from './file-handler.js';
 import { initModeToggle } from './mode-toggle.js';
+import { initViewToggle } from './view-toggle.js';
 import { initModal } from './modal.js';
 import { initKeyboard } from './keyboard.js';
 
@@ -28,6 +29,7 @@ function bindEvents() {
 
   // 初始化各模块
   initModeToggle();
+  initViewToggle();
   initFileHandler();
   initModal();
   initKeyboard();

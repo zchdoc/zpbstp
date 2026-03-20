@@ -2,11 +2,59 @@
  * 树形视图样式
  */
 
-.tree-wrapper {
+.output-wrapper {
   flex: 1;
   overflow: auto;
   background: var(--bg-primary);
   padding: 16px;
+}
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.view-toggle button {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.view-toggle button.active {
+  background: var(--accent-purple);
+  color: white;
+}
+
+.view-toggle button:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* Text Output */
+.text-output {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: text;
+}
+
+.text-output code {
+  display: block;
 }
 
 .tree-node {
@@ -14,6 +62,28 @@
   font-size: 13px;
   line-height: 1.7;
   user-select: text;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .tree-line {

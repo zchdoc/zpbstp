@@ -5,6 +5,7 @@
 // 应用状态
 export const state = {
   isBeautifyMode: true,
+  viewMode: 'tree', // 'tree' | 'text'
   currentData: null,
   currentRawOutput: '',
   isSorted: false

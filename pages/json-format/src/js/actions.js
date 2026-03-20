@@ -6,6 +6,7 @@ import { state, sampleJson } from './config.js';
 import { dom } from './dom.js';
 import { formatJson, sortJsonKeys, updateStats } from './json-core.js';
 import { renderTree, expandAll, collapseAll } from './tree-view.js';
+import { renderOutput, clearOutput } from './view-toggle.js';
 import { showError, hideError, showToast, copyToClipboard } from './utils.js';
 
 export function performFormat() {
@@ -23,7 +24,7 @@ export function performFormat() {
   if (result.success) {
     state.isSorted = false;
     dom.sortIndicator.style.display = 'none';
-    renderTree(state.currentData);
+    renderOutput();
     dom.formatTime.textContent = `格式化耗时: ${(endTime - startTime).toFixed(2)}ms`;
     dom.formatStatus.textContent = '✓ 成功';
     dom.formatStatus.style.color = 'var(--accent-green)';
@@ -44,11 +45,10 @@ export function performSort() {
   state.currentData = sortJsonKeys(state.currentData);
   const endTime = performance.now();
 
-  renderTree(state.currentData);
-  state.currentRawOutput = state.isBeautifyMode 
-    ? JSON.stringify(state.currentData, null, 2) 
+  renderOutput();
+  state.currentRawOutput = state.isBeautifyMode
+    ? JSON.stringify(state.currentData, null, 2)
     : JSON.stringify(state.currentData);
-  dom.treeOutput.dataset.raw = state.currentRawOutput;
 
   state.isSorted = true;
   dom.sortIndicator.textContent = '(已排序)';
@@ -63,10 +63,8 @@ export function clearAll() {
   state.currentData = null;
   state.currentRawOutput = '';
   state.isSorted = false;
+  clearOutput();
   dom.sortIndicator.style.display = 'none';
-  dom.treeOutput.innerHTML = '';
-  dom.treeOutput.style.display = 'none';
-  dom.emptyState.style.display = 'flex';
   hideError();
   updateStats(null);
   dom.formatTime.textContent = '';
