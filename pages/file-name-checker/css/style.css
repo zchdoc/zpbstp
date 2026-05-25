@@ -586,6 +586,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 .segment-row {
@@ -792,5 +795,22 @@ body {
 }
 
 .result-list::-webkit-scrollbar-thumb:hover {
+  background: #c9c3ba;
+}
+
+.segment-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.segment-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.segment-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.segment-list::-webkit-scrollbar-thumb:hover {
   background: #c9c3ba;
 }
