@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>文件名校验工具</title>
+  <link rel="icon" href="../../img/zch.ico">
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="../../dist/bootstrap/v4.6.1/css/bootstrap.min.css">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="container-main">
+    <!-- 页面标题 -->
+    <div class="page-title">
+      <div class="title-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+      </div>
+      <h1>文件名校验工具</h1>
+      <div class="subtitle">输入文件名示例自动拆分，或手动定义分段，批量校验其他文件</div>
+    </div>
+
+    <!-- 步骤 1：定义模板分段 -->
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">1</span>
+        <span class="step-label">定义模板分段</span>
+      </div>
+      <div class="step-body">
+        <!-- 快速拆分 -->
+        <div class="form-group mb-4">
+          <label>输入一个文件名示例，自动拆分为分段：</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="segmentExampleInput"
+                   placeholder="例如：1-1正投影与三视图基础（教案）《汽车机械基础》上好课（人民交通版·第5版）"
+                   autocomplete="off">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-primary" id="autoSplitBtn">自动拆分</button>
+            </div>
+          </div>
+          <small class="form-text text-muted">程序会自动识别括号、书名号等成对符号，将文件名拆分为多个部分</small>
+        </div>
+
+        <!-- 分段列表 -->
+        <div class="segment-editor" id="segmentEditor" style="display:none;">
+          <div class="segment-editor-header">
+            <span>分段列表</span>
+            <span class="segment-hint">绿色=固定值（必须精确匹配），蓝色=可变值（可为任意内容）</span>
+          </div>
+          <div class="segment-list" id="segmentList"></div>
+          <div class="segment-actions">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="addSegmentBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              添加分段
+            </button>
+          </div>
+        </div>
+
+        <!-- 模板预览 -->
+        <div id="segmentPreview" style="display:none;" class="mt-3">
+          <p class="mb-2">当前模板预览：</p>
+          <div class="template-box" id="segmentPreviewBox"></div>
+          <div class="info-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>校验时，程序会按顺序查找所有<span class="text-danger font-weight-bold">固定值</span>。两个固定值之间的内容可以是任意字符（包括 . · - 空格等），文件名前后也允许有额外内容。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 步骤 2：文件类型 -->
+    <div class="step-card">
+      <div class="step-header step-2">
+        <span class="step-num">2</span>
+        <span class="step-label">选择要检查的文件类型</span>
+      </div>
+      <div class="step-body">
+        <div class="form-group mb-0">
+          <label for="extInput">文件扩展名（多个用逗号或中文逗号分隔）：</label>
+          <input type="text" class="form-control" id="extInput" value="docx, pptx, pdf, xlsx">
+          <small class="form-text text-muted">可根据需要添加或删除扩展名，例如加入 "mp4, zip" 等</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- 步骤 3：选择文件夹 -->
+    <div class="step-card">
+      <div class="step-header step-3">
+        <span class="step-num">3</span>
+        <span class="step-label">选择文件夹开始校验</span>
+      </div>
+      <div class="step-body text-center">
+        <p class="text-muted">选择包含待校验文件的文件夹，程序会自动递归扫描所有子文件夹</p>
+        <button type="button" class="btn btn-accent btn-big" id="selectDirBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14l4 4v10a2 2 0 0 1-2 2h-2"/><path d="M2 10h20"/></svg>
+          选择文件夹
+        </button>
+        <!-- 降级用的文件输入 -->
+        <input type="file" id="fileInput" webkitdirectory directory multiple style="display:none;">
+      </div>
+    </div>
+
+    <!-- 加载遮罩 -->
+    <div id="loadingOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(250,249,247,0.85);z-index:9998;justify-content:center;align-items:center;">
+      <div class="text-center">
+        <div class="spinner-border" role="status" style="width:2.5rem;height:2.5rem;color:var(--accent);">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <p class="mt-3 font-weight-bold" style="color:var(--accent);">正在扫描文件...</p>
+      </div>
+    </div>
+
+    <!-- 结果展示区（默认隐藏） -->
+    <div id="resultSection" style="display:none;">
+      <div class="step-card">
+        <div class="step-header step-result">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          <span class="step-label">校验结果</span>
+        </div>
+        <div class="step-body">
+          <!-- 统计概览 -->
+          <div id="resultSummary"></div>
+
+          <!-- 标签切换 -->
+          <ul class="nav nav-tabs mt-4" id="resultTabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="javascript:void(0);" id="validTabBtn">
+                合规文件
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);" id="invalidTabBtn">
+                不合规文件
+              </a>
+            </li>
+          </ul>
+
+          <!-- 标签内容 -->
+          <div class="tab-content mt-3">
+            <div class="tab-pane fade show active result-list" id="validTab">
+              <ul class="list-group" id="validList"></ul>
+            </div>
+            <div class="tab-pane fade result-list" id="invalidTab">
+              <ul class="list-group" id="invalidList"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚提示 -->
+    <div class="text-center mt-4 mb-4 text-muted footer-hint">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>建议使用 Chrome / Edge 浏览器，支持直接选择文件夹</span>
+    </div>
+  </div>
+
+  <!-- 脚本 -->
+  <script src="../../dist/zaddjs/jquery/jquery-3.4.1.min.js"></script>
+  <script src="../../dist/bootstrap/v4.6.1/js/bootstrap.bundle.min.js"></script>
+  <script src="js/template-parser.js"></script>
+  <script src="js/validator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
