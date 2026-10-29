@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跨平台路径转换器 · Path Converter</title>
+  <style>
+    /* =========================================================
+       设计系统变量 (Design Tokens) - 遵循 Impeccable Operate 模式
+       深色模式：中性冷炭黑底色，摒弃俗套的蓝色光晕与塑料渐变
+       浅色模式：清晰高对比纸面灰阶，极度克制、排版驱动
+       ========================================================= */
+    :root, [data-theme="dark"] {
+      --bg: #090a0d;
+      --surface-1: #111317;
+      --surface-2: #171a21;
+      --surface-3: #1f232b;
+      --border-subtle: #222631;
+      --border-strong: #2f3442;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-faint: #818c9e;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-subtle: rgba(37, 99, 235, 0.14);
+      --primary-border: rgba(37, 99, 235, 0.4);
+      --success: #059669;
+      --success-subtle: rgba(5, 150, 105, 0.14);
+      --focus-ring: #3b82f6;
+      --selection: rgba(37, 99, 235, 0.3);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --surface-1: #ffffff;
+      --surface-2: #f1f5f9;
+      --surface-3: #e2e8f0;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-faint: #64748b;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-subtle: rgba(29, 78, 216, 0.08);
+      --primary-border: rgba(29, 78, 216, 0.3);
+      --success: #047857;
+      --success-subtle: rgba(4, 120, 87, 0.08);
+      --focus-ring: #1d4ed8;
+      --selection: rgba(29, 78, 216, 0.18);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    /* 基础重置与排版规范 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    ::selection {
+      background: var(--selection);
+      color: var(--text-main);
+    }
+
+    /* 自定义细致滚动条 (Browser Surfaces) */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--surface-3);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-faint);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 32px 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      caret-color: var(--primary);
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 880px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 顶栏 Header: 纯净严谨，去除假大空文案与 Emoji */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* 主题切换 Segmented Control */
+    .theme-segmented {
+      display: inline-flex;
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .theme-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.12s ease, background-color 0.12s ease;
+    }
+
+    .theme-tab:hover {
+      color: var(--text-main);
+    }
+
+    .theme-tab.active {
+      background: var(--surface-3);
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* 模式切换 Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      padding: 3px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.12s ease;
+    }
+
+    .nav-tab-btn:hover:not(.active) {
+      color: var(--text-main);
+    }
+
+    .nav-tab-btn.active {
+      background: var(--surface-3);
+      color: var(--text-main);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 主工作面板 Panel Card: 扁平利落，拒绝层叠卡片堆砌 */
+    .panel-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 输入区域与检测指示 */
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .path-inspector {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .path-inspector-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-faint);
+    }
+    .path-inspector-indicator.valid {
+      background: var(--success);
+    }
+
+    .input-field-group {
+      display: flex;
+      gap: 8px;
+      position: relative;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      padding: 10px 14px;
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-family: var(--font-mono);
+      font-feature-settings: "tnum" 1, "cv02" 1;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--border-strong);
+      box-shadow: 0 0 0 3px var(--primary-subtle);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    /* 操作按钮组件规范 */
+    .btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      border-radius: 7px;
+      padding: 7px 13px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background: var(--surface-3);
+      border-color: var(--border-strong);
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-sm {
+      padding: 4px 9px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    /* 参数配置工具条 (Config Bar) */
+    .config-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .config-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .config-item select {
+      background: var(--surface-2);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .config-item select:focus-visible {
+      border-color: var(--primary);
+    }
+
+    .config-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: 3px;
+      background: var(--surface-2);
+      cursor: pointer;
+      display: inline-grid;
+      place-content: center;
+      transition: background-color 0.1s ease, border-color 0.1s ease;
+    }
+
+    .config-item input[type="checkbox"]::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      transform: scale(0);
+      background-color: #ffffff;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      transition: transform 0.1s ease;
+    }
+
+    .config-item input[type="checkbox"]:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .config-item input[type="checkbox"]:checked::before {
+      transform: scale(1);
+    }
+
+    /* 转换结果列表 (Results Grid) */
+    .results-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .results-heading {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-faint);
+      margin-top: 4px;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .result-row {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color 0.12s ease;
+    }
+
+    .result-row:hover {
+      border-color: var(--border-strong);
+    }
+
+    .result-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .format-label-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .format-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .format-pill {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .format-desc {
+      font-size: 11.5px;
+      color: var(--text-faint);
+    }
+
+    .result-output-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--surface-2);
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .result-code-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-main);
+      word-break: break-all;
+      user-select: all;
+      font-feature-settings: "tnum" 1;
+      padding-right: 4px;
+    }
+
+    .copy-action-btn {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      transition: all 0.12s ease;
+    }
+
+    .copy-action-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-strong);
+      background: var(--surface-3);
+    }
+
+    .copy-action-btn.copied {
+      background: var(--success-subtle);
+      color: var(--success);
+      border-color: var(--success);
+      font-weight: 600;
+    }
+
+    /* 空态 Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px 16px;
+      color: var(--text-faint);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 批量模式辅助 */
+    .batch-counter {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-faint);
+    }
+
+    /* 快捷键提示条与页脚 */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 4px 0 4px;
+      color: var(--text-faint);
+      font-size: 11.5px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .kbd-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+    }
+
+    kbd {
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* SVG 图标通用规范 */
+    .svg-icon {
+      width: 14px;
+      height: 14px;
+      stroke-width: 1.75;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    <!-- Header 区域 -->
+    <header>
+      <div class="brand-block">
+        <div class="brand-icon" aria-hidden="true">
+          <svg class="svg-icon" style="width: 18px; height: 18px;" viewBox="0 0 24 24">
+            <path d="M4 17l6-6-6-6M12 19h8M14 5l6 6-6 6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            路径转换器
+            <span class="brand-tag">v2.1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 主题控制 -->
+      <div class="theme-segmented" role="radiogroup" aria-label="界面主题">
+        <button class="theme-tab" id="themeBtn-auto" onclick="setTheme('auto')" role="radio" aria-checked="false" title="跟随系统主题">
+          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>
+          系统
+        </button>
+        <button class="theme-tab" id="themeBtn-light" onclick="setTheme('light')" role="radio" aria-checked="false" title="浅色模式">
+          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          浅色
+        </button>
+        <button class="theme-tab" id="themeBtn-dark" onclick="setTheme('dark')" role="radio" aria-checked="false" title="深色模式">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          深色
+        </button>
+      </div>
+    </header>
+
+    <!-- 导航切换 Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-tab-btn active" id="tabSingleBtn" role="tab" aria-selected="true" onclick="switchTab('single')">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        单路径即时转换
+      </button>
+      <button class="nav-tab-btn" id="tabBatchBtn" role="tab" aria-selected="false" onclick="switchTab('batch')">
+        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+        批量多行转换
+      </button>
+    </nav>
+
+    <!-- 单路径模式 Panel -->
+    <div id="singlePanel">
+      <div class="panel-card">
+        <div class="input-section">
+          <div class="input-label-row">
+            <label for="singleInput">输入任意平台路径或 URI：</label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="path-inspector" id="pathInspector" title="自动侦测输入的源路径格式">
+                <span class="path-inspector-indicator" id="inspectorDot"></span>
+                <span id="inspectorText">等待输入</span>
+              </span>
+              <button class="btn btn-sm" onclick="pasteFromClipboard()" title="从系统剪贴板粘贴">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                粘贴
+              </button>
+            </div>
+          </div>
+          <div class="input-field-group">
+            <input type="text" id="singleInput" placeholder="输入 Windows / WSL / Git Bash / File URI 路径，如 E:\project\repo" autofocus spellcheck="false">
+            <button class="btn" onclick="clearInput()" title="清空输入框 (Esc)">清空</button>
+          </div>
+        </div>
+
+        <!-- 选项配置工具条 -->
+        <div class="config-toolbar">
+          <label class="config-item">
+            <span>末尾斜杠：</span>
+            <select id="trailingSlashOption" onchange="updateAll()">
+              <option value="none">移除尾斜杠 (dir)</option>
+              <option value="add">强制添加尾斜杠 (dir/)</option>
+              <option value="keep">跟随输入原样</option>
+            </select>
+          </label>
+          <label class="config-item" title="自动包裹双引号，适合含空格的路径">
+            <input type="checkbox" id="quoteOption" onchange="updateAll()">
+            <span>包裹双引号 ("...")</span>
+          </label>
+          <label class="config-item" title="强制将 Windows 盘符转换为大写，如 E:">
+            <input type="checkbox" id="upperDriveOption" checked onchange="updateAll()">
+            <span>盘符保持大写</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 结果卡片容器 -->
+      <div style="margin-top: 14px;">
+        <div class="results-heading">
+          <span>转换结果 (点击复制按钮或结果文本)</span>
+        </div>
+        <div class="results-section" id="resultsList">
+          <!-- 动态渲染生成 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 批量转换模式 Panel -->
+    <div id="batchPanel" style="display: none;">
+      <div class="panel-card">
+        <div class="input-section">
+          <div class="input-label-row">
+            <label for="batchInput">输入多行路径列表：</label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="batch-counter" id="batchInputCounter">0 行</span>
+              <button class="btn btn-sm" onclick="pasteBatchFromClipboard()">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                粘贴
+              </button>
+            </div>
+          </div>
+          <textarea id="batchInput" placeholder="每行一个路径，支持混合输入 Windows、WSL、Git Bash 或 URI 格式..." spellcheck="false" oninput="updateBatchStats()"></textarea>
+        </div>
+
+        <div class="config-toolbar" style="justify-content: space-between;">
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <span>批量目标格式：</span>
+            <select id="batchTargetFormat" onchange="convertBatch()">
+              <option value="win_slash">Windows 标准反斜杠 (E:\...)</option>
+              <option value="win_double_slash">Windows 转义双反斜杠 (E:\\...)</option>
+              <option value="posix_slash">跨平台标准正斜杠 (E:/...)</option>
+              <option value="lead_slash">前缀单正斜杠 (/E:/...)</option>
+              <option value="lead_double_slash">前缀双正斜杠 (//E://...)</option>
+              <option value="git_bash">Git Bash 格式 (/e/...)</option>
+              <option value="wsl">WSL 路径 (/mnt/e/...)</option>
+              <option value="file_uri">File URI 协议 (file:///E:/...)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="convertBatch()">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            立即转换
+          </button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="results-heading" style="margin: 0;">转换结果预览：</label>
+            <button class="btn btn-sm" onclick="copyBatchResult()" id="batchCopyBtn">
+              <svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              复制全部结果
+            </button>
+          </div>
+          <textarea id="batchOutput" readonly placeholder="批量转换后的结果将在此输出..." spellcheck="false"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚与键盘辅助 -->
+    <footer>
+      <div class="kbd-shortcut">
+        <span>快捷键：</span>
+        <kbd>Esc</kbd> <span>清空输入</span>
+        <span style="margin: 0 4px;">·</span>
+        <kbd>Enter</kbd> <span>复制首项</span>
+      </div>
+      <div>
+        <span>离线单文件 · 原生运行 · 无外部依赖</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // --- 主题控制系统 ---
+    const THEME_KEY = "path_converter_theme_pref";
+
+    function initTheme() {
+      const savedPref = localStorage.getItem(THEME_KEY) || "auto";
+      setTheme(savedPref, false);
+
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      mediaQuery.addEventListener("change", (e) => {
+        const currentPref = localStorage.getItem(THEME_KEY) || "auto";
+        if (currentPref === "auto") {
+          applyTheme(e.matches ? "dark" : "light");
+        }
+      });
+    }
+
+    function setTheme(pref, persist = true) {
+      if (persist) {
+        localStorage.setItem(THEME_KEY, pref);
+      }
+
+      document.querySelectorAll(".theme-tab").forEach(btn => {
+        btn.classList.remove("active");
+        btn.setAttribute("aria-checked", "false");
+      });
+      const targetBtn = document.getElementById(`themeBtn-${pref}`);
+      if (targetBtn) {
+        targetBtn.classList.add("active");
+        targetBtn.setAttribute("aria-checked", "true");
+      }
+
+      if (pref === "auto") {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(isDark ? "dark" : "light");
+      } else {
+        applyTheme(pref);
+      }
+    }
+
+    function applyTheme(actualTheme) {
+      document.documentElement.setAttribute("data-theme", actualTheme);
+    }
+
+    initTheme();
+
+    // --- 格式定义字典 (保留完整业务逻辑与高精度命名) ---
+    const FORMAT_DEFS = [
+      {
+        id: "win_slash",
+        name: "Windows 标准反斜杠",
+        keyTag: "win-backslash",
+        desc: "CMD / PowerShell / 资源管理器常规路径",
+        badge: "标准",
+        generate: (d, parts, trailing) => {
+          let p = (d ? d + "\\" : "\\") + parts.join("\\");
+          if (trailing && !p.endsWith("\\")) p += "\\";
+          return p;
+        }
+      },
+      {
+        id: "posix_slash",
+        name: "跨平台标准正斜杠",
+        keyTag: "posix-slash",
+        desc: "VS Code / Python / CMake / Java 跨平台路径",
+        badge: "通用推荐",
+        generate: (d, parts, trailing) => {
+          let p = (d ? d + "/" : "/") + parts.join("/");
+          if (trailing && !p.endsWith("/")) p += "/";
+          return p;
+        }
+      },
+      {
+        id: "file_uri",
+        name: "File URI 协议",
+        keyTag: "file-uri",
+        desc: "Markdown 引用 / 浏览器直接定位",
+        badge: "URL",
+        generate: (d, parts, trailing) => {
+          let p = "file:///" + (d ? d + "/" : "") + parts.join("/");
+          if (trailing && !p.endsWith("/")) p += "/";
+          return p;
+        }
+      },
+      {
+        id: "git_bash",
+        name: "Git Bash / MSYS 终端",
+        keyTag: "git-bash",
+        desc: "Windows Git Bash 终端、MinGW、sh 脚本环境",
+        badge: "终端",
+        generate: (d, parts, trailing) => {
+          let driveLetter = d ? d.replace(":", "").toLowerCase() : "";
+          let p = (driveLetter ? "/" + driveLetter + "/" : "/") + parts.join("/");
+          if (trailing && !p.endsWith("/")) p += "/";
+          return p;
+        }
+      },
+      {
+        id: "wsl",
+        name: "WSL (Linux 子系统)",
+        keyTag: "wsl-mount",
+        desc: "WSL Ubuntu / Debian 挂载本地 Windows 盘符路径",
+        badge: "Linux",
+        generate: (d, parts, trailing) => {
+          let driveLetter = d ? d.replace(":", "").toLowerCase() : "";
+          let p = (driveLetter ? "/mnt/" + driveLetter + "/" : "/") + parts.join("/");
+          if (trailing && !p.endsWith("/")) p += "/";
+          return p;
+        }
+      },
+      {
+        id: "win_double_slash",
+        name: "转义双反斜杠",
+        keyTag: "escaped-backslash",
+        desc: "JSON / Java / C++ 字符串常量 / 注册表 REG",
+        badge: "源码转义",
+        generate: (d, parts, trailing) => {
+          let p = (d ? d + "\\\\" : "\\\\") + parts.join("\\\\");
+          if (trailing && !p.endsWith("\\\\")) p += "\\\\";
+          return p;
+        }
+      },
+      {
+        id: "lead_slash",
+        name: "前缀单正斜杠",
+        keyTag: "lead-slash",
+        desc: "特定开发工具 / URL 路径规范 (/E:/...)",
+        badge: "专有格式",
+        generate: (d, parts, trailing) => {
+          let p = "/" + (d ? d + "/" : "") + parts.join("/");
+          if (trailing && !p.endsWith("/")) p += "/";
+          return p;
+        }
+      },
+      {
+        id: "lead_double_slash",
+        name: "前缀双正斜杠",
+        keyTag: "lead-double-slash",
+        desc: "特定编译器与驱动配置 (//E://...)",
+        badge: "专有格式",
+        generate: (d, parts, trailing) => {
+          let p = "//" + (d ? d + "//" : "") + parts.join("//");
+          if (trailing && !p.endsWith("//")) p += "//";
+          return p;
+        }
+      }
+    ];
+
+    // --- 路径分析与侦测逻辑 ---
+    function parsePath(raw) {
+      if (!raw) return null;
+      let str = raw.trim();
+      if (!str) return null;
+
+      let detectedKind = "标准路径";
+      let hadTrailing = /[\/\\]$/.test(str);
+
+      // 去除前后引号
+      if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+        str = str.slice(1, -1).trim();
+      }
+
+      // 剔除 file:/// 或 file://
+      if (str.startsWith("file:///")) {
+        detectedKind = "File URI";
+        str = str.slice(8);
+      } else if (str.startsWith("file://")) {
+        detectedKind = "File URI";
+        str = str.slice(7);
+      }
+
+      // WSL 格式识别：/mnt/c/...
+      let wslMatch = str.match(/^\/mnt\/([a-zA-Z])([\/\\]+.*)?$/);
+      if (wslMatch) {
+        detectedKind = "WSL 挂载路径";
+        let drive = wslMatch[1] + ":";
+        let rest = wslMatch[2] || "";
+        str = drive + rest;
+      }
+
+      // Git Bash 格式识别：/c/...
+      let gitBashMatch = str.match(/^\/([a-zA-Z])([\/\\]+.*)?$/);
+      if (gitBashMatch && !wslMatch) {
+        detectedKind = "Git Bash 路径";
+        let drive = gitBashMatch[1] + ":";
+        let rest = gitBashMatch[2] || "";
+        str = drive + rest;
+      }
+
+      // 剔除 Windows 盘符前的额外斜杠，例如 /E: 或 //E:
+      if (/^[\/\\]+[a-zA-Z]:/.test(str)) {
+        detectedKind = "前缀斜杠路径";
+        str = str.replace(/^[\/\\]+([a-zA-Z]:)/, '$1');
+      }
+
+      // 提取盘符
+      let driveMatch = str.match(/^([a-zA-Z]:)(.*)$/);
+      let drive = "";
+      let rest = str;
+      if (driveMatch) {
+        drive = driveMatch[1];
+        rest = driveMatch[2];
+        if (detectedKind === "标准路径") {
+          detectedKind = str.includes("\\") ? "Windows 反斜杠路径" : "POSIX 正斜杠路径";
+        }
+      }
+
+      let parts = rest.split(/[\/\\]+/).filter(p => p.length > 0);
+
+      return {
+        drive,
+        parts,
+        hadTrailing,
+        detectedKind
+      };
+    }
+
+    function formatPath(parsed, formatDef, trailingOption, quoteOption, upperDriveOption) {
+      let drive = parsed.drive;
+      if (drive) {
+        drive = upperDriveOption ? drive.toUpperCase() : drive.toLowerCase();
+      }
+
+      let shouldTrailing = false;
+      if (trailingOption === "add") shouldTrailing = true;
+      else if (trailingOption === "none") shouldTrailing = false;
+      else if (trailingOption === "keep") shouldTrailing = parsed.hadTrailing;
+
+      let res = formatDef.generate(drive, parsed.parts, shouldTrailing);
+      if (quoteOption) {
+        res = `"${res}"`;
+      }
+      return res;
+    }
+
+    // 剪贴板写入降级适配
+    function writeClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      } else {
+        return new Promise((resolve, reject) => {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          try {
+            const success = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (success) resolve();
+            else reject(new Error('execCommand failed'));
+          } catch (e) {
+            document.body.removeChild(textarea);
+            reject(e);
+          }
+        });
+      }
+    }
+
+    // 单条转换渲染
+    function updateAll() {
+      const inputEl = document.getElementById("singleInput");
+      const input = inputEl.value;
+      const listEl = document.getElementById("resultsList");
+      const trailingOption = document.getElementById("trailingSlashOption").value;
+      const quoteOption = document.getElementById("quoteOption").checked;
+      const upperDriveOption = document.getElementById("upperDriveOption").checked;
+
+      const inspectorDot = document.getElementById("inspectorDot");
+      const inspectorText = document.getElementById("inspectorText");
+
+      const parsed = parsePath(input);
+      if (!parsed) {
+        inspectorDot.className = "path-inspector-indicator";
+        inspectorText.textContent = "等待输入";
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <svg class="svg-icon" style="width: 24px; height: 24px; color: var(--text-faint);" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <span>输入或粘贴路径，即可实时获得全部主流平台目标格式</span>
+          </div>
+        `;
+        return;
+      }
+
+      // 更新路径检测状态
+      inspectorDot.className = "path-inspector-indicator valid";
+      inspectorText.textContent = parsed.detectedKind;
+
+      let html = "";
+      FORMAT_DEFS.forEach((fmt, index) => {
+        const val = formatPath(parsed, fmt, trailingOption, quoteOption, upperDriveOption);
+        const escaped = escapeHtml(val);
+        html += `
+          <div class="result-row" data-index="${index}">
+            <div class="result-meta">
+              <div class="format-label-group">
+                <span class="format-name">${fmt.name}</span>
+                <span class="format-pill">${fmt.keyTag}</span>
+                <span class="format-desc">${fmt.desc}</span>
+              </div>
+            </div>
+            <div class="result-output-box">
+              <span class="result-code-value" onclick="selectAndCopy(this)" title="单击快速选择或复制">${escaped}</span>
+              <button class="copy-action-btn" onclick="copyResult(this)" aria-label="复制 ${fmt.name}">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>复制</span>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      listEl.innerHTML = html;
+    }
+
+    // 复制按钮触发函数
+    function copyResult(btn) {
+      const codeSpan = btn.previousElementSibling;
+      const text = codeSpan.textContent;
+      writeClipboard(text).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>已复制</span>
+        `;
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove("copied");
+        }, 1400);
+      });
+    }
+
+    // 单击代码文字直接复制
+    function selectAndCopy(span) {
+      const btn = span.nextElementSibling;
+      if (btn) copyResult(btn);
+    }
+
+    // 批量模式逻辑
+    function updateBatchStats() {
+      const rawText = document.getElementById("batchInput").value;
+      const lines = rawText ? rawText.split(/\r?\n/).filter(l => l.trim().length > 0).length : 0;
+      document.getElementById("batchInputCounter").textContent = `${lines} 行路径`;
+    }
+
+    function convertBatch() {
+      const rawText = document.getElementById("batchInput").value;
+      const targetFmtId = document.getElementById("batchTargetFormat").value;
+      const trailingOption = document.getElementById("trailingSlashOption").value;
+      const quoteOption = document.getElementById("quoteOption").checked;
+      const upperDriveOption = document.getElementById("upperDriveOption").checked;
+
+      const fmt = FORMAT_DEFS.find(f => f.id === targetFmtId) || FORMAT_DEFS[0];
+      const lines = rawText.split(/\r?\n/);
+      const converted = [];
+
+      lines.forEach(line => {
+        let trimmed = line.trim();
+        if (!trimmed) {
+          converted.push("");
+          return;
+        }
+        let parsed = parsePath(trimmed);
+        if (parsed) {
+          converted.push(formatPath(parsed, fmt, trailingOption, quoteOption, upperDriveOption));
+        } else {
+          converted.push(line);
+        }
+      });
+
+      document.getElementById("batchOutput").value = converted.join("\n");
+      updateBatchStats();
+    }
+
+    function copyBatchResult() {
+      const text = document.getElementById("batchOutput").value;
+      if (!text) return;
+      writeClipboard(text).then(() => {
+        const btn = document.getElementById("batchCopyBtn");
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>已复制全部</span>
+        `;
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove("copied");
+        }, 1500);
+      });
+    }
+
+    function clearInput() {
+      const input = document.getElementById("singleInput");
+      input.value = "";
+      input.focus();
+      updateAll();
+    }
+
+    async function pasteFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          document.getElementById("singleInput").value = text.trim();
+          updateAll();
+        }
+      } catch (err) {
+        alert("浏览器未授权读取剪贴板，请使用 Ctrl+V 手动粘贴。");
+      }
+    }
+
+    async function pasteBatchFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          document.getElementById("batchInput").value = text;
+          updateBatchStats();
+          convertBatch();
+        }
+      } catch (err) {
+        alert("浏览器未授权读取剪贴板，请使用 Ctrl+V 手动粘贴。");
+      }
+    }
+
+    function switchTab(tab) {
+      const singlePanel = document.getElementById("singlePanel");
+      const batchPanel = document.getElementById("batchPanel");
+      const tabSingleBtn = document.getElementById("tabSingleBtn");
+      const tabBatchBtn = document.getElementById("tabBatchBtn");
+
+      if (tab === 'single') {
+        singlePanel.style.display = "block";
+        batchPanel.style.display = "none";
+        tabSingleBtn.classList.add("active");
+        tabSingleBtn.setAttribute("aria-selected", "true");
+        tabBatchBtn.classList.remove("active");
+        tabBatchBtn.setAttribute("aria-selected", "false");
+      } else {
+        singlePanel.style.display = "none";
+        batchPanel.style.display = "block";
+        tabBatchBtn.classList.add("active");
+        tabBatchBtn.setAttribute("aria-selected", "true");
+        tabSingleBtn.classList.remove("active");
+        tabSingleBtn.setAttribute("aria-selected", "false");
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    // 键盘全局快捷键
+    window.addEventListener("keydown", (e) => {
+      // Esc 键清空输入
+      if (e.key === "Escape") {
+        clearInput();
+      }
+      // Enter 键快速复制首项结果（当焦点在输入框时）
+      if (e.key === "Enter" && document.activeElement.id === "singleInput") {
+        const firstBtn = document.querySelector(".copy-action-btn");
+        if (firstBtn) {
+          copyResult(firstBtn);
+        }
+      }
+    });
+
+    // 监听实时输入
+    document.getElementById("singleInput").addEventListener("input", updateAll);
+
+    // 初始示例路径
+    document.getElementById("singleInput").value = "E:\\program_green_win_lib\\java\\jdk7";
+    updateAll();
+  </script>
+</body>
+</html>
