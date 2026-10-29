@@ -16,7 +16,7 @@
   "editor.fontSize": 16,
   "workbench.tree.indent": 20,
   "npm.packageManager": "npm",
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "vscode-modern-icons",
   "window.autoDetectColorScheme": true,
   "liveServer.settings.port": 5501,
   "svg.preview.background": "transparent",
